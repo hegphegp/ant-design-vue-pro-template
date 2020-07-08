@@ -54,6 +54,10 @@ request.interceptors.request.use(config => {
 
 // response interceptor
 request.interceptors.response.use((response) => {
+  const url = response.config.url
+  const method = response.config.method
+  const params = response.config.params
+  console.log(method + ' ' + url + ' ' + JSON.stringify(params) + ' ' + JSON.stringify(response.data))
   return response.data
 }, errorHandler)
 

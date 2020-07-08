@@ -233,6 +233,7 @@ export default {
         console.log('copy', message)
         this.$message.success('复制完毕')
       }).catch(err => {
+        console.error('%c ' + err, 'font-weight:bold; font-size:13px;')
         console.log('copy.err', err)
         this.$message.error('复制失败')
       })

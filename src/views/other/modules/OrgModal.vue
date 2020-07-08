@@ -82,7 +82,8 @@ export default {
             // Do something
             _this.$message.success('保存成功')
             _this.$emit('ok')
-          }).catch(() => {
+          }).catch((err) => {
+            console.error('%c ' + err, 'font-weight:bold; font-size:13px;')
             // Do something
           }).finally(() => {
             _this.confirmLoading = false

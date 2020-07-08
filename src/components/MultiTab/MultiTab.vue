@@ -30,7 +30,8 @@ export default {
         const item = this.pages.find(item => item.path === key)
         item.meta.customTitle = name
         this.$forceUpdate()
-      } catch (e) {
+      } catch (err) {
+        console.error('%c ' + err, 'font-weight:bold; font-size:13px;')
       }
     })
 

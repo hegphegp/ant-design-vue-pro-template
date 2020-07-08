@@ -232,6 +232,7 @@ export default {
       const repositoryForm = new Promise((resolve, reject) => {
         repository.form.validateFields((err, values) => {
           if (err) {
+            console.error('%c ' + err, 'font-weight:bold; font-size:13px;')
             reject(err)
             return
           }

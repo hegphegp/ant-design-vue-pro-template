@@ -42,6 +42,7 @@ const user = {
           commit('SET_TOKEN', result.token)
           resolve()
         }).catch(error => {
+          console.error('%c ' + error, 'font-weight:bold; font-size:13px;')
           reject(error)
         })
       })
@@ -74,6 +75,7 @@ const user = {
 
           resolve(response)
         }).catch(error => {
+          console.error('%c ' + error, 'font-weight:bold; font-size:13px;')
           reject(error)
         })
       })
@@ -84,8 +86,9 @@ const user = {
       return new Promise((resolve) => {
         logout(state.token).then(() => {
           resolve()
-        }).catch(() => {
-          resolve()
+        }).catch((error) => {
+          console.error('%c ' + error, 'font-weight:bold; font-size:13px;')
+          resolve(error)
         }).finally(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])

@@ -177,7 +177,8 @@ export default {
             if ((['auto', true].includes(this.showPagination) && r.totalCount <= (r.pageNo * this.localPagination.pageSize))) {
               this.localPagination.hideOnSinglePage = true
             }
-          } catch (e) {
+          } catch (err) {
+            console.error('%c ' + err, 'font-weight:bold; font-size:13px;')
             this.localPagination = false
           }
           this.localDataSource = r.data // 返回结果中的数组数据

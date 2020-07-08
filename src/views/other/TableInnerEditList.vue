@@ -207,7 +207,10 @@ export default {
           // 在这里调用删除接口
           return new Promise((resolve, reject) => {
             setTimeout(Math.random() > 0.5 ? resolve : reject, 1000)
-          }).catch(() => console.log('Oops errors!'))
+          }).catch((err) => {
+            console.error('%c ' + err, 'font-weight:bold; font-size:13px;')
+            console.log('Oops errors!')
+          })
         },
         onCancel () {
           console.log('Cancel')

@@ -242,6 +242,7 @@ export default {
                 duration: 8
               })
             }).catch(err => {
+              console.error('%c ' + err, 'font-weight:bold; font-size:13px;')
               setTimeout(hide, 1)
               clearInterval(interval)
               state.time = 60
