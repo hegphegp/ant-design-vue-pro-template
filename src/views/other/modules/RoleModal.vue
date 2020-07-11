@@ -23,7 +23,6 @@
 
 <script>
 import { getPermissions } from '@/api/manage'
-import { actionToObject } from '@/utils/permissions'
 import pick from 'lodash.pick'
 
 export default {
@@ -104,6 +103,15 @@ export default {
           })
         }
       })
+    },
+    actionToObject (json) {
+      try {
+        return JSON.parse(json)
+      } catch (e) {
+        console.error('%c ' + e, 'font-weight:bold; font-size:13px;')
+        console.log('err', e.message)
+      }
+      return []
     },
     handleCancel () {
       this.close()

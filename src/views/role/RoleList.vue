@@ -65,7 +65,6 @@
 <script>
 import pick from 'lodash.pick'
 import { getRoleList, getPermissions } from '@/api/manage'
-import { actionToObject } from '@/utils/permissions'
 import { baseMixin } from '@/store/app-mixin'
 
 export default {
@@ -129,6 +128,15 @@ export default {
       console.log('this.mdl', this.mdl)
     },
 
+    actionToObject (json) {
+      try {
+        return JSON.parse(json)
+      } catch (e) {
+        console.error('%c ' + e, 'font-weight:bold; font-size:13px;')
+        console.log('err', e.message)
+      }
+      return []
+    },
     onChangeCheck (permission) {
       permission.indeterminate = !!permission.selected.length && (permission.selected.length < permission.actionsOptions.length)
       permission.checkedAll = permission.selected.length === permission.actionsOptions.length
