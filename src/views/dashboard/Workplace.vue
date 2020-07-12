@@ -7,7 +7,7 @@
         </div>
         <div class="content">
           <div class="content-title">
-            {{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome }}</span>
+            {{ user.name }}<span class="welcome-text">，{{ welcome }}</span>
           </div>
           <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
         </div>
@@ -124,7 +124,6 @@
 </template>
 
 <script>
-import { timeFix } from '@/utils/util'
 import { mapState } from 'vuex'
 import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import { Radar } from '@/components'
@@ -141,7 +140,6 @@ export default {
   },
   data () {
     return {
-      timeFix: timeFix(),
       avatar: '',
       user: {},
 
