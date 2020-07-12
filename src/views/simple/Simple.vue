@@ -1,12 +1,12 @@
 <template>
   <div>
-    Monitor
+    simple页面
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Monitor'
+  name: 'Simple'
 }
 </script>
 

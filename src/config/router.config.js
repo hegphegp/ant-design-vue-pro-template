@@ -27,7 +27,7 @@ export const asyncRouterMap = [
           {
             path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
             name: 'Analysis',
-            component: () => import('@/views/dashboard/Analysis'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '分析页', keepAlive: false, permission: [ 'dashboard' ] }
           },
           // 外部链接
@@ -39,7 +39,7 @@ export const asyncRouterMap = [
           {
             path: '/dashboard/workplace',
             name: 'Workplace',
-            component: () => import('@/views/dashboard/Workplace'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
           }
         ]
@@ -55,19 +55,19 @@ export const asyncRouterMap = [
           {
             path: '/form/base-form',
             name: 'BaseForm',
-            component: () => import('@/views/form/basicForm'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '基础表单', keepAlive: true, permission: [ 'form' ] }
           },
           {
             path: '/form/step-form',
             name: 'StepForm',
-            component: () => import('@/views/form/stepForm/StepForm'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '分步表单', keepAlive: true, permission: [ 'form' ] }
           },
           {
             path: '/form/advanced-form',
             name: 'AdvanceForm',
-            component: () => import('@/views/form/advancedForm/AdvancedForm'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '高级表单', keepAlive: true, permission: [ 'form' ] }
           }
         ]
@@ -85,44 +85,44 @@ export const asyncRouterMap = [
             path: '/list/table-list/:pageNo([1-9]\\d*)?',
             name: 'TableListWrapper',
             hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-            component: () => import('@/views/list/TableList'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '查询表格', keepAlive: true, permission: [ 'table' ] }
           },
           {
             path: '/list/basic-list',
             name: 'BasicList',
-            component: () => import('@/views/list/BasicList'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '标准列表', keepAlive: true, permission: [ 'table' ] }
           },
           {
             path: '/list/card',
             name: 'CardList',
-            component: () => import('@/views/list/CardList'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '卡片列表', keepAlive: true, permission: [ 'table' ] }
           },
           {
             path: '/list/search',
             name: 'SearchList',
-            component: () => import('@/views/list/search/SearchLayout'),
+            component: () => import('@/views/simple/Simple'),
             redirect: '/list/search/article',
             meta: { title: '搜索列表', keepAlive: true, permission: [ 'table' ] },
             children: [
               {
                 path: '/list/search/article',
                 name: 'SearchArticles',
-                component: () => import('../views/list/search/Article'),
+                component: () => import('@/views/simple/Simple'),
                 meta: { title: '搜索列表（文章）', permission: [ 'table' ] }
               },
               {
                 path: '/list/search/project',
                 name: 'SearchProjects',
-                component: () => import('../views/list/search/Projects'),
+                component: () => import('@/views/simple/Simple'),
                 meta: { title: '搜索列表（项目）', permission: [ 'table' ] }
               },
               {
                 path: '/list/search/application',
                 name: 'SearchApplications',
-                component: () => import('../views/list/search/Applications'),
+                component: () => import('@/views/simple/Simple'),
                 meta: { title: '搜索列表（应用）', permission: [ 'table' ] }
               }
             ]
@@ -141,13 +141,13 @@ export const asyncRouterMap = [
           {
             path: '/profile/basic',
             name: 'ProfileBasic',
-            component: () => import('@/views/profile/basic'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '基础详情页', permission: [ 'profile' ] }
           },
           {
             path: '/profile/advanced',
             name: 'ProfileAdvanced',
-            component: () => import('@/views/profile/advanced/Advanced'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '高级详情页', permission: [ 'profile' ] }
           }
         ]
@@ -216,13 +216,13 @@ export const asyncRouterMap = [
           {
             path: '/account/center',
             name: 'center',
-            component: () => import('@/views/account/center'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '个人中心', keepAlive: true, permission: [ 'user' ] }
           },
           {
             path: '/account/settings',
             name: 'settings',
-            component: () => import('@/views/account/settings/Index'),
+            component: () => import('@/views/simple/Simple'),
             meta: { title: '个人设置', hideHeader: true, permission: [ 'user' ] },
             redirect: '/account/settings/base',
             hideChildrenInMenu: true,
@@ -230,31 +230,31 @@ export const asyncRouterMap = [
               {
                 path: '/account/settings/base',
                 name: 'BaseSettings',
-                component: () => import('@/views/account/settings/BaseSetting'),
+                component: () => import('@/views/simple/Simple'),
                 meta: { title: '基本设置', hidden: true, permission: [ 'user' ] }
               },
               {
                 path: '/account/settings/security',
                 name: 'SecuritySettings',
-                component: () => import('@/views/account/settings/Security'),
+                component: () => import('@/views/simple/Simple'),
                 meta: { title: '安全设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
               },
               {
                 path: '/account/settings/custom',
                 name: 'CustomSettings',
-                component: () => import('@/views/account/settings/Custom'),
+                component: () => import('@/views/simple/Simple'),
                 meta: { title: '个性化设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
               },
               {
                 path: '/account/settings/binding',
                 name: 'BindingSettings',
-                component: () => import('@/views/account/settings/Binding'),
+                component: () => import('@/views/simple/Simple'),
                 meta: { title: '账户绑定', hidden: true, keepAlive: true, permission: [ 'user' ] }
               },
               {
                 path: '/account/settings/notification',
                 name: 'NotificationSettings',
-                component: () => import('@/views/account/settings/Notification'),
+                component: () => import('@/views/simple/Simple'),
                 meta: { title: '新消息通知', hidden: true, keepAlive: true, permission: [ 'user' ] }
               }
             ]
