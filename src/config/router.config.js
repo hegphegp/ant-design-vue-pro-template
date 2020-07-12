@@ -343,14 +343,9 @@ export const constantRouterMap = [
     hidden: true,
     children: [
       {
-        path: 'login',
+        path: '/user/login',
         name: 'login',
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login')
-      },
-      {
-        path: 'recover',
-        name: 'recover',
-        component: undefined
       }
     ]
   },
