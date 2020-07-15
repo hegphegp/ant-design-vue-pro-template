@@ -4,7 +4,7 @@ import storage from 'store'
 import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import notification from 'ant-design-vue/es/notification'
-import { setDocumentTitle, domTitle } from '@/utils/domUtil'
+import { setDocumentTitle, domTitle } from '@/utils/util'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration

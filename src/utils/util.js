@@ -1,3 +1,5 @@
+import config from '@/config/defaultSettings'
+
 export function welcome () {
   const arr = ['休息一会儿吧', '准备吃什么呢?', '要不要打一把 DOTA', '我猜你可能累了']
   const index = Math.floor(Math.random() * arr.length)
@@ -59,3 +61,23 @@ export function removeLoadingAnimate (id = '', timeout = 1500) {
     document.body.removeChild(document.getElementById(id))
   }, timeout)
 }
+
+export const setDocumentTitle = function (title) {
+  document.title = title
+  const ua = navigator.userAgent
+  // eslint-disable-next-line
+  const regex = /\bMicroMessenger\/([\d\.]+)/
+  if (regex.test(ua) && /ip(hone|od|ad)/i.test(ua)) {
+    const i = document.createElement('iframe')
+    i.src = '/favicon.ico'
+    i.style.display = 'none'
+    i.onload = function () {
+      setTimeout(function () {
+        i.remove()
+      }, 9)
+    }
+    document.body.appendChild(i)
+  }
+}
+
+export const domTitle = config.title
