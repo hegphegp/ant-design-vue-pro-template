@@ -8,7 +8,6 @@ import user from './modules/user'
 import permission from './modules/permission'
 
 // dynamic router permission control (Experimental)
-// import permission from './modules/async-router'
 import getters from './getters'
 
 Vue.use(Vuex)
