@@ -130,6 +130,24 @@ export const asyncRouterMap = [
         ]
       },
 
+      // 新增一个增删查改的列表
+      {
+        path: '/test/list',
+        name: 'testListParent',
+        component: RouteView,
+        redirect: '/test/list/table-list',
+        meta: { title: '测试列表页', icon: 'table', permission: [ 'table' ] },
+        children: [
+          {
+            path: '/test/list/table-list',
+            name: 'testListPage',
+            hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+            component: () => import('@/views/list/List'),
+            meta: { title: '测试查询表格', keepAlive: true, permission: [ 'table' ] }
+          }
+        ]
+      },
+
       // profile
       {
         path: '/profile',
