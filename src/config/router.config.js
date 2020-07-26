@@ -141,7 +141,7 @@ export const asyncRouterMap = [
           {
             path: '/test/list/table-list',
             name: 'testListPage',
-            hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+            // hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
             component: () => import('@/views/list/List'),
             meta: { title: '测试查询表格', keepAlive: true, permission: [ 'table' ] }
           }

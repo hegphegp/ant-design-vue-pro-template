@@ -1,8 +1,9 @@
 <template>
+  <!-- :rowKey="(record) => record.key" -->
   <s-table
     ref="table"
     size="default"
-    :rowKey="(record) => record.key"
+    rowKey="key"
     :columns="columns"
     :data="loadData"
     :alert="true"
@@ -142,15 +143,28 @@ export default {
     return {
       // create model
       visible: false,
-      confirmLoading: false,
+      // confirmLoading: false,
       mdl: null,
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
       queryParam: {},
+      // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        console.log(JSON.stringify(data))
-        return data
+        data.pageNo = parameter.pageNo
+        return new Promise((resolve, reject) => {
+          // 1. 模拟一个异步请求，想要将成功的数据发送出去
+          // 2. 将成功的数据放在resolve函数中，传递出去
+          // setTimeout(() => {
+          //   resolve(data)
+          // }, 200)
+          resolve(data)
+        }).then(data => {
+          console.log(JSON.stringify(data))
+          return data
+        }).catch(err => {
+          console.log(err)
+        })
       },
       selectedRowKeys: [],
       selectedRows: []
