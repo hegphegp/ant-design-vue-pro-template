@@ -6,6 +6,7 @@
     rowKey="key"
     :columns="columns"
     :data="loadData"
+    :showAlert="false"
     :alert="true"
     :rowSelection="rowSelection"
     showPagination="auto"
