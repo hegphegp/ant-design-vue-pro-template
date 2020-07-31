@@ -3,13 +3,13 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48" style="margin-left: -6px; margin-right: -6px;">
-          <a-col :md="4" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="规则编号">
+          <a-col :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="规则编号" :colon="false">
               <a-input v-model="queryParam.id" placeholder=""/>
             </a-form-item>
           </a-col>
-          <a-col :md="4" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="使用状态">
+          <a-col :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="使用状态" :colon="false">
               <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
                 <a-select-option value="0">全部</a-select-option>
                 <a-select-option value="1">关闭</a-select-option>
@@ -17,18 +17,18 @@
               </a-select>
             </a-form-item>
           </a-col>
-          <a-col :md="4" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="调用次数">
+          <a-col :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="调用次数" :colon="false">
               <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
             </a-form-item>
           </a-col>
-          <a-col :md="4" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="更新日期">
+          <a-col :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="更新日期" :colon="false">
               <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入更新日期"/>
             </a-form-item>
           </a-col>
-          <a-col :md="4" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="使用状态">
+          <a-col :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="使用状态" :colon="false">
               <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
                 <a-select-option value="0">全部</a-select-option>
                 <a-select-option value="1">关闭</a-select-option>
@@ -36,8 +36,8 @@
               </a-select>
             </a-form-item>
           </a-col>
-          <a-col :md="4" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="使用状态">
+          <a-col :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="使用状态" :colon="false">
               <a-select placeholder="请选择" default-value="0">
                 <a-select-option value="0">全部</a-select-option>
                 <a-select-option value="1">关闭</a-select-option>
