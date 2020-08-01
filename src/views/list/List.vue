@@ -38,10 +38,8 @@
           </a-col>
           <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
             <a-form-item label="使用状态" :colon="false">
-              <a-select placeholder="请选择" default-value="0">
-                <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
+              <a-select v-model="queryParam.anotherStatus" showSearch placeholder="请选择">
+                <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
@@ -120,35 +118,11 @@
 <script>
 import STable from '@/components/Table'
 const columns = [
-  {
-    dataIndex: 'name',
-    key: 'name',
-    slots: { title: 'customTitle' },
-    scopedSlots: { customRender: 'name' }
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-    scopedSlots: { customRender: 'age' }
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-    scopedSlots: { customRender: 'address' }
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    scopedSlots: { customRender: 'tags' }
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    scopedSlots: { customRender: 'action' }
-  }
+  { dataIndex: 'name', key: 'name', slots: { title: 'customTitle' }, scopedSlots: { customRender: 'name' } },
+  { title: 'Age', dataIndex: 'age', key: 'age', scopedSlots: { customRender: 'age' } },
+  { title: 'Address', dataIndex: 'address', key: 'address', scopedSlots: { customRender: 'address' } },
+  { title: 'Tags', key: 'tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags' } },
+  { title: 'Action', key: 'action', scopedSlots: { customRender: 'action' } }
 ]
 
 const data = {
@@ -156,67 +130,18 @@ const data = {
   pageNo: 1,
   totalCount: 5701,
   totalPage: 571,
-  data: [{
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer']
-  }, {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser']
-  }, {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }, {
-    key: '4',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }, {
-    key: '5',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }, {
-    key: '6',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }, {
-    key: '7',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }, {
-    key: '8',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }, {
-    key: '9',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }, {
-    key: '10',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }]
+  data: [
+    { key: '0', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '1', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '2', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '3', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '4', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '5', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '6', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '7', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '8', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
+    { key: '9', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] }
+  ]
 }
 
 export default {
@@ -231,12 +156,11 @@ export default {
         showTotal: total => `共 ${total} 条数据`,
         pageSizeOptions: ['10', '20', '50', '100']
       },
-      // create model
-      visible: false,
+      // 下拉框数据的对象
+      selectDatas: [],
+      selectDefaultValue: '',
       // confirmLoading: false,
       mdl: null,
-      // 高级搜索 展开/关闭
-      advanced: false,
       // 查询参数
       queryParam: {},
       // 加载数据方法 必须为 Promise 对象
@@ -260,6 +184,41 @@ export default {
       },
       selectedRowKeys: [],
       selectedRows: []
+    }
+  },
+  // created 初始从后端加载下拉框数据
+  created () {
+    this.initSelectDatas()
+  },
+  // 添加加载下拉框数据的方法
+  methods: {
+    initSelectDatas () {
+      return new Promise((resolve, reject) => {
+        // 1. 模拟一个异步请求，想要将成功的数据发送出去
+        // 2. 将成功的数据放在resolve函数中，传递出去
+        // setTimeout(() => {
+        //   resolve(data)
+        // }, 200)
+        const data = [
+          { code: 'ALL', name: '全部' },
+          { code: 'STATUS1', name: '状态1' },
+          { code: 'STATUS2', name: '状态2' },
+          { code: 'STATUS3', name: '状态3' }
+        ]
+        resolve(data)
+      }).then(data => {
+        this.selectDefaultValue = 'STATUS2'
+        data.forEach((item) => {
+          this.selectDatas.push({
+            value: item.code,
+            text: item.name
+          })
+        })
+        console.log('this.selectDatas===>>>  ' + JSON.stringify(this.selectDatas))
+        return data
+      }).catch(err => {
+        console.log(err)
+      })
     }
   },
   computed: {
