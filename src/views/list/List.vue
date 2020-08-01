@@ -92,6 +92,7 @@
       :showAlert="false"
       :alert="true"
       :rowSelection="rowSelection"
+      :pagination="pagination"
       showPagination="auto"
       bordered>
       <a slot="name" slot-scope="text">{{ text }}</a>
@@ -226,6 +227,10 @@ export default {
   data () {
     this.columns = columns
     return {
+      pagination: {
+        showTotal: total => `共 ${total} 条数据`,
+        pageSizeOptions: ['10', '20', '50', '100']
+      },
       // create model
       visible: false,
       // confirmLoading: false,
