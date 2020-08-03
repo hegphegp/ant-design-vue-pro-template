@@ -24,7 +24,7 @@
           </a-col>
           <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
             <a-form-item label="更新日期" :colon="false">
-              <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入更新日期"/>
+              <a-date-picker v-model="queryParam.dateValue" style="width: 100%" placeholder="请输入更新日期"/>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
@@ -38,12 +38,12 @@
           </a-col>
           <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
             <a-form-item label="下拉框默认值" :colon="false">
-              <a-select v-model="queryParam.selectDefaultValue" showSearch placeholder="请选择">
+              <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
                 <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" @click="() => this.queryParam = {}">重置</a-button>
+          <a-button style="margin-bottom: 8px; margin-left: 8px" @click="resetQueryParams()">重置</a-button>
           <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
           <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
           <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
@@ -91,7 +91,6 @@
       :alert="true"
       :rowSelection="rowSelection"
       :pagination="pagination"
-      showPagination="auto"
       bordered>
       <a slot="name" slot-scope="text">{{ text }}</a>
       <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
@@ -117,6 +116,8 @@
 
 <script>
 import STable from '@/components/Table'
+import moment from 'moment'
+
 const columns = [
   { dataIndex: 'name', key: 'name', slots: { title: 'customTitle' }, scopedSlots: { customRender: 'name' } },
   { title: 'Age', dataIndex: 'age', key: 'age', scopedSlots: { customRender: 'age' } },
@@ -156,6 +157,8 @@ export default {
         showTotal: total => `共 ${total} 条数据`,
         pageSizeOptions: ['10', '20', '50', '100']
       },
+      selectDefaultValue: null,
+      defaultSearchTimeValue: null,
       // 下拉框数据的对象
       selectDatas: [],
       // confirmLoading: false,
@@ -187,10 +190,17 @@ export default {
   },
   // created 初始从后端加载下拉框数据
   created () {
-    this.initSelectDatas()
+    this.initDefaultValues()
   },
   // 添加加载下拉框数据的方法
   methods: {
+    initDefaultValues () {
+      this.defaultSearchTimeValue = 1596471447000
+      if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
+        this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue).format('YYYY-MM-DD'))
+      }
+      this.initSelectDatas()
+    },
     initSelectDatas () {
       return new Promise((resolve, reject) => {
         // 1. 模拟一个异步请求，想要将成功的数据发送出去
@@ -214,12 +224,22 @@ export default {
         })
         // 动态给下拉框配置默认值，下拉框的数据源长度大于3时，才给默认值
         if (this.selectDatas.length > 3) {
-            this.$set(this.queryParam, 'selectDefaultValue', this.selectDatas[2].value)
+          this.selectDefaultValue = this.selectDatas[2].value
+          this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
         }
         return data
       }).catch(err => {
         console.log(err)
       })
+    },
+    resetQueryParams () {
+      this.queryParam = {}
+      if (this.selectDefaultValue != null && this.selectDefaultValue !== undefined) {
+        this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
+      }
+      if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
+        this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue).format('YYYY-MM-DD'))
+      }
     }
   },
   computed: {
