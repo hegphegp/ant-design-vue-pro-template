@@ -37,8 +37,8 @@
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="使用状态" :colon="false">
-              <a-select v-model="queryParam.anotherStatus" showSearch placeholder="请选择">
+            <a-form-item label="下拉框默认值" :colon="false">
+              <a-select v-model="queryParam.selectDefaultValue" showSearch placeholder="请选择">
                 <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
               </a-select>
             </a-form-item>
@@ -158,7 +158,6 @@ export default {
       },
       // 下拉框数据的对象
       selectDatas: [],
-      selectDefaultValue: '',
       // confirmLoading: false,
       mdl: null,
       // 查询参数
@@ -207,14 +206,16 @@ export default {
         ]
         resolve(data)
       }).then(data => {
-        this.selectDefaultValue = 'STATUS2'
         data.forEach((item) => {
           this.selectDatas.push({
             value: item.code,
             text: item.name
           })
         })
-        console.log('this.selectDatas===>>>  ' + JSON.stringify(this.selectDatas))
+        // 动态给下拉框配置默认值，下拉框的数据源长度大于3时，才给默认值
+        if (this.selectDatas.length > 3) {
+            this.$set(this.queryParam, 'selectDefaultValue', this.selectDatas[2].value)
+        }
         return data
       }).catch(err => {
         console.log(err)
