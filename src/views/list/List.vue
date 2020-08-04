@@ -23,8 +23,30 @@
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="更新日期" :colon="false">
-              <a-date-picker v-model="queryParam.dateValue" style="width: 100%" placeholder="请输入更新日期"/>
+            <a-form-item label="年月日" :colon="false">
+              <a-date-picker v-model="queryParam.yearMonthDay" style="width: 100%" placeholder="请输入更新日期"/>
+            </a-form-item>
+          </a-col>
+          <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="年月日时分秒" :colon="false">
+              <a-date-picker v-model="queryParam.yyyyMMddHHmmss" format="YYYY-MM-DD HH:mm:ss" show-time style="width: 100%" placeholder="请输入更新日期"/>
+            </a-form-item>
+          </a-col>
+          <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="年月日时分秒" :colon="false">
+              <a-date-picker
+                v-model="queryParam.yyyyMMddHHmmss1"
+                style="width: 100%"
+                placeholder="请输入更新日期"
+                format="YYYY-MM-DD HH:mm:ss"
+                show-time
+                :disabled-date="disabledDate"
+                :disabled-time="disabledRangeTime"/>
+            </a-form-item>
+          </a-col>
+          <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+            <a-form-item label="年月" :colon="false">
+              <a-month-picker v-model="queryParam.yearMonth" style="width: 100%" placeholder="请输入更新日期"/>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="8" :sm="24" style="padding-left: 6px; padding-right: 6px;">
@@ -168,8 +190,8 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
-        if (this.queryParam.dateValue != null && this.queryParam.dateValue !== undefined) {
-          console.log(this.queryParam.dateValue.valueOf())
+        if (this.queryParam.yearMonthDay != null && this.queryParam.yearMonthDay !== undefined) {
+          console.log(this.queryParam.yearMonthDay.valueOf())
         }
         console.log(JSON.stringify(requestParameters))
         data.pageNo = parameter.pageNo
@@ -197,6 +219,19 @@ export default {
   },
   // 添加加载下拉框数据的方法
   methods: {
+    disabledDate (current) {
+      // 限制不允许选择昨天
+      const yesterday = moment(new Date()).add(-1, 'days')
+      return current && current < yesterday
+      // return false
+    },
+    disabledRangeTime () {
+      return {
+        disabledHours: () => [-1, 24],
+        disabledMinutes: () => [-1, 60],
+        disabledSeconds: () => [-1, 60]
+      }
+    },
     initDefaultValues () {
       this.defaultSearchTimeValue = 1596471447000
       if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
