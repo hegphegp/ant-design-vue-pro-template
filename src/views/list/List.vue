@@ -168,6 +168,9 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
+        if (this.queryParam.dateValue != null && this.queryParam.dateValue !== undefined) {
+          console.log(this.queryParam.dateValue.valueOf())
+        }
         console.log(JSON.stringify(requestParameters))
         data.pageNo = parameter.pageNo
         return new Promise((resolve, reject) => {
@@ -197,7 +200,7 @@ export default {
     initDefaultValues () {
       this.defaultSearchTimeValue = 1596471447000
       if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
-        this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue).format('YYYY-MM-DD'))
+        this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue))
       }
       this.initSelectDatas()
     },
@@ -238,7 +241,7 @@ export default {
         this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
       }
       if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
-        this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue).format('YYYY-MM-DD'))
+        this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue))
       }
     }
   },
