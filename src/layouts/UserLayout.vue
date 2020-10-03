@@ -30,11 +30,14 @@
 </template>
 
 <script>
-import { deviceMixin } from '@/store/device-mixin'
-
 export default {
   name: 'UserLayout',
-  mixins: [deviceMixin],
+  data () {
+    return {
+      // 是否手机模式
+      isMobile: false
+    }
+  },
   mounted () {
     document.body.classList.add('userLayout')
   },

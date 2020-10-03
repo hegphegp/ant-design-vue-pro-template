@@ -1,17 +1,4 @@
 import storage from 'store'
-import {
-  SIDEBAR_TYPE,
-  TOGGLE_MOBILE_TYPE,
-  TOGGLE_NAV_THEME,
-  TOGGLE_LAYOUT,
-  TOGGLE_FIXED_HEADER,
-  TOGGLE_FIXED_SIDEBAR,
-  TOGGLE_CONTENT_WIDTH,
-  TOGGLE_HIDE_HEADER,
-  TOGGLE_COLOR,
-  TOGGLE_WEAK,
-  TOGGLE_MULTI_TAB
-} from '@/store/mutation-types'
 
 const app = {
   state: {
@@ -25,53 +12,48 @@ const app = {
     autoHideHeader: false,
     color: '',
     weak: false,
-    multiTab: true,
     lang: 'en-US',
     _antLocale: {}
   },
   mutations: {
-    [SIDEBAR_TYPE]: (state, type) => {
+    sidebarType: (state, type) => {
       state.sideCollapsed = type
-      storage.set(SIDEBAR_TYPE, type)
+      storage.set('sidebar_type', type)
     },
-    [TOGGLE_MOBILE_TYPE]: (state, isMobile) => {
+    isMobile: (state, isMobile) => {
       state.isMobile = isMobile
     },
-    [TOGGLE_NAV_THEME]: (state, theme) => {
+    navTheme: (state, theme) => {
       state.theme = theme
-      storage.set(TOGGLE_NAV_THEME, theme)
+      storage.set('nav_theme', theme)
     },
-    [TOGGLE_LAYOUT]: (state, mode) => {
+    layout: (state, mode) => {
       state.layout = mode
-      storage.set(TOGGLE_LAYOUT, mode)
+      storage.set('layout', mode)
     },
-    [TOGGLE_FIXED_HEADER]: (state, mode) => {
+    fixedHeader: (state, mode) => {
       state.fixedHeader = mode
-      storage.set(TOGGLE_FIXED_HEADER, mode)
+      storage.set('fixed_header', mode)
     },
-    [TOGGLE_FIXED_SIDEBAR]: (state, mode) => {
+    fixedSidebar: (state, mode) => {
       state.fixedSidebar = mode
-      storage.set(TOGGLE_FIXED_SIDEBAR, mode)
+      storage.set('fixed_sidebar', mode)
     },
-    [TOGGLE_CONTENT_WIDTH]: (state, type) => {
+    contentWidth: (state, type) => {
       state.contentWidth = type
-      storage.set(TOGGLE_CONTENT_WIDTH, type)
+      storage.set('content_width', type)
     },
-    [TOGGLE_HIDE_HEADER]: (state, type) => {
+    autoHideHeader: (state, type) => {
       state.autoHideHeader = type
-      storage.set(TOGGLE_HIDE_HEADER, type)
+      storage.set('auto_hide_header', type)
     },
-    [TOGGLE_COLOR]: (state, color) => {
+    color: (state, color) => {
       state.color = color
-      storage.set(TOGGLE_COLOR, color)
+      storage.set('color', color)
     },
-    [TOGGLE_WEAK]: (state, mode) => {
+    weak: (state, mode) => {
       state.weak = mode
-      storage.set(TOGGLE_WEAK, mode)
-    },
-    [TOGGLE_MULTI_TAB]: (state, bool) => {
-      storage.set(TOGGLE_MULTI_TAB, bool)
-      state.multiTab = bool
+      storage.set('weak', mode)
     }
   },
   actions: {

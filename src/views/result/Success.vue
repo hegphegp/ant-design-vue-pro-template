@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import { baseMixin } from '@/store/app-mixin'
 
 const directionType = {
   horizontal: 'horizontal',
@@ -69,7 +68,6 @@ const directionType = {
 
 export default {
   name: 'Success',
-  mixins: [baseMixin],
   data () {
     this.directionType = directionType
     return {
