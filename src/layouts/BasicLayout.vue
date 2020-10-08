@@ -2,18 +2,12 @@
   <pro-layout
     :title="title"
     :menus="menus"
-    :collapsed="collapsed"
-    :mediaQuery="query"
-    :isMobile="isMobile"
     :handleMediaQuery="handleMediaQuery"
     :handleCollapse="handleCollapse"
     :logo="logoRender"
-    :i18nRender="(t) => t"
-    v-bind="settings"
   >
-    <setting-drawer :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
-      <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
+      <right-content :top-menu="settings.layout === 'topmenu'" :theme="settings.theme" />
     </template>
     <template v-slot:footerRender>
       <global-footer />
@@ -66,10 +60,7 @@ export default {
         hideCopyButton: false
       },
       // 媒体查询
-      query: {},
-
-      // 是否手机模式
-      isMobile: false
+      query: {}
     }
   },
   computed: {

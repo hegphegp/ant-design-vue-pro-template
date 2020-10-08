@@ -2,6 +2,7 @@ import router from './router'
 import store from './store'
 import storage from 'store'
 import NProgress from 'nprogress' // progress bar
+// import { asyncRouterMap as routerConfig } from '@/config/router.config'
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import notification from 'ant-design-vue/es/notification'
 import { setDocumentTitle, domTitle } from '@/utils/util'
@@ -23,6 +24,7 @@ router.beforeEach((to, from, next) => {
     } else {
       // check login user.roles is null
       if (store.getters.roles.length === 0) {
+        console.log('-==-0-dfas&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
         // request login userInfo
         store
           .dispatch('GetInfo')
