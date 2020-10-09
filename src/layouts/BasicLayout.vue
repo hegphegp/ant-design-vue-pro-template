@@ -5,7 +5,9 @@
     :handleMediaQuery="handleMediaQuery"
     :handleCollapse="handleCollapse"
     :logo="logoRender"
+    v-bind="settings"
   >
+    <setting-drawer :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :theme="settings.theme" />
     </template>
@@ -17,7 +19,7 @@
 </template>
 
 <script>
-import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
+import { SettingDrawer } from '@ant-design-vue/pro-layout'
 import { mapState } from 'vuex'
 
 import defaultSettings from '@/config/defaultSettings'
@@ -90,9 +92,6 @@ export default {
         }, 16)
       })
     }
-
-    // first update color
-    updateTheme(this.settings.primaryColor)
   },
   methods: {
     handleMediaQuery (val) {
