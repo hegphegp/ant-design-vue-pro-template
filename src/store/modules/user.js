@@ -1,6 +1,7 @@
 import storage from 'store'
 import { login, getInfo, logout } from '@/api/login'
 import { welcome } from '@/utils/util'
+import { asyncRouterMap as routerConfig } from '@/config/router.config'
 
 const user = {
   state: {
@@ -8,13 +9,16 @@ const user = {
     name: '',
     welcome: '',
     avatar: '',
-    roles: [],
+    routers: [],
     info: {}
   },
 
   mutations: {
-    SET_TOKEN: (state, token) => {
+    setToken: (state, token) => {
       state.token = token
+    },
+    setRouters: (state, routers) => {
+      state.routers = routers
     },
     SET_NAME: (state, { name, welcome }) => {
       state.name = name
@@ -22,12 +26,6 @@ const user = {
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
-    },
-    SET_ROLES: (state, roles) => {
-      state.roles = roles
-    },
-    SET_INFO: (state, info) => {
-      state.info = info
     }
   },
 
@@ -38,7 +36,7 @@ const user = {
         login(userInfo).then(response => {
           const result = response.result
           storage.set('Access-Token', result.token, 7 * 24 * 60 * 60 * 1000)
-          commit('SET_TOKEN', result.token)
+          commit('setToken', result.token)
           resolve()
         }).catch(error => {
           console.error('%c ' + error, 'font-weight:bold; font-size:13px;')
@@ -52,31 +50,20 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
           const result = response.result
-
-          if (result.role && result.role.permissions.length > 0) {
-            const role = result.role
-            role.permissions = result.role.permissions
-            role.permissions.map(per => {
-              if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
-                const action = per.actionEntitySet.map(action => { return action.action })
-                per.actionList = action
-              }
-            })
-            role.permissionList = role.permissions.map(permission => { return permission.permissionId })
-            commit('SET_ROLES', result.role)
-            commit('SET_INFO', result)
-          } else {
-            reject(new Error('getInfo: roles must be a non-null array !'))
-          }
-
           commit('SET_NAME', { name: result.name, welcome: welcome() })
           commit('SET_AVATAR', result.avatar)
-
           resolve(response)
         }).catch(error => {
           console.error('%c ' + error, 'font-weight:bold; font-size:13px;')
           reject(error)
         })
+      })
+    },
+
+    AddRouters ({ commit }) {
+      return new Promise((resolve) => {
+        commit('setRouters', routerConfig)
+        resolve()
       })
     },
 
@@ -89,13 +76,11 @@ const user = {
           console.error('%c ' + error, 'font-weight:bold; font-size:13px;')
           resolve(error)
         }).finally(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
+          commit('setToken', null)
           storage.remove('Access-Token')
         })
       })
     }
-
   }
 }
 

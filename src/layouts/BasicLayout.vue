@@ -22,7 +22,7 @@
 import { SettingDrawer } from '@ant-design-vue/pro-layout'
 import { mapState } from 'vuex'
 
-import defaultSettings from '@/config/defaultSettings'
+import antDesignUiSettings from '@/config/antDesignUiSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
 import LogoSvg from '../assets/logo.svg?inline'
@@ -44,19 +44,19 @@ export default {
       menus: [],
       // 侧栏收起状态
       collapsed: false,
-      title: defaultSettings.title,
+      title: antDesignUiSettings.title,
       settings: {
         // 布局类型
-        layout: defaultSettings.layout, // 'sidemenu', 'topmenu'
+        layout: antDesignUiSettings.layout, // 'sidemenu', 'topmenu'
         // 定宽: true / 流式: false
-        contentWidth: defaultSettings.layout === 'sidemenu' ? false : defaultSettings.contentWidth === 'Fixed',
+        contentWidth: antDesignUiSettings.layout === 'sidemenu' ? false : antDesignUiSettings.contentWidth === 'Fixed',
         // 主题 'dark' | 'light'
-        theme: defaultSettings.navTheme,
+        theme: antDesignUiSettings.navTheme,
         // 主色调
-        primaryColor: defaultSettings.primaryColor,
-        fixedHeader: defaultSettings.fixedHeader,
-        fixSiderbar: defaultSettings.fixSiderbar,
-        colorWeak: defaultSettings.colorWeak,
+        primaryColor: antDesignUiSettings.primaryColor,
+        fixedHeader: antDesignUiSettings.fixedHeader,
+        fixSiderbar: antDesignUiSettings.fixSiderbar,
+        colorWeak: antDesignUiSettings.colorWeak,
 
         hideHintAlert: false,
         hideCopyButton: false
@@ -68,7 +68,7 @@ export default {
   computed: {
     ...mapState({
       // 动态主路由
-      mainMenu: state => state.permission.addRouters
+      mainMenu: state => state.user.routers
     })
   },
   created () {

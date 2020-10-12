@@ -22,7 +22,7 @@
             2016-12-12 ~ 2017-12-12
           </a-col>
         </a-row>
-        <a-steps :current="1" :direction="isMobile && directionType.vertical || directionType.horizontal" progressDot>
+        <a-steps :current="1" :direction="directionType.vertical || directionType.horizontal" progressDot>
           <a-step >
             <span style="font-size: 14px" slot="title">创建项目</span>
             <template slot="description">
