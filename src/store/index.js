@@ -4,8 +4,6 @@ import Vuex from 'vuex'
 import app from './modules/app'
 import user from './modules/user'
 
-import getters from './getters'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -22,5 +20,16 @@ export default new Vuex.Store({
   actions: {
 
   },
-  getters
+  getters: {
+    isMobile: state => state.app.isMobile,
+    lang: state => state.app.lang,
+    theme: state => state.app.theme,
+    color: state => state.app.color,
+    token: state => state.user.token,
+    avatar: state => state.user.avatar,
+    nickname: state => state.user.name,
+    welcome: state => state.user.welcome,
+    userInfo: state => state.user.info,
+    routers: state => state.user.routers
+  }
 })
