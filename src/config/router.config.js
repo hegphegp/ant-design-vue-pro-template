@@ -34,7 +34,7 @@ export const asyncRouterMap = [
           }, {
             path: '/dashboard/workplace',
             name: 'Workplace',
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple1'),
             meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
           }
         ]
@@ -49,12 +49,12 @@ export const asyncRouterMap = [
           {
             path: '/form/base-form',
             name: 'BaseForm',
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple2'),
             meta: { title: '基础表单', keepAlive: true, permission: [ 'form' ] }
           }, {
             path: '/form/step-form',
             name: 'StepForm',
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple3'),
             meta: { title: '分步表单', keepAlive: true, permission: [ 'form' ] }
           }, {
             path: '/form/advanced-form',
@@ -76,39 +76,40 @@ export const asyncRouterMap = [
             path: '/list/table-list/:pageNo([1-9]\\d*)?',
             name: 'TableListWrapper',
             hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple1'),
             meta: { title: '查询表格', keepAlive: true, permission: [ 'table' ] }
           }, {
             path: '/list/basic-list',
             name: 'BasicList',
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple2'),
             meta: { title: '标准列表', keepAlive: true, permission: [ 'table' ] }
           }, {
             path: '/list/card',
             name: 'CardList',
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple3'),
             meta: { title: '卡片列表', keepAlive: true, permission: [ 'table' ] }
           }, {
             path: '/list/search',
             name: 'SearchList',
-            component: () => import('@/views/simple/Simple'),
+            component: RouteView, // 有子菜单，父菜单只能是 component: RouteView
+            // component: () => import('@/views/simple/Simple'),
             redirect: '/list/search/article',
             meta: { title: '搜索列表', keepAlive: true, permission: [ 'table' ] },
             children: [
               {
                 path: '/list/search/article',
                 name: 'SearchArticles',
-                component: () => import('@/views/simple/Simple'),
+                component: () => import('@/views/simple/Simple1'),
                 meta: { title: '搜索列表（文章）', permission: [ 'table' ] }
               }, {
                 path: '/list/search/project',
                 name: 'SearchProjects',
-                component: () => import('@/views/simple/Simple'),
+                component: () => import('@/views/simple/Simple2'),
                 meta: { title: '搜索列表（项目）', permission: [ 'table' ] }
               }, {
                 path: '/list/search/application',
                 name: 'SearchApplications',
-                component: () => import('@/views/simple/Simple'),
+                component: () => import('@/views/simple/Simple3'),
                 meta: { title: '搜索列表（应用）', permission: [ 'table' ] }
               }
             ]
@@ -131,7 +132,7 @@ export const asyncRouterMap = [
           }, {
             path: '/profile/advanced',
             name: 'ProfileAdvanced',
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple1'),
             meta: { title: '高级详情页', permission: [ 'profile' ] }
           }
         ]
@@ -194,12 +195,12 @@ export const asyncRouterMap = [
           {
             path: '/account/center',
             name: 'center',
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple2'),
             meta: { title: '个人中心', keepAlive: true, permission: [ 'user' ] }
           }, {
             path: '/account/settings',
             name: 'settings',
-            component: () => import('@/views/simple/Simple'),
+            component: () => import('@/views/simple/Simple3'),
             meta: { title: '个人设置', hideHeader: true, permission: [ 'user' ] },
             redirect: '/account/settings/base',
             hideChildrenInMenu: true,
@@ -212,17 +213,17 @@ export const asyncRouterMap = [
               }, {
                 path: '/account/settings/security',
                 name: 'SecuritySettings',
-                component: () => import('@/views/simple/Simple'),
+                component: () => import('@/views/simple/Simple1'),
                 meta: { title: '安全设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
               }, {
                 path: '/account/settings/custom',
                 name: 'CustomSettings',
-                component: () => import('@/views/simple/Simple'),
+                component: () => import('@/views/simple/Simple2'),
                 meta: { title: '个性化设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
               }, {
                 path: '/account/settings/binding',
                 name: 'BindingSettings',
-                component: () => import('@/views/simple/Simple'),
+                component: () => import('@/views/simple/Simple3'),
                 meta: { title: '账户绑定', hidden: true, keepAlive: true, permission: [ 'user' ] }
               }, {
                 path: '/account/settings/notification',

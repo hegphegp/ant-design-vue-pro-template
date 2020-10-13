@@ -1,6 +1,6 @@
 <template>
   <div>
-    搜索列表（文章）
+    simple1页面
   </div>
 </template>
 

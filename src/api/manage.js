@@ -3,68 +3,47 @@ import request from '@/utils/request'
 const api = {
   user: '/user',
   role: '/role',
-  service: '/service',
-  permission: '/permission',
-  permissionNoPager: '/permission/no-pager',
-  orgTree: '/org/tree'
+  service: '/service'
 }
 
 export default api
 
-export function getUserList (parameter) {
+export function getUserList (urlParams) {
   return request({
     url: api.user,
     method: 'get',
-    params: parameter
+    params: urlParams
   })
 }
 
-export function getRoleList (parameter) {
+export function getRoleList (urlParams) {
   return request({
     url: api.role,
     method: 'get',
-    params: parameter
+    params: urlParams
   })
 }
 
-export function getServiceList (parameter) {
+export function getServiceList (urlParams) {
   return request({
     url: api.service,
     method: 'get',
-    params: parameter
+    params: urlParams
   })
 }
 
-export function getPermissions (parameter) {
-  return request({
-    url: api.permissionNoPager,
-    method: 'get',
-    params: parameter
-  })
-}
-
-export function getOrgTree (parameter) {
-  return request({
-    url: api.orgTree,
-    method: 'get',
-    params: parameter
-  })
-}
-
-// id == 0 add     post
-// id != 0 update  put
-export function saveService (parameter) {
+export function saveService (bodyParams) {
   return request({
     url: api.service,
-    method: parameter.id === 0 ? 'post' : 'put',
-    data: parameter
+    method: bodyParams.id === 0 ? 'post' : 'put',
+    data: bodyParams
   })
 }
 
-export function saveSub (sub) {
+export function saveSub (bodyParams) {
   return request({
     url: '/sub',
-    method: sub.id === 0 ? 'post' : 'put',
-    data: sub
+    method: bodyParams.id === 0 ? 'post' : 'put',
+    data: bodyParams
   })
 }

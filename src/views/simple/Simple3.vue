@@ -1,6 +1,6 @@
 <template>
   <div>
-    搜索列表（应用）
+    simple3页面
   </div>
 </template>
 

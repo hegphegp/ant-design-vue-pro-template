@@ -51,7 +51,6 @@ import Viser from 'viser-vue'
 // ext library
 import VueCropper from 'vue-cropper'
 import PageLoading from '@/components/PageLoading'
-import './directives/action'
 
 Vue.use(ConfigProvider)
 Vue.use(Layout)

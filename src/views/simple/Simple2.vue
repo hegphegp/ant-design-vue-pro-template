@@ -1,6 +1,6 @@
 <template>
   <div>
-    搜索列表（项目）
+    simple2页面
   </div>
 </template>
 
