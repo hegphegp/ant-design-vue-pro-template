@@ -1,6 +1,7 @@
 <template>
   <pro-layout
     :title="title"
+    :collapsed="collapsed"
     :menus="menus"
     :handleMediaQuery="handleMediaQuery"
     :handleCollapse="handleCollapse"
