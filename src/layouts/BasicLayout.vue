@@ -8,7 +8,6 @@
     :logo="logoRender"
     v-bind="settings"
   >
-    <setting-drawer :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :theme="settings.theme" />
     </template>
@@ -21,7 +20,6 @@
 
 <script>
 import { SettingDrawer } from '@ant-design-vue/pro-layout'
-import { mapState } from 'vuex'
 
 import antDesignUiSettings from '@/config/antDesignUiSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
@@ -37,11 +35,6 @@ export default {
   },
   data () {
     return {
-      // preview.pro.antdv.com only use.
-      isProPreviewSite: process.env.VUE_APP_PREVIEW === 'true' && process.env.NODE_ENV !== 'development',
-      // end
-
-      // base
       menus: [],
       // 侧栏收起状态
       collapsed: false,
@@ -55,8 +48,8 @@ export default {
         theme: antDesignUiSettings.navTheme,
         // 主色调
         primaryColor: antDesignUiSettings.primaryColor,
-        fixedHeader: antDesignUiSettings.fixedHeader,
-        fixSiderbar: antDesignUiSettings.fixSiderbar,
+        fixedHeader: true,
+        fixSiderbar: true,
         colorWeak: antDesignUiSettings.colorWeak,
 
         hideHintAlert: false,
@@ -66,21 +59,13 @@ export default {
       query: {}
     }
   },
-  computed: {
-    ...mapState({
-      // 动态主路由
-      mainMenu: state => state.user.routers
-    })
-  },
   created () {
-    const routes = this.mainMenu.find(item => item.path === '/')
-    this.menus = (routes && routes.children) || []
+    const mainMenu = this.$store.getters.routers
+    const routes = mainMenu.find(item => item.path === '/')
+    this.menus = routes.children || []
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {
       this.$store.commit('sidebarType', this.collapsed)
-    })
-    this.$watch('isMobile', () => {
-      this.$store.commit('isMobile', this.isMobile)
     })
   },
   mounted () {
@@ -136,5 +121,39 @@ export default {
 </script>
 
 <style lang="less">
-@import "./BasicLayout.less";
+@import "~ant-design-vue/es/style/themes/default.less";
+
+.ant-pro-global-header-index-right {
+  margin-right: 8px;
+
+  &.ant-pro-global-header-index-dark {
+    .ant-pro-global-header-index-action {
+      color: hsla(0, 0%, 100%, .85);
+
+      &:hover {
+        background: #1890ff;
+      }
+    }
+  }
+
+  .ant-pro-account-avatar {
+    .antd-pro-global-header-index-avatar {
+      margin: ~'calc((@{layout-header-height} - 24px) / 2)' 0;
+      margin-right: 8px;
+      color: @primary-color;
+      vertical-align: top;
+      background: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  .menu {
+    .anticon {
+      margin-right: 8px;
+    }
+
+    .ant-dropdown-menu-item {
+      min-width: 100px;
+    }
+  }
+}
 </style>
