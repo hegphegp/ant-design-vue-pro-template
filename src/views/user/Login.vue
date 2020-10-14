@@ -99,7 +99,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['Login', 'Logout']),
+    ...mapActions(['Login', 'Logout', 'GetInfo']),
     handleSubmit (e) {
       e.preventDefault()
       const {
@@ -130,6 +130,7 @@ export default {
     },
     loginSuccess (res) {
       console.log(res)
+      this.GetInfo()
       this.$router.push({ path: '/' })
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {

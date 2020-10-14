@@ -50,7 +50,6 @@ export default {
         primaryColor: antDesignUiSettings.primaryColor,
         fixedHeader: true,
         fixSiderbar: true,
-        colorWeak: antDesignUiSettings.colorWeak,
 
         hideHintAlert: false,
         hideCopyButton: false
@@ -95,23 +94,6 @@ export default {
     },
     handleCollapse (val) {
       this.collapsed = val
-    },
-    handleSettingChange ({ type, value }) {
-      console.log('type', type, value)
-      type && (this.settings[type] = value)
-      switch (type) {
-        case 'contentWidth':
-          this.settings[type] = value === 'Fixed'
-          break
-        case 'layout':
-          if (value === 'sidemenu') {
-            this.settings.contentWidth = false
-          } else {
-            this.settings.fixSiderbar = false
-            this.settings.contentWidth = true
-          }
-          break
-      }
     },
     logoRender () {
       return <LogoSvg />

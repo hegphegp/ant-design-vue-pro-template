@@ -3,7 +3,8 @@ import storage from 'store'
 import store from './store'
 import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
-import { setDocumentTitle, domTitle } from '@/utils/util'
+import { setDocumentTitle } from '@/utils/util'
+import config from '@/config/antDesignUiSettings'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -13,7 +14,8 @@ const defaultRoutePath = '/dashboard/workplace'
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  to.meta && (typeof to.meta.title !== 'undefined' && setDocumentTitle(`${to.meta.title} - ${domTitle}`))
+  // 不加下面这一行代码，chrome浏览器页签不会显示中文菜单名称
+  to.meta && (typeof to.meta.title !== 'undefined' && setDocumentTitle(`${to.meta.title} - ${config.title}`))
   if (storage.get('Access-Token')) { /* has token */
     if (to.path === loginRoutePath) {
       next({ path: defaultRoutePath })

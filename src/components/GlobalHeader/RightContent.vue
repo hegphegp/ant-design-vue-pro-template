@@ -47,9 +47,9 @@ export default {
   mounted () {
     setTimeout(() => {
       this.currentUser = {
-        name: 'Serati Ma'
+        name: '000000000' // 我也绝望，我也痛苦，我也想用this.$store.getters.nickame获取名称，但是获取不了，痛不欲生，谁能救我
       }
-    }, 1500)
+    }, 500)
   }
 }
 </script>
