@@ -62,21 +62,6 @@ export default {
     const mainMenu = this.$store.getters.routers
     const routes = mainMenu.find(item => item.path === '/')
     this.menus = routes.children || []
-    // 处理侧栏收起状态
-    this.$watch('collapsed', () => {
-      this.$store.commit('sidebarType', this.collapsed)
-    })
-  },
-  mounted () {
-    const userAgent = navigator.userAgent
-    if (userAgent.indexOf('Edge') > -1) {
-      this.$nextTick(() => {
-        this.collapsed = !this.collapsed
-        setTimeout(() => {
-          this.collapsed = !this.collapsed
-        }, 16)
-      })
-    }
   },
   methods: {
     handleMediaQuery (val) {

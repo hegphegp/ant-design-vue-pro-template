@@ -129,8 +129,7 @@ export default {
       })
     },
     loginSuccess (res) {
-      console.log(res)
-      this.GetInfo().then((res) => console.log('00000000000000000000'))
+      this.$store.commit('GetInfo')
       this.$router.push({ path: '/' })
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {

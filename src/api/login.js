@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 const userApi = {
-  Login: '/aa/auth/login00000000000',
+  Login: '/auth/login',
   Logout: '/auth/logout',
   UserInfo: '/user/info'
 }
@@ -17,7 +17,6 @@ const userApi = {
  * @returns {*}
  */
 export function login (parameter) {
-  console.log('export function login (parameter) {')
   return request({
     url: userApi.Login,
     method: 'post',
