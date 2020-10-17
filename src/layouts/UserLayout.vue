@@ -8,9 +8,7 @@
             <span class="title">Ant Design</span>
           </a>
         </div>
-        <div class="desc">
-          Ant Design 是西湖区最具影响力的 Web 设计规范
-        </div>
+        <div class="desc"> 一小段描述，一小段描述，一小段描述，一小段描述 </div>
       </div>
 
       <router-view />
@@ -65,7 +63,7 @@ export default {
       min-height: 100%;
       background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
       background-size: 100%;
-      padding: 110px 0 144px;
+      padding: 184px 0 20px;
       position: relative;
 
       a {
