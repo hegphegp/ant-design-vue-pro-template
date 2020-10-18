@@ -7,11 +7,7 @@
           size="large"
           type="text"
           placeholder="请输入账户名或邮箱地址"
-          v-decorator="[
-            'loginAccount',
-            {rules: [{required: true,message:'账户名称不能为空！'},{max:20,message:'账号长度不能超过20个字符！'}]
-             , validateTrigger: 'blur'}
-          ]"
+          v-decorator="['loginAccount', ValidateRules.username ]"
         >
         </a-input>
       </a-form-item>
@@ -20,15 +16,7 @@
           size="large"
           type="password"
           placeholder="请输入密码"
-          v-decorator="[
-            'loginPassword',
-            {
-              rules: [
-                { required: true, message:'密码不能为空！' },
-                { max: 20, message:'密码长度不能超过20个字符！' }
-              ],
-              validateTrigger: 'blur'}
-          ]"
+          v-decorator="[ 'loginPassword', ValidateRules.password ]"
         >
         </a-input>
       </a-form-item>
@@ -38,16 +26,7 @@
             size="large"
             type="text"
             placeholder="请输入验证码"
-            v-decorator="[
-              'verifyCode',
-              {
-                rules: [
-                  { required: true, message:'验证码不能为空！'}
-                ],
-                validateTrigger: 'blur',
-                initialValue: '验证码默认值'
-              }
-            ]"
+            v-decorator="[ 'verifyCode', ValidateRules.verifyCode ]"
           >
           </a-input>
         </a-col>
@@ -56,41 +35,68 @@
         </a-col>
       </a-form-item>
       <a-form-item style="margin-top: 24px;">
-        <a-button size="large" type="primary" htmlType="submit" class="login-button">登陆</a-button>
+        <a-button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          class="login-button"
+          :disabled="loginBtnDisable"
+          :loading="loginBtnDisable">登陆</a-button>
       </a-form-item>
     </a-form>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   components: { },
   data () {
     return {
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      loginBtnDisable: false,
+      ValidateRules: {
+        username: {
+          rules: [
+            { required: true, message: '账户名称不能为空！' },
+            { max: 20, message: '账号长度不能超过20个字符！' }
+          ],
+          validateTrigger: 'blur'
+        },
+        password: {
+          rules: [
+            { required: true, message: '密码不能为空！' },
+            { max: 20, message: '密码长度不能超过20个字符！' }
+          ],
+          validateTrigger: 'blur'
+        },
+        verifyCode: {
+          rules: [
+            { required: true, message: '验证码不能为空！' }
+          ],
+          validateTrigger: 'blur'
+        }
+      }
     }
   },
+  mounted () {
+    this.form.setFieldsValue({
+      verifyCode: '设置默认值'
+    })
+  },
   methods: {
-    ...mapActions(['Login']),
     handleSubmit (e) {
       e.preventDefault()
-      const {
-        form: { validateFields },
-        Login
-      } = this
-
-      validateFields({ force: true }, (err, values) => {
+      this.loginBtnDisable = true
+      this.form.validateFields((err, values) => {
         if (!err) {
           console.log('login form', values)
           const loginParams = { ...values }
           // loginParams.password = md5(values.password)
-          Login(loginParams)
+          this.$store.dispatch('Login', loginParams)
             .then((res) => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
             .finally(() => {
-
+              this.loginBtnDisable = false
             })
         } else {
           setTimeout(() => {
