@@ -98,7 +98,7 @@
           <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
           <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
           <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" icon="plus">新建</a-button>
+          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" icon="plus" @click="handleAdd()">新建</a-button>
         </a-row>
       </a-form>
     </div>
@@ -114,31 +114,51 @@
       :rowSelection="rowSelection"
       :pagination="pagination"
       bordered>
-      <a slot="name" slot-scope="text">{{ text }}</a>
-      <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
-      <span slot="tags" slot-scope="tags">
-        <a-tag
-          v-for="tag in tags"
-          :key="tag"
-          :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
-        >
-          {{ tag.toUpperCase() }}
-        </a-tag>
-      </span>
       <span slot="action" slot-scope="text, record">
-        <a>Invite 一 {{ record.name }}</a>
-        <a-divider type="vertical" />
-        <a>Delete</a>
-        <a-divider type="vertical" />
-        <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
+        <template>
+          <a @click="queryDetail(record.id)">详情</a>
+          <a-divider type="vertical" />
+          <a @click="handleEdit(record.id)">编辑</a>
+          <a-divider type="vertical" />
+          <a @click="handleDelete(record.id)">删除</a>
+        </template>
       </span>
     </s-table>
+
+    <template>
+      <a-modal
+        :title="addEditFormTitle"
+        :width="640"
+        :visible="addEditFormVisible"
+        @cancel="handleCancel"
+      >
+        <a-spin :spinning="loading">
+          <a-form :form="addEditForm" v-bind="formLayout">
+            <a-form-item v-show="model && model.id > 0" label="主键ID">
+              <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
+            </a-form-item>
+            <a-form-item label="描述">
+              <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+            </a-form-item>
+          </a-form>
+        </a-spin>
+        <template slot="footer">
+          <a-button type="primary" @click="handleOk">新增</a-button>
+          <a-button type="primary" @click="handleOk">保存</a-button>
+          <a-button type="primary" @click="handleCancel">返回</a-button>
+        </template>
+      </a-modal>
+    </template>
   </a-card>
 </template>
 
 <script>
+import pick from 'lodash.pick'
 import STable from '@/components/Table'
 import moment from 'moment'
+
+// 表单字段
+const fields = ['description', 'id']
 
 const columns = [
   { title: 'name', dataIndex: 'name', key: 'name', slots: { title: 'customTitle' }, scopedSlots: { customRender: 'name' } },
@@ -172,38 +192,51 @@ export default {
   components: {
     STable
   },
+  props: {
+    loading: {
+      type: Boolean,
+      default: () => false
+    },
+    model: {
+      type: Object,
+      default: () => null
+    }
+  },
   data () {
     this.columns = columns
+    this.formLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 7 }
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 13 }
+      }
+    }
     return {
+      addEditForm: this.$form.createForm(this),
+      addEditFormVisible: false,
+      addEditFormTitle: '',
       pagination: {
         showTotal: total => `共 ${total} 条数据`,
         pageSizeOptions: ['10', '20', '50', '100']
       },
       selectDefaultValue: null,
       defaultSearchTimeValue: null,
-      // 下拉框数据的对象
-      selectDatas: [],
-      // confirmLoading: false,
+      selectDatas: [], // 下拉框数据的对象
       mdl: null,
-      // 查询参数
-      queryParam: {},
-      // 加载数据方法 必须为 Promise 对象
-      loadData: parameter => {
-        const requestParameters = Object.assign({}, parameter, this.queryParam)
-        if (this.queryParam.yearMonthDay != null && this.queryParam.yearMonthDay !== undefined) {
-          console.log(this.queryParam.yearMonthDay.valueOf())
-        }
-        console.log(JSON.stringify(requestParameters))
+      queryParam: {}, // 查询参数
+      loadData: parameter => { // 加载数据方法 必须为 Promise 对象
+        // const requestParameters = Object.assign({}, parameter, this.queryParam)
+        // console.log(JSON.stringify(requestParameters))
+        // if (this.queryParam.yearMonthDay != null && this.queryParam.yearMonthDay !== undefined) {
+        //   console.log(this.queryParam.yearMonthDay.valueOf())
+        // }
         data.pageNo = parameter.pageNo
-        return new Promise((resolve, reject) => {
-          // 1. 模拟一个异步请求，想要将成功的数据发送出去
-          // 2. 将成功的数据放在resolve函数中，传递出去
-          // setTimeout(() => {
-          //   resolve(data)
-          // }, 200)
+        return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
           resolve(data)
-        }).then(data => {
-          console.log(JSON.stringify(data))
+        }).then(data => { // console.log(JSON.stringify(data))
           return data
         }).catch(err => {
           console.log(err)
@@ -213,17 +246,18 @@ export default {
       selectedRows: []
     }
   },
-  // created 初始从后端加载下拉框数据
-  created () {
+  created () { // created 初始从后端加载下拉框数据
     this.initDefaultValues()
+    fields.forEach(v => this.addEditForm.getFieldDecorator(v)) // 防止表单未注册
+
+    this.$watch('model', () => { // 当 model 发生改变时，为表单设置值
+      this.model && this.addEditForm.setFieldsValue(pick(this.model, fields))
+    })
   },
-  // 添加加载下拉框数据的方法
-  methods: {
+  methods: { // 添加加载下拉框数据的方法
     disabledDate (current) {
-      // 限制不允许选择昨天
-      const yesterday = moment(new Date()).add(-1, 'days')
-      return current && current < yesterday
-      // return false
+      const yesterday = moment(new Date()).add(-1, 'days') // 限制不允许选择昨天
+      return current && current < yesterday // return false
     },
     disabledRangeTime () {
       return {
@@ -240,35 +274,40 @@ export default {
       this.initSelectDatas()
     },
     initSelectDatas () {
-      return new Promise((resolve, reject) => {
-        // 1. 模拟一个异步请求，想要将成功的数据发送出去
-        // 2. 将成功的数据放在resolve函数中，传递出去
-        // setTimeout(() => {
-        //   resolve(data)
-        // }, 200)
-        const data = [
-          { code: 'ALL', name: '全部' },
-          { code: 'STATUS1', name: '状态1' },
-          { code: 'STATUS2', name: '状态2' },
-          { code: 'STATUS3', name: '状态3' }
-        ]
+      return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
+        const data = [ { code: 'ALL', name: '全部' }, { code: 'STATUS1', name: '状态1' }, { code: 'STATUS2', name: '状态2' }, { code: 'STATUS3', name: '状态3' } ]
         resolve(data)
       }).then(data => {
         data.forEach((item) => {
-          this.selectDatas.push({
-            value: item.code,
-            text: item.name
-          })
+          this.selectDatas.push({ value: item.code, text: item.name })
         })
-        // 动态给下拉框配置默认值，下拉框的数据源长度大于3时，才给默认值
-        if (this.selectDatas.length > 3) {
-          this.selectDefaultValue = this.selectDatas[2].value
-          this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
-        }
+        this.selectDefaultValue = 'STATUS2'
+        this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
         return data
       }).catch(err => {
         console.log(err)
       })
+    },
+    handleAdd () {
+      this.addEditFormVisible = true
+      this.addEditFormTitle = '新增'
+    },
+    handleCancel () {
+      this.addEditFormVisible = false
+    },
+    handleEdit () {
+      this.addEditFormVisible = true
+      this.addEditFormTitle = '编辑'
+    },
+    queryDetail (id) {
+      this.addEditFormVisible = true
+      this.addEditFormTitle = '详情'
+    },
+    handleDelete (id) {
+
+    },
+    handleOk () {
+      this.addEditFormVisible = false
     },
     resetQueryParams () {
       this.queryParam = {}
