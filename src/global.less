@@ -6,8 +6,8 @@ body,
   height: 100%;
 }
 
-.colorWeak {
-  filter: invert(80%);
+.ant-form-item {
+  margin-bottom: 5px;
 }
 
 .ant-layout.layout-basic {
@@ -25,8 +25,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-ul,
-ol {
+ul, ol {
   list-style: none;
 }
 
@@ -48,7 +47,7 @@ ol {
   .ant-form-inline {
     .ant-form-item {
       display: flex;
-      margin-bottom: 24px;
+      margin-bottom: 8px;
       margin-right: 0;
 
       .ant-form-item-control-wrapper {
@@ -59,7 +58,7 @@ ol {
 
       > .ant-form-item-label {
         line-height: 32px;
-        padding-right: 8px;
+        padding-right: 0px;
         width: auto;
       }
       .ant-form-item-control {
@@ -71,24 +70,9 @@ ol {
 
   .table-page-search-submitButtons {
     display: block;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
     white-space: nowrap;
   }
 }
 
-@media (max-width: @screen-xs) {
-  .ant-table {
-    width: 100%;
-    overflow-x: auto;
-    &-thead > tr,
-    &-tbody > tr {
-      > th,
-      > td {
-        white-space: pre;
-        > span {
-          display: block;
-        }
-      }
-    }
-  }
-}
+

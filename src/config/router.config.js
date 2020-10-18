@@ -99,7 +99,7 @@ export const asyncRouterMap = [
               {
                 path: '/list/search/article',
                 name: 'SearchArticles',
-                component: () => import('@/views/simple/Simple1'),
+                component: () => import('@/views/list/List'),
                 meta: { title: '搜索列表（文章）', permission: [ 'table' ] }
               }, {
                 path: '/list/search/project',
@@ -109,7 +109,7 @@ export const asyncRouterMap = [
               }, {
                 path: '/list/search/application',
                 name: 'SearchApplications',
-                component: () => import('@/views/simple/Simple3'),
+                component: () => import('@/views/list/List'),
                 meta: { title: '搜索列表（应用）', permission: [ 'table' ] }
               }
             ]
