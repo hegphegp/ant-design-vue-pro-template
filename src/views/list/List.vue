@@ -1,6 +1,6 @@
 <template>
   <a-card :bordered="false">
-    <div class="table-page-search-wrapper">
+    <div class="ant-form-item-config">
       <a-form layout="inline">
         <a-row :gutter="48" style="margin-left: -6px; margin-right: -6px;">
           <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
@@ -128,20 +128,32 @@
     <template>
       <a-modal
         :title="addEditFormTitle"
-        :width="640"
+        :width="960"
         :visible="addEditFormVisible"
-        @cancel="handleCancel"
-      >
-        <a-spin :spinning="loading">
-          <a-form :form="addEditForm" v-bind="formLayout">
-            <a-form-item v-show="model && model.id > 0" label="主键ID">
-              <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
-            </a-form-item>
-            <a-form-item label="描述">
-              <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
-            </a-form-item>
+        @cancel="handleCancel" >
+        <div class="ant-form-item-config">
+          <a-form :form="addEditForm" layout="inline">
+            <a-row>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+            </a-row>
           </a-form>
-        </a-spin>
+        </div>
         <template slot="footer">
           <a-button type="primary" @click="handleOk">新增</a-button>
           <a-button type="primary" @click="handleOk">保存</a-button>
@@ -192,28 +204,8 @@ export default {
   components: {
     STable
   },
-  props: {
-    loading: {
-      type: Boolean,
-      default: () => false
-    },
-    model: {
-      type: Object,
-      default: () => null
-    }
-  },
   data () {
     this.columns = columns
-    this.formLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 7 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 13 }
-      }
-    }
     return {
       addEditForm: this.$form.createForm(this),
       addEditFormVisible: false,
