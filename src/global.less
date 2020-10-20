@@ -6,6 +6,11 @@ body,
   height: 100%;
 }
 
+label {
+  width: 50px;
+  word-wrap: break-word;
+}
+
 .ant-form-item {
   margin-bottom: 5px;
 }
@@ -64,8 +69,62 @@ ul, ol {
     margin-right: 8px;
   }
 }
-// 表单控件的配置，label和输入框在同一行
-.ant-form-item-config {
+
+// 表单控件的配置，label和输入框在同一行，并且输入框占满当前一行
+/**  :model="formInline" @submit="handleSubmit" @submit.native.prevent */
+/**
+  <div class="ant-form-item-inline-config">
+    <a-form-model layout="inline">
+      <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行两列1">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行两列2">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行三列1">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行三列2">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行三列3">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行四列1">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行四列2">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行四列3">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
+        <a-form-item label="一行四列4">
+          <a-input/>
+        </a-form-item>
+      </a-col>
+    </a-form-model>
+  </div>
+*/
+// 表单控件的配置，label和输入框在同一行，并且输入框占满当前一行
+.ant-form-item-inline-config {
 
   .ant-form-inline {
     .ant-form-item {
@@ -90,6 +149,29 @@ ul, ol {
       }
     }
   }
+
 }
 
+.ant-form-item-label {
+  float: left;
+  word-break:break-all;
+  word-wrap:break-word;
+}
 
+/**
+设置一行多列 
+设置表单的label和该label对应输入框在同一行显示，输入框占据剩余的所有空间
+.ant-form-inline {
+  .ant-form-item {
+    display: flex;
+    margin-bottom: 8px;
+    margin-right: 0;
+
+    .ant-form-item-control-wrapper {
+      flex: 1 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+*/
