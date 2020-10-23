@@ -6,11 +6,6 @@ body,
   height: 100%;
 }
 
-label {
-  width: 50px;
-  word-wrap: break-word;
-}
-
 .ant-form-item {
   margin-bottom: 5px;
 }
@@ -124,38 +119,37 @@ ul, ol {
   </div>
 */
 // 表单控件的配置，label和输入框在同一行，并且输入框占满当前一行
-.ant-form-item-inline-config {
 
-  .ant-form-inline {
-    .ant-form-item {
-      display: flex;
-      margin-bottom: 8px;
-      margin-right: 0;
+.ant-form-inline {
+  .ant-form-item {
+    display: flex;
+    margin-bottom: 8px;
+    margin-right: 0;
 
-      .ant-form-item-control-wrapper {
-        flex: 1 1;
-        display: inline-block;
-        vertical-align: middle;
-      }
+    .ant-form-item-control-wrapper {
+      flex: 1 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
 
-      > .ant-form-item-label {
-        line-height: 32px;
-        padding-right: 0px;
-        width: auto;
-      }
-      .ant-form-item-control {
-        height: 32px;
-        line-height: 32px;
-      }
+    > .ant-form-item-label {
+      line-height: 32px;
+      padding-right: 2px;
+      width: 90px;
+      min-width: 90px;
+      max-width: 90px;
+      white-space: inherit;
+    }
+    .ant-form-item-control {
+      height: 32px;
+      line-height: 32px;
     }
   }
-
 }
 
-.ant-form-item-label {
-  float: left;
-  word-break:break-all;
-  word-wrap:break-word;
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+  padding: 8px 8px;
+  overflow-wrap: break-word;
 }
 
 /**

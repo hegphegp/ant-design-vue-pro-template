@@ -51,7 +51,7 @@ export function isIE () {
  * @param id parent element id or class
  * @param timeout
  */
-export function removeLoadingAnimate (id = '', timeout = 1500) {
+export function removeLoadingAnimate (id = '', timeout = 500) {
   if (id === '') {
     return
   }

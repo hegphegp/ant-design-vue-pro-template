@@ -1,10 +1,10 @@
 <template>
   <a-card :bordered="false">
-    <div class="ant-form-item-config">
+    <div class="ant-form-item-inline-config">
       <a-form layout="inline">
         <a-row :gutter="48" style="margin-left: -6px; margin-right: -6px;">
           <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="规则编号" :colon="false">
+            <a-form-item label="规则规则编号" :colon="false">
               <a-input v-model="queryParam.id" placeholder=""/>
             </a-form-item>
           </a-col>
@@ -128,12 +128,233 @@
     <template>
       <a-modal
         :title="addEditFormTitle"
-        :width="960"
+        :width="1080"
         :visible="addEditFormVisible"
         @cancel="handleCancel" >
         <div class="ant-form-item-config">
           <a-form :form="addEditForm" layout="inline">
             <a-row>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="描述">
+                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+                <a-form-item label="下拉框默认值" :colon="false">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+                <a-form-item label="规则编号" :colon="false">
+                  <a-input placeholder=""/>
+                </a-form-item>
+              </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
                   <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />

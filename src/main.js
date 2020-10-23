@@ -11,7 +11,7 @@ import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 
 import bootstrap from './core/bootstrap'
 import './core/lazy_use'
-import './vueRouter' // permission control
+import './router/vueRouter' // permission control
 import './utils/filter' // global filter
 import './global.less'
 

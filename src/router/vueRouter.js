@@ -1,6 +1,6 @@
-import router from './router'
+import router from '../router'
 import storage from 'store'
-import store from './store'
+import store from '../store'
 import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import { setDocumentTitle } from '@/utils/util'
