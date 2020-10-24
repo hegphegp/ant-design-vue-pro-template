@@ -117,10 +117,6 @@ export default {
     .anticon {
       margin-right: 8px;
     }
-
-    .ant-dropdown-menu-item {
-      min-width: 100px;
-    }
   }
 }
 </style>

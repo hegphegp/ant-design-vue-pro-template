@@ -40,8 +40,7 @@
           type="primary"
           htmlType="submit"
           class="login-button"
-          :disabled="loginBtnDisable"
-          :loading="loginBtnDisable">登陆</a-button>
+          :disabled="loginBtnDisable">登陆</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -78,15 +77,15 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted () { // 设置字段默认值
     this.form.setFieldsValue({
       verifyCode: '设置默认值'
     })
   },
   methods: {
     handleSubmit (e) {
-      e.preventDefault()
       this.loginBtnDisable = true
+      e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
           console.log('login form', values)
@@ -99,20 +98,24 @@ export default {
               this.loginBtnDisable = false
             })
         } else {
-          setTimeout(() => {
-
-          }, 600)
+          this.loginBtnDisable = false
         }
       })
     },
     loginSuccess (res) {
       this.$store.dispatch('GetInfo')
-      this.$router.push({ path: '/' })
+      const redirect = this.$route.query.redirect
+      if (redirect != null && redirect !== undefined && redirect !== '') {
+        this.$router.push({ path: redirect })
+      } else {
+        this.$router.push({ path: '/' })
+      }
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {
         this.$notification.success({
           message: '欢迎',
-          description: `欢迎回来`
+          description: `欢迎回来`,
+          duration: 2
         })
       }, 1000)
     },
@@ -120,7 +123,7 @@ export default {
       this.$notification['error']({
         message: '错误',
         description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
-        duration: 4
+        duration: 2
       })
     }
   }

@@ -25,13 +25,15 @@ router.beforeEach((to, from, next) => {
         store.dispatch('AddRouters')
         // 动态添加可访问路由表
         router.addRoutes(store.getters.routers)
-        // 请求带有 redirect 重定向时，登录自动重定向到该地址
-        const redirect = decodeURIComponent(from.query.redirect || to.path)
-        if (to.path === redirect) { // set the replace: true so the navigation will not leave a history record
-          next({ ...to, replace: true })
-        } else {
-          next({ path: redirect }) // 跳转到目的路由
-        }
+        next({ path: to.path })
+        // next()
+        // next({ ...to, replace: true })
+        // const redirect = decodeURIComponent(from.query.redirect || to.path) // 判断路由跳转前，上一个页面的URL是否有 redirect 重定向参数，登录自动重定向到该地址
+        // if (to.path === redirect) { // set the replace: true so the navigation will not leave a history record
+        //   next({ ...to, replace: true })
+        // } else {
+        //   next({ path: redirect }) // 跳转到目的路由
+        // }
       } else {
         next()
       }
@@ -41,7 +43,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({ path: loginRoutePath, query: { redirect: to.fullPath } })
-      NProgress.done() // if current page is login will not trigger afterEach hook, so manually handle it
+      NProgress.done() // 如果当前页是登录页， router.afterEach不会被触发，要手动触发
     }
   }
 })
