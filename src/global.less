@@ -68,57 +68,56 @@ ul, ol {
 // 表单控件的配置，label和输入框在同一行，并且输入框占满当前一行
 /**  :model="formInline" @submit="handleSubmit" @submit.native.prevent */
 /**
-  <div class="ant-form-item-inline-config">
-    <a-form-model layout="inline">
-      <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行两列1">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行两列2">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行三列1">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行三列2">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行三列3">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行四列1">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行四列2">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行四列3">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
-        <a-form-item label="一行四列4">
-          <a-input/>
-        </a-form-item>
-      </a-col>
-    </a-form-model>
-  </div>
+  <a-form-model layout="inline">
+    <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行两列1">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+    <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行两列2">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+    <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行三列1">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+    <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行三列2">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+    <a-col :lg="8" :md="8" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行三列3">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+    <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行四列1">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+    <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行四列2">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+    <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行四列3">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+    <a-col :lg="6" :md="6" :sm="24" style="padding-right: 12px;">
+      <a-form-item label="一行四列4">
+        <a-input/>
+      </a-form-item>
+    </a-col>
+  </a-form-model>
 */
 // 表单控件的配置，label和输入框在同一行，并且输入框占满当前一行
+// .ant-form-inline 的 .ant-form-item 样式设置了 a-form-item的lebel与输入框是换行的，必现覆盖官方的配置
 
 .ant-form-inline {
   .ant-form-item {
@@ -145,6 +144,14 @@ ul, ol {
       line-height: 32px;
     }
   }
+}
+
+.ant-tree-child-tree > li:first-child {
+  padding-top: 0px;
+}
+
+.ant-tree li {
+  padding: 0px;
 }
 
 .ant-table-thead > tr > th, .ant-table-tbody > tr > td {

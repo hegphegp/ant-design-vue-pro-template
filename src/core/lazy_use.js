@@ -19,6 +19,8 @@ import {
   Modal,
   Table,
   Tabs,
+  Tree,
+  TreeSelect,
   Icon,
   Badge,
   Popover,
@@ -70,6 +72,8 @@ Vue.use(Col)
 Vue.use(Modal)
 Vue.use(Table)
 Vue.use(Tabs)
+Vue.use(Tree)
+Vue.use(TreeSelect)
 Vue.use(Icon)
 Vue.use(Badge)
 Vue.use(Popover)
