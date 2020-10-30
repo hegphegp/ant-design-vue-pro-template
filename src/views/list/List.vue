@@ -394,11 +394,11 @@ import moment from 'moment'
 const fields = ['description', 'id']
 
 const columns = [
-  { title: 'name', dataIndex: 'name', key: 'name', slots: { title: 'customTitle' }, scopedSlots: { customRender: 'name' } },
-  { title: 'Age', dataIndex: 'age', key: 'age', scopedSlots: { customRender: 'age' } },
-  { title: 'Address', dataIndex: 'address', key: 'address', scopedSlots: { customRender: 'address' } },
-  { title: 'Tags', key: 'tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags' } },
-  { title: 'Action', key: 'action', scopedSlots: { customRender: 'action' } }
+  { title: 'name', dataIndex: 'name' },
+  { title: 'Age', dataIndex: 'age' },
+  { title: 'Address', dataIndex: 'address' },
+  { title: 'Tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags' } },
+  { title: 'Action' }
 ]
 
 const data = {
