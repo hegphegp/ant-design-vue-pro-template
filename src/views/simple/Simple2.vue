@@ -218,7 +218,6 @@ export default {
   },
   created () {
     this.initSelectDatas()
-    debugger
     this.treeItem.defaultSelectedKeys.push(this.treeItem.treeData[0].key)
   },
   methods: {
@@ -250,3 +249,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/deep/.ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected {
+    background-color: #1890ff;
+}
+</style>
