@@ -4,11 +4,9 @@
     :width="640"
     :visible="visible"
     :confirmLoading="loading"
-    @ok="() => { $emit('ok') }"
-    @cancel="() => { $emit('cancel') }"
-  >
+    @cancel="handleCancel" >
     <a-spin :spinning="loading">
-      <a-form :form="form" v-bind="formLayout">
+      <a-form :form="form" layout="inline">
         <!-- 检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
         <a-form-item v-show="model && model.id > 0" label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
@@ -18,6 +16,11 @@
         </a-form-item>
       </a-form>
     </a-spin>
+    <template slot="footer">
+      <a-button type="primary" @click="handleOk" :disabled="loading">新增</a-button>
+      <a-button type="primary" @click="handleOk" :disabled="loading">保存</a-button>
+      <a-button type="primary" @click="handleCancel" :disabled="loading">返回</a-button>
+    </template>
   </a-modal>
 </template>
 
@@ -28,32 +31,11 @@ import pick from 'lodash.pick'
 const fields = ['description', 'id']
 
 export default {
-  props: {
-    visible: {
-      type: Boolean,
-      required: true
-    },
-    loading: {
-      type: Boolean,
-      default: () => false
-    },
-    model: {
-      type: Object,
-      default: () => null
-    }
-  },
   data () {
-    this.formLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 7 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 13 }
-      }
-    }
     return {
+      visible: false,
+      loading: false,
+      model: null,
       form: this.$form.createForm(this)
     }
   },
@@ -67,6 +49,25 @@ export default {
     this.$watch('model', () => {
       this.model && this.form.setFieldsValue(pick(this.model, fields))
     })
+  },
+  methods: {
+    openFormModal (type = 'add') {
+      this.visible = true
+    },
+    handleCancel () {
+      this.loading = true
+      setTimeout(() => {
+        this.visible = false
+        this.loading = false
+      }, 1000)
+    },
+    handleOk () {
+      this.loading = true
+      setTimeout(() => {
+        this.visible = false
+        this.loading = false
+      }, 1000)
+    }
   }
 }
 </script>

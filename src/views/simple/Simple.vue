@@ -16,13 +16,7 @@
         </template>
       </span>
     </a-table>
-    <create-form
-      ref="createModal"
-      :visible="addEditVisible"
-      :loading="confirmLoading"
-      :model="mdl"
-      @cancel="handleCancel"
-      @ok="handleOk" />
+    <create-form ref="createModal"/>
   </a-card>
 </template>
 <script>
@@ -125,78 +119,21 @@ export default {
     return {
       data,
       columns,
-      rowSelection,
-      mdl: null,
-      confirmLoading: false,
-      addEditVisible: false
+      rowSelection
     }
   },
   methods: {
     handleAdd () {
-      this.mdl = null
-      this.addEditVisible = true
+      this.$refs.createModal.openFormModal('add')
     },
     queryDetail (record) {
-      this.addEditVisible = true
-      this.mdl = { ...record }
-      console.log(this.mdl)
+      this.$refs.createModal.openFormModal('detail')
     },
     handleEdit (record) {
-      this.addEditVisible = true
-      this.mdl = { ...record }
-      console.log(this.mdl)
+      this.$refs.createModal.openFormModal('edit')
     },
     handleDelete (id) {
       console.log(id)
-    },
-    handleOk () {
-      const form = this.$refs.createModal.form
-      this.confirmLoading = true
-      form.validateFields((errors, values) => {
-        if (!errors) {
-          console.log('values', values)
-          if (values.id > 0) {
-            // 修改 e.g.
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve()
-              }, 1000)
-            }).then(res => {
-              this.addEditVisible = false
-              this.confirmLoading = false
-              // 重置表单数据
-              form.resetFields()
-              // 刷新表格
-              this.$refs.table.refresh()
-
-              this.$message.info('修改成功')
-            })
-          } else {
-            // 新增
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve()
-              }, 1000)
-            }).then(res => {
-              this.addEditVisible = false
-              this.confirmLoading = false
-              // 重置表单数据
-              form.resetFields()
-              // 刷新表格
-              this.$refs.table.refresh()
-
-              this.$message.info('新增成功')
-            })
-          }
-        } else {
-          this.confirmLoading = false
-        }
-      })
-    },
-    handleCancel () {
-      this.addEditVisible = false
-      // const form = this.$refs.createModal.form
-      // form.resetFields() // 清理表单数据（可不做），不要做，因为点击取消按钮时，发现表单的值瞬间变了
     }
   }
 }
