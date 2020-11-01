@@ -59,6 +59,7 @@ export default {
       setTimeout(() => {
         this.visible = false
         this.loading = false
+        this.$emit('refreshPage')
       }, 1000)
     },
     handleOk () {
@@ -66,6 +67,7 @@ export default {
       setTimeout(() => {
         this.visible = false
         this.loading = false
+        this.$emit('refreshPage')
       }, 1000)
     }
   }

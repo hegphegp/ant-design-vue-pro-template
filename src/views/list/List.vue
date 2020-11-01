@@ -1,107 +1,105 @@
 <template>
   <a-card :bordered="false">
-    <div class="ant-form-item-inline-config">
-      <a-form layout="inline">
-        <a-row :gutter="48" style="margin-left: -6px; margin-right: -6px;">
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="规则规则编号" :colon="false">
-              <a-input v-model="queryParam.id" placeholder=""/>
-            </a-form-item>
-          </a-col>
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="使用状态" :colon="false">
-              <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
-              </a-select>
-            </a-form-item>
-          </a-col>
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="调用次数" :colon="false">
-              <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
-            </a-form-item>
-          </a-col>
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="年月日" :colon="false">
-              <a-date-picker v-model="queryParam.yearMonthDay" style="width: 100%" placeholder="请输入更新日期"/>
-            </a-form-item>
-          </a-col>
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="年月日时分秒" :colon="false">
-              <a-date-picker v-model="queryParam.yyyyMMddHHmmss" format="YYYY-MM-DD HH:mm:ss" show-time style="width: 100%" placeholder="请输入更新日期"/>
-            </a-form-item>
-          </a-col>
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="年月日时分秒" :colon="false">
-              <a-date-picker
-                v-model="queryParam.yyyyMMddHHmmss1"
-                style="width: 100%"
-                placeholder="请输入更新日期"
-                format="YYYY-MM-DD HH:mm:ss"
-                show-time
-                :disabled-date="disabledDate"
-                :disabled-time="disabledRangeTime"/>
-            </a-form-item>
-          </a-col>
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="年月" :colon="false">
-              <a-month-picker v-model="queryParam.yearMonth" style="width: 100%" placeholder="请输入更新日期"/>
-            </a-form-item>
-          </a-col>
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="使用状态" :colon="false">
-              <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
-                <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
-              </a-select>
-            </a-form-item>
-          </a-col>
-          <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-            <a-form-item label="下拉框默认值" :colon="false">
-              <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
-                <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-              </a-select>
-            </a-form-item>
-          </a-col>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" @click="resetQueryParams()">重置</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-          <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" icon="plus" @click="handleAdd()">新建</a-button>
-        </a-row>
-      </a-form>
-    </div>
+    <a-form layout="inline">
+      <a-row :gutter="48" style="margin-left: -6px; margin-right: -6px;">
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="规则规则编号" :colon="false">
+            <a-input v-model="queryParam.id" placeholder=""/>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="使用状态" :colon="false">
+            <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
+              <a-select-option value="0">全部</a-select-option>
+              <a-select-option value="1">关闭</a-select-option>
+              <a-select-option value="2">运行中</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="调用次数" :colon="false">
+            <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="年月日" :colon="false">
+            <a-date-picker v-model="queryParam.yearMonthDay" style="width: 100%" placeholder="请输入更新日期"/>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="年月日时分秒" :colon="false">
+            <a-date-picker v-model="queryParam.yyyyMMddHHmmss" format="YYYY-MM-DD HH:mm:ss" show-time style="width: 100%" placeholder="请输入更新日期"/>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="年月日时分秒" :colon="false">
+            <a-date-picker
+              v-model="queryParam.yyyyMMddHHmmss1"
+              style="width: 100%"
+              placeholder="请输入更新日期"
+              format="YYYY-MM-DD HH:mm:ss"
+              show-time
+              :disabled-date="disabledDate"
+              :disabled-time="disabledRangeTime"/>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="年月" :colon="false">
+            <a-month-picker v-model="queryParam.yearMonth" style="width: 100%" placeholder="请输入更新日期"/>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="使用状态" :colon="false">
+            <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
+              <a-select-option value="0">全部</a-select-option>
+              <a-select-option value="1">关闭</a-select-option>
+              <a-select-option value="2">运行中</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="下拉框默认值" :colon="false">
+            <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+              <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" @click="resetQueryParams()">重置</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" icon="plus" @click="handleAdd()">新建</a-button>
+      </a-row>
+    </a-form>
 
     <s-table
       ref="table"
