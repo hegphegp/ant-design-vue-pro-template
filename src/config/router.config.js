@@ -27,10 +27,11 @@ export const asyncRouterMap = [
             name: 'Analysis',
             component: () => import('@/views/simple/Simple'),
             meta: { title: '分析页', keepAlive: false, permission: [ 'dashboard' ] }
-          }, { // 外部链接
-            path: 'https://www.baidu.com/',
-            name: 'Monitor',
-            meta: { title: '监控器', target: '_blank' }
+          }, {
+            path: '/dashboard/leftListRightTree',
+            name: 'leftListRightTree',
+            component: () => import('@/views/leftListRightTree/leftListRightTree'),
+            meta: { title: '左列表右树形', keepAlive: false, permission: [ 'dashboard' ] }
           }, {
             path: '/dashboard/workplace',
             name: 'Workplace',
@@ -38,34 +39,7 @@ export const asyncRouterMap = [
             meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
           }
         ]
-      },
-
-      {
-        path: '/form',
-        redirect: '/form/base-form',
-        component: RouteView,
-        meta: { title: '表单页', icon: 'form', permission: [ 'form' ] },
-        children: [
-          {
-            path: '/form/base-form',
-            name: 'BaseForm',
-            component: () => import('@/views/simple/Simple2'),
-            meta: { title: '基础表单', keepAlive: true, permission: [ 'form' ] }
-          }, {
-            path: '/form/step-form',
-            name: 'StepForm',
-            component: () => import('@/views/simple/Simple3'),
-            meta: { title: '分步表单', keepAlive: true, permission: [ 'form' ] }
-          }, {
-            path: '/form/advanced-form',
-            name: 'AdvanceForm',
-            component: () => import('@/views/simple/Simple'),
-            meta: { title: '高级表单', keepAlive: true, permission: [ 'form' ] }
-          }
-        ]
-      },
-
-      {
+      }, {
         path: '/list',
         name: 'list',
         component: RouteView,
@@ -115,30 +89,7 @@ export const asyncRouterMap = [
             ]
           }
         ]
-      },
-
-      {
-        path: '/profile',
-        name: 'profile',
-        component: RouteView,
-        redirect: '/profile/basic',
-        meta: { title: '详情页', icon: 'profile', permission: [ 'profile' ] },
-        children: [
-          {
-            path: '/profile/basic',
-            name: 'ProfileBasic',
-            component: () => import('@/views/simple/Simple'),
-            meta: { title: '基础详情页', permission: [ 'profile' ] }
-          }, {
-            path: '/profile/advanced',
-            name: 'ProfileAdvanced',
-            component: () => import('@/views/simple/Simple1'),
-            meta: { title: '高级详情页', permission: [ 'profile' ] }
-          }
-        ]
-      },
-
-      {
+      }, {
         path: '/result',
         name: 'result',
         component: RouteView,

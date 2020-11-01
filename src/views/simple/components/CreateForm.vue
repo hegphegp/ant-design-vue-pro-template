@@ -36,7 +36,11 @@ export default {
       visible: false,
       loading: false,
       model: null,
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      pagination: {
+        showTotal: total => `共 ${total} 条数据`,
+        pageSizeOptions: ['10', '20', '50', '100']
+      }
     }
   },
   created () {

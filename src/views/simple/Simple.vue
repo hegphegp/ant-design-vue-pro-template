@@ -6,8 +6,7 @@
       :columns="columns"
       :data-source="data"
       :row-selection="rowSelection"
-      bordered
-      defaultExpandAllRows>
+      bordered>
       <span slot="action" slot-scope="text, record">
         <template>
           <a @click="queryDetail(record)">详情</a>
