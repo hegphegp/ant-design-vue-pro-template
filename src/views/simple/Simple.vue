@@ -67,7 +67,9 @@ export default {
     handleDelete (id) {
       console.log(id)
     },
-    refreshPage () {
+    refreshPage (params) {
+      console.log('modal传参到父控件')
+      console.log(params)
       setTimeout(() => {
         const item = {
           key: new Date().getTime(),

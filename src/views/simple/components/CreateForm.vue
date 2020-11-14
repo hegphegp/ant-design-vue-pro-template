@@ -63,7 +63,8 @@ export default {
       setTimeout(() => {
         this.visible = false
         this.loading = false
-        this.$emit('refreshPage')
+        const params = { 'key': '44', 'name': '广东省', 'code': '44', 'orderNo': 2 }
+        this.$emit('refreshPage', params)
       }, 1000)
     },
     handleOk () {
@@ -71,7 +72,8 @@ export default {
       setTimeout(() => {
         this.visible = false
         this.loading = false
-        this.$emit('refreshPage')
+        const params = { 'key': '44', 'name': '广东省', 'code': '44', 'orderNo': 2 }
+        this.$emit('refreshPage', params)
       }, 1000)
     }
   }
