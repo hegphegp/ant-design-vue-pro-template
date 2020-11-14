@@ -93,10 +93,10 @@ import STable from '@/components/Table'
 // const fields = ['description', 'id']
 
 const leftListColumns = [
-  { title: 'name', dataIndex: 'name' },
+  { title: 'name', dataIndex: 'name', ellipsis: true },
   { title: 'Age', dataIndex: 'age' },
-  { title: 'Address', dataIndex: 'address' },
-  { title: 'Tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags' } },
+  { title: 'Address', dataIndex: 'address', ellipsis: true },
+  { title: 'Tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags', ellipsis: true } },
   { title: 'Action' }
 ]
 
