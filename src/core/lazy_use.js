@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
+
 // base library
 import {
   ConfigProvider,
@@ -55,6 +57,8 @@ import Viser from 'viser-vue'
 import VueCropper from 'vue-cropper'
 import PageLoading from '@/components/PageLoading'
 
+Vue.use(ProLayout)
+Vue.use(PageHeaderWrapper)
 Vue.use(ConfigProvider)
 Vue.use(Layout)
 Vue.use(Input)

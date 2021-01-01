@@ -18,7 +18,6 @@ const request = axios.create({
 // 异常拦截处理器
 const errorHandler = (error) => {
   console.log(error.config.redirectParam)
-  debugger
   if (error.response) {
     const data = error.response.data
     // 从 localstorage 获取 token

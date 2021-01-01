@@ -1,21 +1,22 @@
 <template>
   <a-row :gutter="48" style="margin-left: -6px; margin-right: -6px;">
-    <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
+    <a-col :span="10" style="padding-left: 6px; padding-right: 6px;">
       <a-card title="字典分类" :bordered="false">
         <div class="label-config">
           <a-form layout="inline">
-            <a-col :span="9" style="padding-left: 6px; padding-right: 6px;">
+            <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
                 <a-input placeholder=""/>
               </a-form-item>
             </a-col>
-            <a-col :span="9" style="padding-left: 6px; padding-right: 6px;">
+            <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="编码" :colon="false">
                 <a-input placeholder=""/>
               </a-form-item>
             </a-col>
-            <a-button style="margin-bottom: 8px; padding: 0 6px;" type="primary" @click="$refs.leftListTable.refresh(true)">查询</a-button>
-            <a-button style="margin-bottom: 8px; margin-left: 8px; padding: 0 6px;" type="primary">新建</a-button>
+            <a-button style="margin-bottom: 8px; padding: 0 2px;" type="primary" @click="$refs.leftListTable.refresh(true)">查询</a-button>
+            <a-button style="margin-bottom: 8px; margin-left: 2px; padding: 0 2px;" type="primary">新建</a-button>
+            <a-button style="margin-bottom: 8px; margin-left: 2px; padding: 0 2px;" type="primary">新建</a-button>
           </a-form>
         </div>
 
@@ -43,7 +44,7 @@
         </s-table></a-card>
     </a-col>
 
-    <a-col :span="16" style="padding-left: 6px; padding-right: 6px;">
+    <a-col :span="14" style="padding-left: 6px; padding-right: 6px;">
       <a-card :title="type" :bordered="false">
         <div class="label-config">
           <a-form layout="inline" v-show="visible">
@@ -96,7 +97,6 @@ const leftListColumns = [
   { title: 'name', dataIndex: 'name', ellipsis: true },
   { title: 'Age', dataIndex: 'age' },
   { title: 'Address', dataIndex: 'address', ellipsis: true },
-  { title: 'Tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags', ellipsis: true } },
   { title: 'Action' }
 ]
 
@@ -106,16 +106,16 @@ const leftListData = {
   totalCount: 5701,
   totalPage: 571,
   data: [
-    { key: '0', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '1', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '2', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '3', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '4', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '5', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '6', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '7', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '8', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] },
-    { key: '9', name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park', tags: ['cool', 'teacher'] }
+    { key: '0', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '1', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '2', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '3', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '4', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '5', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '6', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '7', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '8', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
+    { key: '9', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' }
   ]
 }
 
@@ -218,6 +218,10 @@ export default {
 
 <style lang="less" scoped>
 
+/deep/ .ant-card-body {
+  padding: 10px;
+}
+
 /deep/ .label-config {
   .ant-form-inline {
     .ant-form-item {
@@ -234,9 +238,9 @@ export default {
       > .ant-form-item-label {
         line-height: 32px;
         padding-right: 2px;
-        width: 40px;
-        min-width: 40px;
-        max-width: 40px;
+        width: 30px;
+        min-width: 30px;
+        max-width: 30px;
         white-space: inherit;
       }
       .ant-form-item-control {

@@ -21,7 +21,7 @@
 <script>
 import { SettingDrawer } from '@ant-design-vue/pro-layout'
 
-import antDesignUiSettings from '@/config/antDesignUiSettings'
+import antDesignUiSettings from '@/config/ui.config'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
 import LogoSvg from '../assets/logo.svg?inline'

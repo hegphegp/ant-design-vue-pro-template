@@ -104,12 +104,16 @@ export default {
     },
     loginSuccess (res) {
       this.$store.dispatch('GetInfo')
+      this.$router.push({ path: '/' })
+
+      /**
       const redirect = this.$route.query.redirect
       if (redirect != null && redirect !== undefined && redirect !== '') {
         this.$router.push({ path: redirect })
       } else {
         this.$router.push({ path: '/' })
       }
+       */
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {
         this.$notification.success({

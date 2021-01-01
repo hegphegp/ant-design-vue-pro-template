@@ -6,9 +6,6 @@ body,
   height: 100%;
 }
 
-body {
-  font-weight: 600;
-}
 .ant-form-item {
   margin-bottom: 5px;
 }
@@ -68,6 +65,23 @@ ul, ol {
   }
 }
 
+// 分页组件的数字间隔 
+.ant-pagination-item {
+  margin-right: 3px;
+}
+
+.ant-pagination-total-text {
+  margin-right: 3px;
+}
+
+.ant-pagination-prev, .ant-pagination-jump-prev, .ant-pagination-jump-next {
+  margin-right: 3px;
+}
+.ant-pagination-options {
+  margin-left: 3px;
+}
+
+// 表单参数校验错误信息在页面最上层显示
 .ant-form-explain, .ant-form-extra {
   position: relative;
   z-index: 999;
@@ -163,10 +177,17 @@ ul, ol {
 }
 
 .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
-  padding: 8px 8px;
+  padding: 6px 6px;
   overflow-wrap: break-word;
 }
 
+.ant-menu-inline-collapsed {
+  width: 48px;
+}
+
+.ant-pro-sider-menu {
+  width: 48px;
+}
 /**
 设置一行多列 
 设置表单的label和该label对应输入框在同一行显示，输入框占据剩余的所有空间
