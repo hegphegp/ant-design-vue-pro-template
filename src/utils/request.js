@@ -9,7 +9,7 @@ const request = axios.create({
   // API 请求的默认前缀
   baseURL: process.env.VUE_APP_API_BASE_URL,
   timeout: 6000, // 请求超时时间
-  redirectParam: true,
+  jumpLoginPageWhen401: true, // http为401时，默认跳转到登录页面重新登录
   headers: {
     'Content-Type': 'application/json;charset=UTF-8'
   }
@@ -17,7 +17,7 @@ const request = axios.create({
 
 // 异常拦截处理器
 const errorHandler = (error) => {
-  console.log(error.config.redirectParam)
+  console.log(error.config.jumpLoginPageWhen401)
   if (error.response) {
     const data = error.response.data
     // 从 localstorage 获取 token
@@ -33,8 +33,8 @@ const errorHandler = (error) => {
         message: 'Unauthorized',
         description: 'Authorization verification failed'
       })
-      // error.config.redirectParam 为true时，才重定向
-      if (error.config.redirectParam !== null && error.config.redirectParam !== undefined && error.config.redirectParam === true) {
+      // error.config.jumpLoginPageWhen401 为true时，才重定向
+      if (error.config.jumpLoginPageWhen401 !== null && error.config.jumpLoginPageWhen401 !== undefined && error.config.jumpLoginPageWhen401 === true) {
         if (token) {
           store.dispatch('Logout').then(() => {
             setTimeout(() => {
