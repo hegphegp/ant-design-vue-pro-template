@@ -12,9 +12,9 @@
     "webpack": "webpack --version"
   },
   "dependencies": {
-    "@ant-design-vue/pro-layout": "^0.3.3",
+    "@ant-design-vue/pro-layout": "^1.0.7",
     "@antv/data-set": "^0.10.2",
-    "ant-design-vue": "^1.6.2",
+    "ant-design-vue": "^1.7.2",
     "axios": "^0.19.0",
     "core-js": "^3.1.2",
     "enquire.js": "^2.1.6",

@@ -14,24 +14,28 @@
     <template v-slot:footerRender>
       <global-footer />
     </template>
+    <multi-tab v-if="multiTab" />
     <router-view />
   </pro-layout>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { SettingDrawer } from '@ant-design-vue/pro-layout'
 
 import antDesignUiSettings from '@/config/ui.config'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
 import LogoSvg from '../assets/logo.svg?inline'
+import MultiTab from '@/components/MultiTab'
 
 export default {
   name: 'BasicLayout',
   components: {
     SettingDrawer,
     RightContent,
-    GlobalFooter
+    GlobalFooter,
+    MultiTab
   },
   data () {
     return {
@@ -42,8 +46,7 @@ export default {
       settings: {
         // 布局类型
         layout: antDesignUiSettings.layout, // 'sidemenu', 'topmenu'
-        // 定宽: true / 流式: false
-        contentWidth: antDesignUiSettings.layout === 'sidemenu' ? false : antDesignUiSettings.contentWidth === 'Fixed',
+        contentWidth: antDesignUiSettings.layout === 'sidemenu' ? 'Fluid' : 'Fixed',
         // 主题 'dark' | 'light'
         theme: antDesignUiSettings.navTheme,
         // 主色调
@@ -57,6 +60,13 @@ export default {
       // 媒体查询
       query: {}
     }
+  },
+  computed: {
+    ...mapState({
+      // 动态主路由
+      mainMenu: state => state.permission.addRouters,
+      multiTab: (state) => true
+    })
   },
   created () {
     const mainMenu = this.$store.getters.routers
@@ -73,7 +83,7 @@ export default {
       if (!this.isMobile && val['screen-xs']) {
         this.isMobile = true
         this.collapsed = false
-        this.settings.contentWidth = false
+        this.settings.contentWidth = 'Fluid'
         // this.settings.fixSiderbar = false
       }
     },

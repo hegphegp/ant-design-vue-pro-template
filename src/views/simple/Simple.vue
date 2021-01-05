@@ -9,11 +9,9 @@
       bordered>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="queryDetail(record)">详情</a>
-          <a-divider type="vertical" />
-          <a @click="handleEdit(record)">编辑</a>
-          <a-divider type="vertical" />
-          <a @click="handleDelete(record.key)">删除</a>
+          <a-button type="primary" size="small" @click="queryDetail(record)">详情</a-button>
+          <a-button type="dashed" size="small" style="margin-left: 8px;" @click="handleEdit(record)">编辑</a-button>
+          <a-button type="danger" size="small" style="margin-left: 8px;" @click="handleDelete(record.id)">删除</a-button>
         </template>
       </span>
     </a-table>

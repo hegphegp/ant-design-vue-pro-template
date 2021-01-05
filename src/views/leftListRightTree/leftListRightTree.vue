@@ -91,6 +91,7 @@
 <script>
 import CreateForm from '../simple/components/CreateForm'
 import STable from '@/components/Table'
+import { tableSelectedRowKeys } from '@/utils/common'
 
 const leftListData = {
   pageSize: 10,
@@ -150,10 +151,7 @@ export default {
         selectedRowKeys: [],
         rowSelection: {
           onChange: (selectedRowKeys, selectedRows) => {
-            this.leftList.selectedRowKeys = []
-            for (var i = 0; i < selectedRows.length; i++) {
-              this.leftList.selectedRowKeys.push(selectedRows[i].key)
-            }
+            this.leftList.selectedRowKeys = tableSelectedRowKeys(selectedRows)
             console.log(JSON.stringify(this.leftList.selectedRowKeys))
           },
           onSelect: (record, selected, selectedRows) => {
@@ -167,11 +165,7 @@ export default {
           return {
             on: { // 鼠标单击行
               click: (e) => {
-                console.log(record)
-                console.log(record.address)
-                console.log(record.age)
-                console.log(record.key)
-                console.log(record.name)
+                console.log(JSON.stringify(record))
                 const oldList = document.querySelectorAll('.checked-td-of-add-table')
                 if (oldList) {
                     for (let j = 0; j < oldList.length; j++) {

@@ -24,6 +24,7 @@ export default {
   },
   title: '一二三四五六七八九',
   pwa: false,
+  multiTab: true,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }
