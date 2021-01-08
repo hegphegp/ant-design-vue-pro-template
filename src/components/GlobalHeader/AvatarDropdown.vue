@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { Modal } from 'ant-design-vue'
+// import { Modal } from 'ant-design-vue'
 
 export default {
   name: 'AvatarDropdown',
@@ -50,6 +50,10 @@ export default {
       this.$router.push({ path: '/account/settings' })
     },
     handleLogout (e) {
+      this.$store.dispatch('Logout').then(() => {
+        this.$router.push({ name: 'login' })
+      })
+      /**
       Modal.confirm({
         title: '退出框标题',
         content: '退出框内容',
@@ -63,6 +67,7 @@ export default {
         },
         onCancel () {}
       })
+      */
     }
   }
 }
