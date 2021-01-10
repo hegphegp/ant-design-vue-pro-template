@@ -6,7 +6,7 @@
           <a-form layout="inline">
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
-                <a-input placeholder=""/>
+                <a-input @pressEnter="queryData"/>
               </a-form-item>
             </a-col>
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
@@ -130,13 +130,18 @@ export default {
           { title: '操作', scopedSlots: { customRender: 'action' } }
         ],
         data: (parameter) => { // 加载数据方法 必须为 Promise 对象
-          // const requestParameters = Object.assign({}, parameter, this.queryParam)
-          // console.log(JSON.stringify(requestParameters))
+          // 每次调用 this.$refs.leftListTable.refresh(true) 都会进入该方法
+          // 每次点击分页的页码时，或者在分页的跳转输入框输入数字按回车跳转时都会进入该方法
+          const requestParameters = Object.assign({}, parameter, this.queryParam)
+          console.log(JSON.stringify(requestParameters))
           // if (this.queryParam.yearMonthDay != null && this.queryParam.yearMonthDay !== undefined) {
           //   console.log(this.queryParam.yearMonthDay.valueOf())
           // }
           leftListData.pageNo = parameter.pageNo
           return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
+            leftListData.data.forEach(item => {
+              item.name = '姓名姓名姓名' + parameter.pageNo
+            })
             resolve(leftListData)
           }).then(data => { // console.log(JSON.stringify(data))
             return data
@@ -147,11 +152,11 @@ export default {
         pagination: {
           showQuickJumper: true,
           showTotal: total => `共 ${total} 条`,
-          pageSizeOptions: ['10', '20', '50', '100', '200', '300', '500'],
-          onChange: (pageNumber) => {
-            console.log('Page: ', pageNumber)
-            this.$refs.leftListTable.refresh(true)
-          }
+          pageSizeOptions: ['10', '20', '50', '100', '200', '300', '500']
+          // onChange: (pageNumber) => {
+          //   console.log('Page: ', pageNumber)
+          //   // this.$refs.leftListTable.refresh(true)
+          // }
         },
         selectedRowKeys: [],
         rowSelection: {
@@ -229,6 +234,10 @@ export default {
     }
   },
   methods: {
+    queryData () {
+      console.log('-------------------------')
+      this.$refs.leftListTable.refresh(true)
+    },
     leftListQueryAllSelected () {
       console.log(this.selectedRowKeys)
     },
