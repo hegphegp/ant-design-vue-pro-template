@@ -7,8 +7,7 @@
           size="large"
           type="text"
           placeholder="请输入账户名或邮箱地址"
-          v-decorator="['loginAccount', ValidateRules.username]"
-        >
+          v-decorator="['loginAccount', ValidateRules.username]" >
         </a-input>
       </a-form-item>
       <a-form-item>
@@ -16,8 +15,7 @@
           size="large"
           type="password"
           placeholder="请输入密码"
-          v-decorator="['loginPassword', ValidateRules.password]"
-        >
+          v-decorator="['loginPassword', ValidateRules.password]" >
         </a-input>
       </a-form-item>
       <a-form-item>
@@ -26,8 +24,7 @@
             size="large"
             type="text"
             placeholder="请输入验证码"
-            v-decorator="['verifyCode', ValidateRules.verifyCode]"
-          >
+            v-decorator="['verifyCode', ValidateRules.verifyCode]" >
           </a-input>
         </a-col>
         <a-col :span="7" style="float: right">
@@ -35,8 +32,13 @@
         </a-col>
       </a-form-item>
       <a-form-item style="margin-top: 24px">
-        <a-button size="large" type="primary" htmlType="submit" class="login-button" :disabled="loginBtnDisable"
-          >登陆</a-button
+        <a-button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          class="login-button"
+          :disabled="loginBtnDisable"
+        >登陆</a-button
         >
       </a-form-item>
     </a-form>
@@ -46,7 +48,7 @@
 <script>
 export default {
   components: {},
-  data() {
+  data () {
     return {
       form: this.$form.createForm(this),
       loginBtnDisable: false,
@@ -54,32 +56,32 @@ export default {
         username: {
           rules: [
             { required: true, message: '账户名称不能为空！' },
-            { max: 20, message: '账号长度不能超过20个字符！' },
+            { max: 20, message: '账号长度不能超过20个字符！' }
           ],
-          validateTrigger: 'blur',
+          validateTrigger: 'blur'
         },
         password: {
           rules: [
             { required: true, message: '密码不能为空！' },
-            { max: 20, message: '密码长度不能超过20个字符！' },
+            { max: 20, message: '密码长度不能超过20个字符！' }
           ],
-          validateTrigger: 'blur',
+          validateTrigger: 'blur'
         },
         verifyCode: {
           rules: [{ required: true, message: '验证码不能为空！' }],
-          validateTrigger: 'blur',
-        },
-      },
+          validateTrigger: 'blur'
+        }
+      }
     }
   },
-  mounted() {
+  mounted () {
     // 设置字段默认值
     this.form.setFieldsValue({
-      verifyCode: '设置默认值',
+      verifyCode: '设置默认值'
     })
   },
   methods: {
-    handleSubmit(e) {
+    handleSubmit (e) {
       this.loginBtnDisable = true
       e.preventDefault()
       const requiredFields = ['loginAccount', 'loginPassword']
@@ -100,7 +102,7 @@ export default {
         }
       })
     },
-    loginSuccess(res) {
+    loginSuccess (res) {
       this.$store.dispatch('GetInfo')
       this.$router.push({ path: '/' })
 
@@ -123,14 +125,14 @@ export default {
       }, 1000)
       */
     },
-    requestFailed(err) {
+    requestFailed (err) {
       this.$notification['error']({
         message: '错误',
         description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
-        duration: 2,
+        duration: 2
       })
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -145,8 +145,13 @@ export default {
           })
         },
         pagination: {
+          showQuickJumper: true,
           showTotal: total => `共 ${total} 条`,
-          pageSizeOptions: ['10', '20', '50', '100', '200', '300', '500']
+          pageSizeOptions: ['10', '20', '50', '100', '200', '300', '500'],
+          onChange: (pageNumber) => {
+            console.log('Page: ', pageNumber)
+            this.$refs.leftListTable.refresh(true)
+          }
         },
         selectedRowKeys: [],
         rowSelection: {
