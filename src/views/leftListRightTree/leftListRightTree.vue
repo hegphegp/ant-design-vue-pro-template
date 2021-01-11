@@ -3,15 +3,15 @@
     <a-col :span="10" style="padding-left: 6px; padding-right: 6px;">
       <a-card title="字典分类" :bordered="false">
         <div class="label-config">
-          <a-form layout="inline">
+          <a-form layout="inline" :form="leftList.queryForm">
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
-                <a-input @pressEnter="queryData"/>
+                <a-input placeholder="" v-model="leftList.queryParam.name" @pressEnter="queryData"/>
               </a-form-item>
             </a-col>
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="编码" :colon="false">
-                <a-input placeholder=""/>
+                <a-input placeholder="" v-model="leftList.queryParam.code" @pressEnter="queryData"/>
               </a-form-item>
             </a-col>
             <a-button style="margin-bottom: 8px; padding: 0 2px;" type="primary" @click="$refs.leftListTable.refresh(true)">查询</a-button>
@@ -49,7 +49,7 @@
     <a-col :span="14" style="padding-left: 6px; padding-right: 6px;">
       <a-card :title="rightTreeList.title" :bordered="false" v-show="rightTreeList.visible">
         <div class="label-config">
-          <a-form layout="inline">
+          <a-form layout="inline" :form="rightTreeList.queryForm">
             <a-col :span="9" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
                 <a-input placeholder=""/>
@@ -123,6 +123,11 @@ export default {
   data () {
     return {
       leftList: {
+        queryParam: {
+          'name': 'name',
+          'code': 'code'
+        },
+        queryForm: this.$form.createForm(this),
         columns: [
           { title: '名字', dataIndex: 'name', ellipsis: true },
           { title: '年龄', dataIndex: 'age' },
@@ -132,7 +137,7 @@ export default {
         data: (parameter) => { // 加载数据方法 必须为 Promise 对象
           // 每次调用 this.$refs.leftListTable.refresh(true) 都会进入该方法
           // 每次点击分页的页码时，或者在分页的跳转输入框输入数字按回车跳转时都会进入该方法
-          const requestParameters = Object.assign({}, parameter, this.queryParam)
+          const requestParameters = Object.assign({}, parameter, this.leftList.queryParam)
           console.log(JSON.stringify(requestParameters))
           // if (this.queryParam.yearMonthDay != null && this.queryParam.yearMonthDay !== undefined) {
           //   console.log(this.queryParam.yearMonthDay.valueOf())
@@ -205,6 +210,7 @@ export default {
         }
       },
       rightTreeList: {
+        queryForm: this.$form.createForm(this),
         title: 'aa分类',
         visible: false,
         columns: [
@@ -239,7 +245,7 @@ export default {
       this.$refs.leftListTable.refresh(true)
     },
     leftListQueryAllSelected () {
-      console.log(this.selectedRowKeys)
+      console.log(this.leftList.selectedRowKeys)
     },
     leftListHandleAdd () {
       this.$refs.createModal.openFormModal('add')
