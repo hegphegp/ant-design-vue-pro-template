@@ -83,6 +83,12 @@ export default {
       })
     },
     openFormModal (type = 'add') {
+      // 清空表单的内容，如果不清空，会存在之前填的内容
+      this.form.resetFields()
+      // 给表单中某个内容设置对应值
+      // this.form.setFieldsValue({
+      //     type: '1'
+      // })
       this.visible = true
     },
     handleCancel () {
