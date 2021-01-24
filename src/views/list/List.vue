@@ -44,6 +44,16 @@
           </a-form-item>
         </a-col>
         <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="年月日" :colon="false">
+            <a-date-picker v-model="queryParam.dateValue" style="width: 100%" placeholder="请输入更新日期"/>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
+          <a-form-item label="年月日时分秒" :colon="false">
+            <a-date-picker v-model="queryParam.dateValue" format="YYYY-MM-DD HH:mm:ss" show-time style="width: 100%" placeholder="请输入更新日期"/>
+          </a-form-item>
+        </a-col>
+        <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
           <a-form-item label="年月" :colon="false">
             <a-month-picker v-model="queryParam.yearMonth" style="width: 100%" placeholder="请输入更新日期"/>
           </a-form-item>
@@ -461,8 +471,8 @@ export default {
     this.initDefaultValues()
     fields.forEach(v => this.addEditForm.getFieldDecorator(v)) // 防止表单未注册
 
-    this.$watch('model', () => { // 当 model 发生改变时，为表单设置值
-      this.model && this.addEditForm.setFieldsValue(pick(this.model, fields))
+    this.$watch('queryParam', () => { // 当 queryParam 发生改变时，为表单设置值
+      this.queryParam && this.addEditForm.setFieldsValue(pick(this.queryParam, fields))
     })
   },
   methods: { // 添加加载下拉框数据的方法
@@ -481,6 +491,10 @@ export default {
       this.defaultSearchTimeValue = 1596471447000
       if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
         this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue))
+        console.log('=============000000000099999988888888888888===============')
+        // this.addEditForm.setFieldsValue({
+        //   dateValue: moment(this.defaultSearchTimeValue)
+        // })
       }
       this.initSelectDatas()
     },

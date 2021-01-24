@@ -39,6 +39,7 @@ export default {
       visible: false,
       loading: false,
       model: null,
+      queryParam: {},
       form: this.$form.createForm(this),
       ValidateRules: {
         name: {
@@ -68,11 +69,20 @@ export default {
     })
   },
   methods: {
+    initDefaultValues () {
+      this.form.setFieldsValue({
+        name: 'name'
+      })
+    },
     handleSubmit () {
+      this.form.setFieldsValue({
+        name: 'name'
+      })
       this.loading = true
       const requiredFields = ['name', 'code']
       this.form.validateFields(requiredFields, { force: true }, (err, values) => {
         if (!err) {
+          console.log(JSON.stringify(values))
           this.visible = false
           this.loading = false
           const params = { 'key': '44', 'name': '广东省', 'code': '44', 'orderNo': 2 }
@@ -85,6 +95,10 @@ export default {
     openFormModal (type = 'add') {
       // 清空表单的内容，如果不清空，会存在之前填的内容
       this.form.resetFields()
+      this.initDefaultValues()
+      // this.form.setFieldsValue({
+      //   name: 'name'
+      // })
       // 给表单中某个内容设置对应值
       // this.form.setFieldsValue({
       //     type: '1'

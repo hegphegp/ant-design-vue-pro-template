@@ -1,0 +1,23 @@
+#### v-model和v-decorator同用时的赋值方法
+
+* 在Vue中使用v-model进行数据绑定，在ant-design-vue中也可以使用v-decorator进行数据绑定，v-decorator 是ant-design-vue的控件验证属性。但是两者同时使用的时候，v-model数据绑定却会失效，使用this.name可以获取到组件的值，但是却不能给组件赋值。即使用v-decorator后，组件的赋值方式变了。经过 getFieldDecorator 或 v-decorator 包装的控件，表单控件会自动添加 value（或 valuePropName 指定的其他属性） onChange（或 trigger 指定的其他属性），数据同步将被 Form 接管，这会导致以下结果：
+* * 001) 不再需要也不应该用 onChange 来做同步，但还是可以继续监听 onChange 等事件。
+* * 002) 不能用控件的 value defaultValue 等属性来设置表单域的值，默认值可以用 getFieldDecorator 或 v-decorator 里的 initialValue。
+* * 003) 不能用 v-model，可以使用 this.form.setFieldsValue 来动态改变表单值。
+
+```
+# v-decorator取值
+this.form.validateFields((err, values) => {
+  if (err) {
+    console.log(values) // { name: '' }
+  }
+})
+
+# v-decorator赋值
+this.form.setFieldsValue({
+  name: '设置值'
+})
+
+# 清空表单数据
+this.form.resetFields()
+```
