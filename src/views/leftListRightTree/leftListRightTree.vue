@@ -100,16 +100,7 @@ const leftListData = {
   totalCount: 5701,
   totalPage: 571,
   data: [
-    { key: '0', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '1', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '2', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '3', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '4', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '5', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '6', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '7', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '8', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' },
-    { key: '9', name: '姓名姓名姓名', age: 32, address: '地址地址地址地址地址地址' }
+    { key: '0', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '1', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '2', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '3', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '4', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '5', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '6', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '7', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '8', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '9', name: '姓名姓名', age: 32, address: '地址地址地址' }
   ]
 }
 
@@ -146,7 +137,7 @@ export default {
           leftListData.pageNo = parameter.pageNo
           return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
             leftListData.data.forEach(item => {
-              item.name = '姓名姓名姓名' + parameter.pageNo
+              item.name = '姓名姓名' + parameter.pageNo
             })
             resolve(leftListData)
           }).then(data => { // console.log(JSON.stringify(data))

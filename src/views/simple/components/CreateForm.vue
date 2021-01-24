@@ -8,7 +8,10 @@
     <a-spin :spinning="loading">
       <a-form :form="form" layout="inline">
         <!-- 检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
-        <a-form-item v-show="model && model.id > 0" label="主键ID">
+        <!-- <a-form-item v-show="model && model.id > 0" label="主键ID">
+          <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
+        </a-form-item> -->
+        <a-form-item label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
         </a-form-item>
         <a-form-item label="名称">
@@ -50,6 +53,7 @@ export default {
           validateTrigger: 'blur'
         },
         code: {
+          // initialValue: 0, // 初始值
           rules: [
             { required: true, message: '编码不允许为空' },
             { max: 20, message: '编码长度不能超过20个字符！' }
@@ -108,8 +112,6 @@ export default {
     handleCancel () {
         this.visible = false
         this.loading = false
-        const params = { 'key': '44', 'name': '广东省', 'code': '44', 'orderNo': 2 }
-        this.$emit('refreshPage', params)
     },
     handleOk () {
       this.loading = true

@@ -106,7 +106,6 @@
         <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
         <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
         <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-        <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
         <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" icon="plus" @click="handleAdd()">新建</a-button>
       </a-row>
     </a-form>
@@ -491,7 +490,6 @@ export default {
       this.defaultSearchTimeValue = 1596471447000
       if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
         this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue))
-        console.log('=============000000000099999988888888888888===============')
         // this.addEditForm.setFieldsValue({
         //   dateValue: moment(this.defaultSearchTimeValue)
         // })
@@ -506,7 +504,8 @@ export default {
         data.forEach((item) => {
           this.selectDatas.push({ value: item.code, text: item.name })
         })
-        this.selectDefaultValue = 'STATUS2'
+        this.selectDefaultValue = 'STATUS1'
+        // this.queryParam.selectValue = this.selectDefaultValue
         this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
         return data
       }).catch(err => {
