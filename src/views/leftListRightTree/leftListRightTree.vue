@@ -6,7 +6,7 @@
           <a-form layout="inline">
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
-                <a-input @pressEnter="queryData"/>
+                <a-input placeholder="" @pressEnter="e => queryData(e)"/>
               </a-form-item>
             </a-col>
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
@@ -234,7 +234,7 @@ export default {
     }
   },
   methods: {
-    queryData () {
+    queryData (event) {
       console.log('-------------------------')
       this.$refs.leftListTable.refresh(true)
     },

@@ -15,7 +15,7 @@
         </template>
       </span>
     </a-table>
-    <create-form ref="createModal" @refreshPage="refreshPage"/>
+    <CreateForm ref="createModal" @refreshPage="refreshPage"/>
   </a-card>
 </template>
 <script>

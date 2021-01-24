@@ -11,14 +11,17 @@
         <a-form-item v-show="model && model.id > 0" label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
         </a-form-item>
-        <a-form-item label="描述">
-          <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+        <a-form-item label="名称">
+          <a-input v-decorator="['name', ValidateRules.name]" />
+        </a-form-item>
+        <a-form-item label="编码">
+          <a-input v-decorator="['code', ValidateRules.code]" />
         </a-form-item>
       </a-form>
     </a-spin>
     <template slot="footer">
-      <a-button type="primary" @click="handleOk" :disabled="loading">新增</a-button>
-      <a-button type="primary" @click="handleOk" :disabled="loading">保存</a-button>
+      <a-button type="primary" @click="handleSubmit" :disabled="loading">新增</a-button>
+      <a-button type="primary" @click="handleSubmit" :disabled="loading">保存</a-button>
       <a-button type="primary" @click="handleCancel" :disabled="loading">返回</a-button>
     </template>
   </a-modal>
@@ -28,7 +31,7 @@
 import pick from 'lodash.pick'
 
 // 表单字段
-const fields = ['description', 'id']
+const fields = ['name', 'id']
 
 export default {
   data () {
@@ -37,9 +40,21 @@ export default {
       loading: false,
       model: null,
       form: this.$form.createForm(this),
-      pagination: {
-        showTotal: total => `共 ${total} 条数据`,
-        pageSizeOptions: ['10', '20', '50', '100']
+      ValidateRules: {
+        name: {
+          rules: [
+            { required: true, message: '名称不允许为空' },
+            { max: 20, message: '名称长度不能超过20个字符！' }
+          ],
+          validateTrigger: 'blur'
+        },
+        code: {
+          rules: [
+            { required: true, message: '编码不允许为空' },
+            { max: 20, message: '编码长度不能超过20个字符！' }
+          ],
+          validateTrigger: 'blur'
+        }
       }
     }
   },
@@ -53,17 +68,28 @@ export default {
     })
   },
   methods: {
+    handleSubmit () {
+      this.loading = true
+      const requiredFields = ['name', 'code']
+      this.form.validateFields(requiredFields, { force: true }, (err, values) => {
+        if (!err) {
+          this.visible = false
+          this.loading = false
+          const params = { 'key': '44', 'name': '广东省', 'code': '44', 'orderNo': 2 }
+          this.$emit('refreshPage', params)
+        } else {
+          this.loading = false
+        }
+      })
+    },
     openFormModal (type = 'add') {
       this.visible = true
     },
     handleCancel () {
-      this.loading = true
-      setTimeout(() => {
         this.visible = false
         this.loading = false
         const params = { 'key': '44', 'name': '广东省', 'code': '44', 'orderNo': 2 }
         this.$emit('refreshPage', params)
-      }, 1000)
     },
     handleOk () {
       this.loading = true
@@ -73,6 +99,10 @@ export default {
         const params = { 'key': '44', 'name': '广东省', 'code': '44', 'orderNo': 2 }
         this.$emit('refreshPage', params)
       }, 1000)
+    },
+    refreshPage (params) {
+      console.log('modal传参到父控件')
+      console.log(params)
     }
   }
 }
