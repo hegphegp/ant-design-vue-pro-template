@@ -450,7 +450,6 @@ export default {
   },
   created () { // created 初始从后端加载下拉框数据
     this.initDefaultValues()
-    console.log(JSON.stringify(this.queryParam))
     fields.forEach(v => this.addEditForm.getFieldDecorator(v)) // 防止表单未注册
 
     this.$watch('queryParam', () => { // 当 queryParam 发生改变时，为表单设置值
@@ -478,20 +477,17 @@ export default {
         // })
       }
       await this.initSelectDatas()
-      console.log('await this.initSelectDatas()')
     },
     initSelectDatas () {
       return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
         const data = [ { code: 'ALL', name: '全部' }, { code: 'STATUS1', name: '状态1' }, { code: 'STATUS2', name: '状态2' }, { code: 'STATUS3', name: '状态3' } ]
-        resolve(data)
-      }).then(data => {
         data.forEach((item) => {
           this.selectDatas.push({ value: item.code, text: item.name })
         })
         this.selectDefaultValue = 'STATUS1'
         // this.queryParam.selectValue = this.selectDefaultValue
         this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
-        return data
+        resolve(data)
       }).catch(err => {
         console.log(err)
       })
