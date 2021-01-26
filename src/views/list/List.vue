@@ -124,249 +124,249 @@
             <a-row>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description01', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description02', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description03', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description04', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description05', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description06', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description07', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description08', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description09', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description10', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description11', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description12', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description13', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="描述">
-                  <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+                  <a-input v-decorator="['description14', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择">
+                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder=""/>
+                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
             </a-row>
           </a-form>
         </div>
         <template slot="footer">
-          <a-button type="primary" @click="handleOk">新增</a-button>
-          <a-button type="primary" @click="handleOk">保存</a-button>
-          <a-button type="primary" @click="handleCancel">返回</a-button>
+          <a-button type="primary" @click="handleOk" :disabled="addEditFormLoading">新增</a-button>
+          <a-button type="primary" @click="handleOk" :disabled="addEditFormLoading">保存</a-button>
+          <a-button type="primary" @click="handleCancel" :disabled="addEditFormLoading">返回</a-button>
         </template>
       </a-modal>
     </template>
@@ -416,7 +416,9 @@ export default {
   data () {
     this.columns = columns
     return {
+      disabledEdit: false,
       addEditForm: this.$form.createForm(this),
+      addEditFormLoading: false,
       addEditFormVisible: false,
       addEditFormTitle: '',
       pagination: {
@@ -487,12 +489,17 @@ export default {
         this.selectDefaultValue = 'STATUS1'
         // this.queryParam.selectValue = this.selectDefaultValue
         this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
+        console.log('000000000000000000000000')
         resolve(data)
       }).catch(err => {
         console.log(err)
+      }).finally(() => { // finally是异步的，执行完new Promise()后，finally代码块与其他代码一起执行，线程有安全问题
+        console.log('11111111111111111111111')
       })
     },
     handleAdd () {
+      this.resetAddEditForm()
+      this.disabledEdit = false
       this.addEditFormVisible = true
       this.addEditFormTitle = '新增'
     },
@@ -500,18 +507,46 @@ export default {
       this.addEditFormVisible = false
     },
     handleEdit () {
+      this.resetAddEditForm()
+      this.disabledEdit = false
       this.addEditFormVisible = true
       this.addEditFormTitle = '编辑'
     },
     queryDetail (id) {
+      this.resetAddEditForm()
+      this.disabledEdit = true
       this.addEditFormVisible = true
       this.addEditFormTitle = '详情'
+      // this.addEditForm.setFieldsValue({ // 不能直接使用 Warning: You cannot set a form field before rendering a field associated with the value. You can use `getFieldDecorator(id, options)` instead `v-decorator="[id, options]"` to register it before render
+      //   description01: '设置值设置值设置值'
+      // })
+      this.$nextTick(() => { // 使用 this.$nextTick 设置控件取值，不能直接设置，否则抛render没加载完，不能初始化
+          this.addEditForm.setFieldsValue({
+          description01: '设置值设置值设置值'
+        })
+      })
     },
     handleDelete (id) {
 
     },
     handleOk () {
-      this.addEditFormVisible = false
+      this.addEditForm.setFieldsValue({
+        description01: '设置值设置值设置值'
+      })
+
+      this.addEditFormLoading = true
+      const requiredFields = ['description01', 'description02']
+      this.addEditForm.validateFields(requiredFields, { force: true }, (err, values) => {
+        if (!err) {
+          this.addEditFormVisible = false
+        } else {
+          this.addEditFormLoading = false
+        }
+      })
+      // this.addEditFormVisible = false
+    },
+    resetAddEditForm () {
+      this.addEditForm.resetFields()
     },
     resetQueryParams () {
       this.queryParam = {}
