@@ -6,13 +6,13 @@
           <a-form layout="inline" :form="leftList.queryForm">
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
-                <!-- <a-input placeholder="" @pressEnter="e => queryData(e)"/> -->
-                <a-input placeholder="" v-model="leftList.queryParam.name" @pressEnter="queryData"/>
+                <!-- <a-input @pressEnter="e => queryData(e)"/> -->
+                <a-input v-model="leftList.queryParam.name" @pressEnter="queryData"/>
               </a-form-item>
             </a-col>
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="编码" :colon="false">
-                <a-input placeholder="" v-model="leftList.queryParam.code" @pressEnter="queryData"/>
+                <a-input v-model="leftList.queryParam.code" @pressEnter="queryData"/>
               </a-form-item>
             </a-col>
             <a-button style="margin-bottom: 8px; padding: 0 2px;" type="primary" @click="$refs.leftListTable.refresh(true)">查询</a-button>
@@ -21,11 +21,12 @@
             <a-button style="margin-bottom: 8px; margin-left: 2px; padding: 0 2px;" type="primary">新建</a-button>
           </a-form>
         </div>
-
+        <!-- rowKey前面没冒号，指定table数据的key字段名称 -->
+        <!-- :customRow给table每一行添加点击事件 -->
         <s-table
           ref="leftListTable"
           size="default"
-          rowKey="key"
+          rowKey="id"
           :columns="leftList.columns"
           :data="leftList.data"
           :showAlert="false"
@@ -83,16 +84,15 @@
             </template>
           </span>
         </a-table>
-        <create-form ref="createModal" @refreshPage="leftListRefreshPage"/>
+        <CreateForm ref="createModal" @refreshPage="leftListRefreshPage"/>
       </a-card>
     </a-col>
   </a-row>
 </template>
 
 <script>
-import CreateForm from '../simple/components/CreateForm'
+import CreateForm from './components/CreateForm'
 import STable from '@/components/Table'
-import { tableSelectedRowKeys } from '@/utils/common'
 
 const leftListData = {
   pageSize: 10,
@@ -100,7 +100,7 @@ const leftListData = {
   totalCount: 5701,
   totalPage: 571,
   data: [
-    { key: '0', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '1', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '2', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '3', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '4', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '5', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '6', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '7', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '8', name: '姓名姓名', age: 32, address: '地址地址地址' }, { key: '9', name: '姓名姓名', age: 32, address: '地址地址地址' }
+    { id: '0', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '1', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '2', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '3', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '4', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '5', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '6', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '7', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '8', name: '姓名姓名', age: 32, address: '地址地址地址' }, { id: '9', name: '姓名姓名', age: 32, address: '地址地址地址' }
   ]
 }
 
@@ -116,8 +116,8 @@ export default {
     return {
       leftList: {
         queryParam: {
-          'name': 'name',
-          'code': 'code'
+          'name': null,
+          'code': null
         },
         queryForm: this.$form.createForm(this),
         columns: [
@@ -158,14 +158,19 @@ export default {
         selectedRowKeys: [],
         rowSelection: {
           onChange: (selectedRowKeys, selectedRows) => {
-            this.leftList.selectedRowKeys = tableSelectedRowKeys(selectedRows)
-            console.log(JSON.stringify(this.leftList.selectedRowKeys))
+            var selectedRowKeysTemp = []
+            for (var i = 0; i < selectedRows.length; i++) {
+              // selectedRowKeysTemp.push(selectedRows[i].key) // 已手动设置table的rowKey="id"，此时不能用selectedRows[i].key，要用selectedRows[i].id
+              selectedRowKeysTemp.push(selectedRows[i].id)
+            }
+            this.selectedRowKeys = selectedRowKeysTemp
+            console.log('选中行的ID===>>>>' + JSON.stringify(this.leftList.selectedRowKeys))
           },
           onSelect: (record, selected, selectedRows) => {
-            // console.log(record, selected, selectedRows)
+            console.log('触发了====>>>>onSelect()')
           },
           onSelectAll: (selected, selectedRows, changeRows) => {
-            // console.log(selected, selectedRows, changeRows)
+            console.log('触发了====>>>>onSelectAll()')
           }
         },
         customRow (record, index) { // 自定义行
@@ -217,7 +222,7 @@ export default {
           onChange: (selectedRowKeys, selectedRows) => {
             this.rightTreeList.selectedRowKeys = []
             for (var i = 0; i < selectedRows.length; i++) {
-              this.rightTreeList.selectedRowKeys.push(selectedRows[i].key)
+              this.rightTreeList.selectedRowKeys.push(selectedRows[i].id)
             }
             console.log(JSON.stringify(this.rightTreeList.selectedRowKeys))
           },

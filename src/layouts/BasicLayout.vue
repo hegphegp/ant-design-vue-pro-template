@@ -14,7 +14,6 @@
     <template v-slot:footerRender>
       <global-footer />
     </template>
-    <multi-tab v-if="multiTab" />
     <router-view />
   </pro-layout>
 </template>
@@ -27,15 +26,13 @@ import antDesignUiSettings from '@/config/ui.config'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
 import LogoSvg from '../assets/logo.svg?inline'
-import MultiTab from '@/components/MultiTab'
 
 export default {
   name: 'BasicLayout',
   components: {
     SettingDrawer,
     RightContent,
-    GlobalFooter,
-    MultiTab
+    GlobalFooter
   },
   data () {
     return {
@@ -64,8 +61,7 @@ export default {
   computed: {
     ...mapState({
       // 动态主路由
-      mainMenu: state => state.permission.addRouters,
-      multiTab: (state) => true
+      mainMenu: state => state.permission.addRouters
     })
   },
   created () {

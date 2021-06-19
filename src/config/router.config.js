@@ -1,11 +1,11 @@
 // eslint-disable-next-line
-import { UserLayout, BasicLayout, RouteView } from '@/layouts'
+import { UserLayout, BasicLayout } from '@/layouts'
 import { bxAnaalyse } from '@/core/icons'
 
-// const RouteView = {
-//   name: 'RouteView',
-//   render: (h) => h('router-view')
-// }
+const RouteView = {
+  name: 'RouteView',
+  render: (h) => h('router-view')
+}
 
 export const asyncRouterMap = [
   {
@@ -30,7 +30,7 @@ export const asyncRouterMap = [
           }, {
             path: '/dashboard/leftListRightTree',
             name: 'leftListRightTree',
-            component: () => import('@/views/leftListRightTree/leftListRightTree'),
+            component: () => import('@/views/template/leftListRightTree/leftListRightTree'),
             meta: { title: '左列表右树形', keepAlive: false, permission: [ 'dashboard' ] }
           }, {
             path: '/dashboard/workplace',

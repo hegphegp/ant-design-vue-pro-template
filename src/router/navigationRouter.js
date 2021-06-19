@@ -19,21 +19,19 @@ router.beforeEach((to, from, next) => {
   if (storage.get('Access-Token')) { /* has token */
     if (to.path === loginRoutePath) {
       next({ path: defaultRoutePath })
-      // NProgress.done()
+      NProgress.done()
     } else {
       if (store.getters.routers.length === 0) {
-        store.dispatch('AddRouters') // stroe.commit是同步操作，被调用方法没有请求后端接口的操作，store.dispatch含有异步操作，例如被调用方法有请求后端接口的操作
-        // 动态添加可访问路由表
-        router.addRoutes(store.getters.routers)
-        // next() // 动态加载路由后，next()方法跳转会导致空白页
-        next({ path: to.path }) // 动态加载路由后，next({ path: to.path })方法跳转不会导致空白页
-        // next({ ...to, replace: true }) // 动态加载路由后，next({ ...to, replace: true })方法跳转不会导致空白页
-        // const redirect = decodeURIComponent(from.query.redirect || to.path) // 判断路由跳转前，上一个页面的URL是否有 redirect 重定向参数，登录自动重定向到该地址
-        // if (to.path === redirect) { // set the replace: true so the navigation will not leave a history record
-        //   next({ ...to, replace: true })
-        // } else {
-        //   next({ path: redirect }) // 跳转到目的路由
-        // }
+        store.dispatch('AddRouters').then(() => { // stroe.commit是同步操作，被调用方法没有请求后端接口的操作，store.dispatch含有异步操作，例如被调用方法有请求后端接口的操作
+          // 动态添加可访问路由表
+          router.addRoutes(store.getters.routers)
+          const redirect = decodeURIComponent(from.query.redirect || to.path) // 判断路由跳转前，上一个页面的URL是否有 redirect 重定向参数，登录自动重定向到该地址
+          if (to.path === redirect) { // set the replace: true so the navigation will not leave a history record
+            next({ ...to, replace: true })
+          } else {
+            next({ path: redirect }) // 跳转到目的路由
+          }
+        })
       } else {
         next()
       }
@@ -42,8 +40,9 @@ router.beforeEach((to, from, next) => {
     if (whiteList.includes(to.name)) { // 在免登录白名单，直接进入
       next()
     } else {
-      // next({ path: loginRoutePath, query: { redirect: to.fullPath } }) // 不用重定向功能
-      next({ path: loginRoutePath })
+      next({ path: loginRoutePath, query: { redirect: to.fullPath } }) // 不用重定向功能
+      NProgress.done()
+      // next({ path: loginRoutePath })
       // NProgress.done() // 如果当前页是登录页， router.afterEach不会被触发，要手动触发
     }
   }
