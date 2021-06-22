@@ -11,13 +11,16 @@
         <!-- <a-form-item v-show="model && model.id > 0" label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
         </a-form-item> -->
-        <a-form-item label="主键ID">
+        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
+        <a-form-item label="主键ID" :colon="false">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
         </a-form-item>
-        <a-form-item label="名称">
+        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
+        <a-form-item label="名称" :colon="false">
           <a-input v-decorator="['name', ValidateRules.name]" />
         </a-form-item>
-        <a-form-item label="编码">
+        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
+        <a-form-item label="编码" :colon="false">
           <a-input v-decorator="['code', ValidateRules.code]" />
         </a-form-item>
       </a-form>

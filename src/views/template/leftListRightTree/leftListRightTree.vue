@@ -12,7 +12,8 @@
               </a-form-item>
             </a-col>
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
-              <a-form-item label="编码" :colon="false">
+              <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式 -->
+              <a-form-item label="编码" :colon="true">
                 <a-input v-model="leftList.queryParam.code" @pressEnter="queryData"/>
               </a-form-item>
             </a-col>
