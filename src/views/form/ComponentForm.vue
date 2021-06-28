@@ -36,6 +36,7 @@
           allowClear
           showSearch
           placeholder="请选择"
+          v-decorator="['field07', { rules: ValidateRules.field07 }]"
           :disabled="disabledEdit.field07" >
           <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
         </a-select>
@@ -66,7 +67,8 @@ export default {
         field03: [],
         field04: [],
         field05: [],
-        field06: [ notEmpty, dataMaxLength(20) ]
+        field06: [ notEmpty, dataMaxLength(20) ],
+        field07: []
       },
       disabledEdit: { // 设置字段是否可以编辑
         field01: true,
@@ -116,6 +118,7 @@ export default {
       this.ValidateRules.field04 = []
       this.ValidateRules.field05 = []
       this.ValidateRules.field06 = []
+      this.ValidateRules.field07 = [notEmpty]
       /** ==================动态控制哪些字段的校验规则    结束================= */
 
       /** ============初始化下拉框的数据源，以及默认选中项    开始================= */
