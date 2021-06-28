@@ -40,6 +40,20 @@ export const asyncRouterMap = [
           }
         ]
       }, {
+        path: '/form',
+        name: 'form',
+        redirect: '/form/componentForm',
+        component: RouteView,
+        meta: { title: '表单', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+        children: [
+          {
+            path: '/form/componentForm',
+            name: '所有控件表单',
+            component: () => import('@/views/form/ComponentForm'),
+            meta: { title: '所有控件表单', keepAlive: false, permission: [ 'dashboard' ] }
+          }
+        ]
+      }, {
         path: '/list',
         name: 'list',
         component: RouteView,

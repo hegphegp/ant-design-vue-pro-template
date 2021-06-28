@@ -1,6 +1,12 @@
 <template>
   <div class="main">
-    <a-form id="formLogin" class="user-layout-login" ref="formLogin" :form="form" @submit="handleSubmit">
+    <a-form
+      layout="inline"
+      id="formLogin"
+      class="user-layout-login"
+      ref="formLogin"
+      :form="form"
+      @submit="handleSubmit">
       <h1 style="text-align: center">后台管理系统登录页面后台管理系统登录</h1>
       <a-form-item>
         <a-input
@@ -38,8 +44,7 @@
           htmlType="submit"
           class="login-button"
           :disabled="loginBtnDisable"
-        >登陆</a-button
-        >
+        >登陆</a-button>
       </a-form-item>
     </a-form>
   </div>

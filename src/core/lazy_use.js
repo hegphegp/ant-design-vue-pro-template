@@ -4,6 +4,7 @@ import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 
 // base library
 import {
+  Cascader,
   ConfigProvider,
   Layout,
   Input,
@@ -57,6 +58,7 @@ import Viser from 'viser-vue'
 import VueCropper from 'vue-cropper'
 import PageLoading from '@/components/PageLoading'
 
+Vue.use(Cascader)
 Vue.use(ProLayout)
 Vue.use(PageHeaderWrapper)
 Vue.use(ConfigProvider)

@@ -115,11 +115,9 @@
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="queryDetail(record.id)">详情</a>
-          <a-divider type="vertical" />
-          <a @click="handleEdit(record.id)">编辑</a>
-          <a-divider type="vertical" />
-          <a @click="handleDelete(record.id)">删除</a>
+          <a-button size="small" @click="queryDetail(record.id)">详情</a-button>
+          <a-button size="small" @click="handleEdit(record.id)">编辑</a-button>
+          <a-button size="small" @click="handleDelete(record.id)">删除</a-button>
         </template>
       </span>
     </s-table>
@@ -142,7 +140,7 @@
               <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
                 <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
+                  <a-select v-model="queryParam.selectValue" allowClear showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
@@ -223,192 +221,6 @@
                   <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description06', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description07', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description08', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description09', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description10', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description11', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description12', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description13', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['description14', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="disabledEdit"/>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" :disabled="disabledEdit">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
-                <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
-                <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" :disabled="disabledEdit"/>
                 </a-form-item>
               </a-col>
             </a-row>
