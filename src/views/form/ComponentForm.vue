@@ -3,6 +3,7 @@
 <!-- 002) 每个输入框，下拉框，多选框添加是否能编辑的控制 :disabled="disabledEdit.field01" ，记住该方式下参数规范的定义方式 -->
 <!-- 003) 每个输入框，下拉框，多选框添加值变化的监听 @change="changeFun" -->
 <!-- 004) 每个输入框，下拉框，多选框添加v-decorator，方便设置值的校验控制，同时也方便使用 this.form.setFieldsValue({}) 赋值 ，记住该方式下参数规范的定义方式 -->
+<!-- 005) 变量定义规范，ValidateRules放所有字段校验，disabledEdit放所有控件，dataSource放下拉框，多选框数据源 -->
 
 <!-- a-form表单的一些坑 -->
 <!-- 001) a-form不能添加@submit属性，例如 @submit="handleSubmit" ，否则在任意一个输入框回车，都会触发@submit方法，如果用户不留意回车了，就会触发表单提交(用户就检查不了表单数据)，巨坑 -->
@@ -151,6 +152,7 @@ export default {
     handleSubmit (e) {
       this.loginBtnDisable = true
       e.preventDefault()
+      // 遍历 ValidateRules 对象，获取value非空的key，表示这些key都要校验
       const requiredFields = ['field01', 'field02', 'field05']
       this.form.validateFields(requiredFields, { force: true }, (err, values) => {
         if (!err) {
