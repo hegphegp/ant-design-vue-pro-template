@@ -12,7 +12,6 @@
   <div class="main">
     <!-- @submit="handleSubmit" a-form不能添加@submit属性，否则在任意一个输入框回车，都会触发表单提交，太反人类的设计 -->
     <a-form
-      id="formLogin"
       class="user-layout-login"
       ref="formLogin"
       :form="form"

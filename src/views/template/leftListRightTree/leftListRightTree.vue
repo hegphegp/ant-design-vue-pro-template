@@ -7,7 +7,7 @@
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
                 <!-- <a-input @pressEnter="e => queryData(e)"/> -->
-                <!-- @pressEnter="queryData"回车查询，queryData(event)函数在定义时有个event参数。这里有个问题，在空值的时候，回车后我不想查询后台，但是如果输入框有值，按了回车键触发了queryData查询后端，后面值清空了又按了回车键，不触发查询后台(但是用户不知道) -->
+                <!-- @pressEnter="queryData"回车查询，queryData(event)函数在定义时有个event参数。 -->
                 <a-input v-model="leftList.queryParam.name" @pressEnter="queryData"/>
               </a-form-item>
             </a-col>

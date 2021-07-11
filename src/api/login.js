@@ -1,5 +1,8 @@
 import request from '@/utils/request'
 
+/**
+ * 定义URL变量
+ */
 const userApi = {
   Login: '/auth/login',
   Logout: '/auth/logout',
@@ -18,10 +21,11 @@ const userApi = {
  */
 export function login (parameter) {
   return request({
-    url: userApi.Login,
+    url: '/oauth/login',
     method: 'post',
     data: parameter,
-    redirectParam: false
+    needToken: false,
+    jumpLoginPageWhen401: false
   })
 }
 

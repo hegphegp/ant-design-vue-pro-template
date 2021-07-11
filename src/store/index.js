@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import storage from 'store'
-// import { login, getInfo, logout } from '@/api/login'
+import { login } from '@/api/login'
 import { welcome } from '@/utils/util'
 import { asyncRouterMap as routerConfig } from '@/config/router.config'
 
@@ -29,29 +29,25 @@ export default new Vuex.Store({
   },
   actions: {
     // 登录
-    Login ({ commit }, userInfo) {
+    Login ({ commit }, bodyParams) {
       return new Promise((resolve, reject) => {
-        const data = {
-          'id': 'A3EDBA02-5EE7-aE35-178e-d28c3a9CAeD2',
-          'username': 'admin',
-          'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png',
-          'lang': 'zh-CN',
-          'token': '4291d7da9005377ec9aec4a71ea837f'
-        }
-        storage.set('Access-Token', data.token, 7 * 24 * 60 * 60 * 1000)
-        resolve(data)
-        /**
-        login(userInfo).then(response => {
-          const result = response.result
-          console.log('login(userInfo).then(response => {')
-          console.log(JSON.stringify(result))
-          storage.set('Access-Token', result.token, 7 * 24 * 60 * 60 * 1000)
-          resolve(result)
+        // const data = {
+        //   'id': 'A3EDBA02-5EE7-aE35-178e-d28c3a9CAeD2',
+        //   'username': 'admin',
+        //   'avatar': 'https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png',
+        //   'lang': 'zh-CN',
+        //   'token': '4291d7da9005377ec9aec4a71ea837f'
+        // }
+        // storage.set('Access-Token', data.token, 7 * 24 * 60 * 60 * 1000)
+        // resolve(data)
+        login(bodyParams).then(response => {
+          console.log('login(userInfo).then(response => ' + JSON.stringify(response))
+          storage.set('Access-Token', response.data, 7 * 24 * 60 * 60 * 1000)
+          resolve(response)
         }).catch(error => {
           console.error('%c ' + error, 'font-weight:bold; font-size:13px;')
           reject(error)
         })
-         */
       })
     },
 

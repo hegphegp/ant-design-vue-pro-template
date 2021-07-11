@@ -8,55 +8,67 @@
       :form="form"
       @submit="handleSubmit">
       <h1 style="text-align: center">后台管理系统登录页面后台管理系统登录</h1>
-      <a-form-item>
-        <a-input
-          size="large"
-          type="text"
-          placeholder="请输入账户名或邮箱地址"
-          v-decorator="['loginAccount', ValidateRules.username]" >
-        </a-input>
-      </a-form-item>
-      <a-form-item>
-        <a-input
-          size="large"
-          type="password"
-          placeholder="请输入密码"
-          v-decorator="['loginPassword', ValidateRules.password]" >
-        </a-input>
-      </a-form-item>
-      <a-form-item>
-        <a-col :span="16">
+      <a-col :lg="24" :md="24" :sm="24">
+        <a-form-item>
           <a-input
             size="large"
             type="text"
-            placeholder="请输入验证码"
-            v-decorator="['verifyCode', ValidateRules.verifyCode]" >
+            placeholder="请输入账户名或邮箱地址"
+            v-decorator="['loginAccount', ValidateRules.username]" >
           </a-input>
-        </a-col>
-        <a-col :span="7" style="float: right">
-          <img src="http://layuimini.99php.cn/iframe/v2/images/captcha.jpg" />
-        </a-col>
-      </a-form-item>
-      <a-form-item style="margin-top: 24px">
-        <a-button
-          size="large"
-          type="primary"
-          htmlType="submit"
-          class="login-button"
-          :disabled="loginBtnDisable"
-        >登陆</a-button>
-      </a-form-item>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="24" :md="24" :sm="24" style="margin-top: 8px;">
+        <a-form-item>
+          <a-input
+            size="large"
+            type="password"
+            placeholder="请输入密码"
+            v-decorator="['loginPassword', ValidateRules.password]" >
+          </a-input>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="24" :md="24" :sm="24" style="margin-top: 8px;">
+        <a-form-item>
+          <a-col :span="16">
+            <a-input
+              size="large"
+              type="text"
+              placeholder="请输入验证码"
+              v-decorator="['verifyCode', ValidateRules.verifyCode]" >
+            </a-input>
+          </a-col>
+          <a-col :span="7" style="float: right">
+            <img :src="verifyCodeUrl" @click="changeVerifyCodeFun" style="cursor:pointer;" class="getCaptcha"/>
+          </a-col>
+        </a-form-item>
+      </a-col>
+      <a-col :lg="24" :md="24" :sm="24" style="margin-top: 8px;">
+        <a-form-item>
+          <a-button
+            size="large"
+            type="primary"
+            htmlType="submit"
+            class="login-button"
+            :disabled="loginBtnDisable"
+          >登陆</a-button>
+        </a-form-item>
+      </a-col>
     </a-form>
   </div>
 </template>
 
 <script>
+import cryptoUtil from '../../utils/cryptoUtils'
+import constant from '../../config/constant'
+
 export default {
   components: {},
   data () {
     return {
       form: this.$form.createForm(this),
       loginBtnDisable: false,
+      verifyCodeUrl: process.env.VUE_APP_API_BASE_URL + '/oauth/verifyCode?t=' + new Date().getTime(),
       ValidateRules: {
         username: {
           rules: [
@@ -82,24 +94,31 @@ export default {
   mounted () {
     // 设置字段默认值
     this.form.setFieldsValue({
-      verifyCode: '设置默认值'
+      verifyCode: '1234'
     })
   },
   methods: {
+    changeVerifyCodeFun () {
+      this.verifyCodeUrl = process.env.VUE_APP_API_BASE_URL + '/oauth/verifyCode?t=' + new Date().getTime()
+    },
     handleSubmit (e) {
       this.loginBtnDisable = true
       e.preventDefault()
-      const requiredFields = ['loginAccount', 'loginPassword']
+      const requiredFields = ['loginAccount', 'loginPassword', 'verifyCode']
+      // 这个校验字段框架的约束，要提交的字段必须定义在 requiredFields ，即使这些字段允许为空
       this.form.validateFields(requiredFields, { force: true }, (err, values) => {
         if (!err) {
           console.log('login form', values)
-          const loginParams = { ...values }
-          // loginParams.password = md5(values.password)
+          const loginParams = { }
+          loginParams.username = cryptoUtil.encryptAESCBC(values.loginAccount, constant.AESKey, constant.AESIv)
+          loginParams.password = cryptoUtil.encryptAESCBC(values.loginPassword, constant.AESKey, constant.AESIv)
+          loginParams.code = values.verifyCode
           this.$store
             .dispatch('Login', loginParams)
             .then((res) => this.loginSuccess(res))
             .catch((err) => this.requestFailed(err))
             .finally(() => {
+              console.log('执行finally')
               this.loginBtnDisable = false
             })
         } else {
@@ -108,6 +127,7 @@ export default {
       })
     },
     loginSuccess (res) {
+      console.log('执行loginSuccess')
       this.$store.dispatch('GetInfo')
       this.$router.push({ path: '/' })
 
@@ -131,6 +151,7 @@ export default {
       */
     },
     requestFailed (err) {
+      this.verifyCodeUrl = process.env.VUE_APP_API_BASE_URL + '/oauth/verifyCode?t=' + new Date().getTime()
       this.$notification['error']({
         message: '错误',
         description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
@@ -154,7 +175,7 @@ export default {
 
     .getCaptcha {
       display: block;
-      width: 100%;
+      width: 108px;
       height: 40px;
     }
 
