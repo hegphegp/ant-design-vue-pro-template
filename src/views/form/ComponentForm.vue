@@ -11,11 +11,7 @@
 <template>
   <div class="main">
     <!-- @submit="handleSubmit" a-form不能添加@submit属性，否则在任意一个输入框回车，都会触发表单提交，太反人类的设计 -->
-    <a-form
-      class="user-layout-login"
-      ref="formLogin"
-      :form="form"
-      layout="inline">
+    <a-form class="user-layout-login" :form="form" layout="inline">
       <a-form-item>
         <!-- @pressEnter="queryData"回车查询，queryData(event)函数在定义时有个event参数。 -->
         <a-input type="text" v-decorator="['field01', { rules: ValidateRules.field01 } ]" :disabled="disabledEdit.field01" @pressEnter="pressEnterFun" @change="changeFun"/>
@@ -56,7 +52,7 @@
 </template>
 
 <script>
-import { notEmpty, dataMaxLength } from '@/utils/validateUtil'
+import { notEmpty, dataLengthValid } from '@/utils/validateUtil'
 
 export default {
   components: {},
@@ -68,7 +64,7 @@ export default {
       ValidateRules: {
         field01: [],
         field02: [],
-        field03: [notEmpty, dataMaxLength(20)],
+        field03: [notEmpty, dataLengthValid(0, 20)],
         field04: [],
         field05: []
       },
@@ -114,11 +110,11 @@ export default {
       /** ==================动态控制哪些字段的校验规则    开始================= */
       this.ValidateRules.field01 = [
         notEmpty,
-        dataMaxLength(20)
+        dataLengthValid(0, 20)
       ]
       this.ValidateRules.field02 = [
         notEmpty,
-        dataMaxLength(20)
+        dataLengthValid(0, 20)
       ]
       this.ValidateRules.field03 = []
       this.ValidateRules.field04 = []

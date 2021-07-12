@@ -2,13 +2,11 @@
   <a-card :bordered="false">
     <a-form layout="inline">
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="规则规则编号" :colon="false">
           <a-input v-model="queryParam.id" placeholder=""/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="使用状态" :colon="false">
           <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
             <a-select-option value="0">全部</a-select-option>
@@ -18,25 +16,21 @@
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="调用次数" :colon="false">
           <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="年月日" :colon="false">
           <a-date-picker v-model="queryParam.yearMonthDay" style="width: 100%" placeholder="请输入更新日期"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="年月日时分秒" :colon="false">
           <a-date-picker v-model="queryParam.yyyyMMddHHmmss" format="YYYY-MM-DD HH:mm:ss" show-time style="width: 100%" placeholder="请输入更新日期"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="年月日时分秒" :colon="false">
           <a-date-picker
             v-model="queryParam.yyyyMMddHHmmss1"
@@ -49,25 +43,21 @@
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="年月日" :colon="false">
           <a-date-picker v-model="queryParam.dateValue" style="width: 100%" placeholder="请输入更新日期"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="年月日时分秒" :colon="false">
           <a-date-picker v-model="queryParam.dateValue" format="YYYY-MM-DD HH:mm:ss" show-time style="width: 100%" placeholder="请输入更新日期"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="年月" :colon="false">
           <a-month-picker v-model="queryParam.yearMonth" style="width: 100%" placeholder="请输入更新日期"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="使用状态" :colon="false">
           <a-select v-model="queryParam.useStatus" placeholder="请选择" mode="multiple" allowClear>
             <a-select-option value="0">全部</a-select-option>
@@ -77,7 +67,6 @@
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
-        <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="下拉框默认值" :colon="false">
           <a-select v-model="queryParam.selectValue" showSearch placeholder="请选择" allowClear>
             <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>

@@ -1,59 +1,24 @@
 <template>
   <div class="main">
-    <a-form
-      layout="inline"
-      id="formLogin"
-      class="user-layout-login"
-      ref="formLogin"
-      :form="form"
-      @submit="handleSubmit">
+    <a-form layout="inline" class="user-layout-login" :form="form">
       <h1 style="text-align: center">后台管理系统登录页面后台管理系统登录</h1>
-      <a-col :lg="24" :md="24" :sm="24">
-        <a-form-item>
-          <a-input
-            size="large"
-            type="text"
-            placeholder="请输入账户名或邮箱地址"
-            v-decorator="['loginAccount', ValidateRules.username]" >
-          </a-input>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="24" :md="24" :sm="24" style="margin-top: 8px;">
-        <a-form-item>
-          <a-input
-            size="large"
-            type="password"
-            placeholder="请输入密码"
-            v-decorator="['loginPassword', ValidateRules.password]" >
-          </a-input>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="24" :md="24" :sm="24" style="margin-top: 8px;">
-        <a-form-item>
-          <a-col :span="16">
-            <a-input
-              size="large"
-              type="text"
-              placeholder="请输入验证码"
-              v-decorator="['verifyCode', ValidateRules.verifyCode]" >
-            </a-input>
-          </a-col>
-          <a-col :span="7" style="float: right">
-            <img :src="verifyCodeUrl" @click="changeVerifyCodeFun" style="cursor:pointer;" class="getCaptcha"/>
-          </a-col>
-        </a-form-item>
-      </a-col>
-      <a-col :lg="24" :md="24" :sm="24" style="margin-top: 8px;">
-        <a-form-item>
-          <a-button
-            size="large"
-            type="primary"
-            htmlType="submit"
-            class="login-button"
-            :disabled="loginBtnDisable"
-          >登陆</a-button>
-        </a-form-item>
-      </a-col>
+      <a-form-item>
+        <a-input type="text" placeholder="请输入账户名或邮箱地址" v-decorator="['loginAccount', ValidateRules.username]" />
+      </a-form-item>
+      <a-form-item>
+        <a-input type="password" placeholder="请输入密码" v-decorator="['loginPassword', ValidateRules.password]" />
+      </a-form-item>
+      <a-form-item>
+        <a-col :span="16">
+          <a-input type="text" placeholder="请输入验证码" v-decorator="['verifyCode', ValidateRules.verifyCode]" />
+        </a-col>
+        <a-col :span="7" style="float: right">
+          <img :src="verifyCodeUrl" @click="changeVerifyCodeFun" style="cursor:pointer;" class="getCaptcha"/>
+        </a-col>
+      </a-form-item>
+      <a-form-item>
+        <a-button type="primary" @click="handleSubmit" class="login-button" :disabled="loginBtnDisable" >登陆</a-button>
+      </a-form-item>
     </a-form>
   </div>
 </template>
@@ -176,7 +141,7 @@ export default {
     .getCaptcha {
       display: block;
       width: 108px;
-      height: 40px;
+      height: 30px;
     }
 
     .forge-password {
