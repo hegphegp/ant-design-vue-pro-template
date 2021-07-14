@@ -54,6 +54,7 @@ export default new Vuex.Store({
     // 获取用户信息
     GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
+        console.log('GetInfo ({ commit, state })')
         const result = {
           'id': '4291d7da9005377ec9aec4a71ea837f',
           'name': '天野远子',

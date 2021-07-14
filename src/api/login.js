@@ -1,15 +1,6 @@
 import request from '@/utils/request'
 
 /**
- * 定义URL变量
- */
-const userApi = {
-  Login: '/auth/login',
-  Logout: '/auth/logout',
-  UserInfo: '/user/info'
-}
-
-/**
  * parameter: {
  *     username: '',
  *     password: '',
@@ -31,14 +22,14 @@ export function login (parameter) {
 
 export function getInfo () {
   return request({
-    url: userApi.UserInfo,
+    url: '/user/info',
     method: 'get'
   })
 }
 
 export function logout () {
   return request({
-    url: userApi.Logout,
+    url: '/auth/logout',
     method: 'post'
   })
 }

@@ -40,7 +40,7 @@
           v-decorator="['field05', { rules: ValidateRules.field05 }]"
           @pressEnter="pressEnterFun"
           @change="changeFun"
-          :disabled="disabledEdit.field07" >
+          :disabled="disabledEdit.field05" >
           <a-select-option v-for="item in dataSource.selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
         </a-select>
       </a-form-item>
@@ -97,11 +97,11 @@ export default {
   methods: {
     initDefaultValues () {
       /** ==================动态控制哪些字段可以编辑    开始================= */
-      const disabledEditFields = ['field03', 'field04']
-      disabledEditFields.forEach((item) => {
+      const allFields = ['field01', 'field02', 'field03', 'field04', 'field05']
+      allFields.forEach((item) => {
         this.disabledEdit[item] = true
       })
-      const canEditFields = ['field01', 'field02', 'field03']
+      const canEditFields = ['field01', 'field02', 'field03', 'field04']
       canEditFields.forEach((item) => {
         this.disabledEdit[item] = false
       })
@@ -123,7 +123,12 @@ export default {
 
       /** ============初始化下拉框的数据源，以及默认选中项    开始================= */
       this.initialValues.field05 = 'STATUS3'
-      new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
+      this.asyncInitApiData()
+      console.log(JSON.stringify(this.dataSource.selectDatas))
+      /** ============初始化下拉框的数据源，以及默认选中项    结束================= */
+    },
+    async asyncInitApiData () {
+      await new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
         const data = [ { code: 'STATUS1', name: '状态1' }, { code: 'STATUS2', name: '状态2' }, { code: 'STATUS3', name: '状态3' } ]
         const convertSelectData = []
         data.forEach((item) => {
@@ -131,18 +136,28 @@ export default {
         })
         resolve(convertSelectData)
       }).then((data) => {
+        console.log('0000000000000000000')
         this.dataSource.selectDatas = data
       }).catch(err => {
         console.log(err)
       })
-      console.log(JSON.stringify(this.dataSource.selectDatas))
-      /** ============初始化下拉框的数据源，以及默认选中项    结束================= */
+      await this.promiseFun().then((data) => {
+        console.log('1111111111111111111111')
+        this.dataSource.selectDatas = data
+      }).catch(err => {
+        console.log(err)
+      })
+      console.log('2222222222222222222222222222')
     },
-    pressEnterFun (event) {
-      console.log('==========>>>>>>>>>>>按下回车键<<<<<<<<<<===========')
-    },
-    changeFun (event) {
-      console.log('==========>>>>>>>>>>>值发生改变<<<<<<<<<<===========')
+    promiseFun () {
+      return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
+        const data = [ { code: 'STATUS1', name: '状态1' }, { code: 'STATUS2', name: '状态2' }, { code: 'STATUS3', name: '状态3' } ]
+        const convertSelectData = []
+        data.forEach((item) => {
+          convertSelectData.push({ value: item.code, text: item.name })
+        })
+        resolve(convertSelectData)
+      })
     },
     handleSubmit (e) {
       this.loginBtnDisable = true
@@ -153,7 +168,6 @@ export default {
         if (!err) {
           console.log('login form', values)
           const loginParams = { ...values }
-          // loginParams.password = md5(values.password)
           this.$store
             .dispatch('Login', loginParams)
             .then((res) => this.loginSuccess(res))
@@ -161,12 +175,14 @@ export default {
             .finally(() => {
               this.loginBtnDisable = false
             })
+          this.loginBtnDisable = false
         } else {
           this.loginBtnDisable = false
         }
       })
       this.$store.dispatch('GetInfo')
-      this.$router.push({ path: '/' })
+      console.log('在this.$store.dispatch("GetInfo")后面')
+      // this.$router.push({ path: '/' })
     },
     requestFailed (err) {
       this.$notification['error']({
@@ -174,61 +190,14 @@ export default {
         description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
         duration: 2
       })
+    },
+    // 很少用到的功能
+    pressEnterFun (event) {
+      console.log('==========>>>>>>>>>>>按下回车键<<<<<<<<<<===========')
+    },
+    changeFun (event) {
+      console.log('==========>>>>>>>>>>>值发生改变<<<<<<<<<<===========')
     }
   }
 }
 </script>
-
-<style lang="less" scoped>
-.main {
-  min-width: 260px;
-  width: 368px;
-  margin: 0 auto;
-
-  .user-layout-login {
-    label {
-      font-size: 14px;
-    }
-
-    .getCaptcha {
-      display: block;
-      width: 100%;
-      height: 40px;
-    }
-
-    .forge-password {
-      font-size: 14px;
-    }
-
-    button.login-button {
-      padding: 0 15px;
-      font-size: 16px;
-      height: 40px;
-      width: 100%;
-    }
-
-    .user-login-other {
-      text-align: left;
-      margin-top: 24px;
-      line-height: 22px;
-
-      .item-icon {
-        font-size: 24px;
-        color: rgba(0, 0, 0, 0.2);
-        margin-left: 16px;
-        vertical-align: middle;
-        cursor: pointer;
-        transition: color 0.3s;
-
-        &:hover {
-          color: #1890ff;
-        }
-      }
-
-      .register {
-        float: right;
-      }
-    }
-  }
-}
-</style>
