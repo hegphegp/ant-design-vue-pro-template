@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import cryptoUtil from '../../utils/cryptoUtils'
+import { encryptAESCBC } from '../../utils/common'
 import constant from '../../config/constant'
 
 export default {
@@ -75,8 +75,8 @@ export default {
         if (!err) {
           console.log('login form', values)
           const loginParams = { }
-          loginParams.username = cryptoUtil.encryptAESCBC(values.loginAccount, constant.AESKey, constant.AESIv)
-          loginParams.password = cryptoUtil.encryptAESCBC(values.loginPassword, constant.AESKey, constant.AESIv)
+          loginParams.username = encryptAESCBC(values.loginAccount, constant.AESKey, constant.AESIv)
+          loginParams.password = encryptAESCBC(values.loginPassword, constant.AESKey, constant.AESIv)
           loginParams.code = values.verifyCode
           this.$store
             .dispatch('Login', loginParams)
