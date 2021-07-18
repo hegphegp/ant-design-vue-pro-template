@@ -52,7 +52,8 @@
 </template>
 
 <script>
-import { notEmpty, dataLengthValid } from '@/utils/common'
+import { notEmpty, dataLengthValid, fieldsCanEdit, fieldsCannotEdit } from '@/utils/common'
+import { cascaderSelectData, selectData } from '@/data'
 
 export default {
   components: {},
@@ -87,29 +88,7 @@ export default {
       // 定义下拉框，多选框的数据源
       dataSource: {
         selectDatas: [],
-        bizSelectData: [{
-          value: 'zhejiang',
-          label: 'Zhejiang',
-          children: [{
-            value: 'hangzhou',
-            label: 'Hangzhou',
-            children: [{
-              value: 'xihu',
-              label: 'West Lake'
-            }]
-          }]
-        }, {
-          value: 'jiangsu',
-          label: 'Jiangsu',
-          children: [{
-            value: 'nanjing',
-            label: 'Nanjing',
-            children: [{
-              value: 'zhonghuamen',
-              label: 'Zhong Hua Men'
-            }]
-          }]
-        }]
+        bizSelectData: cascaderSelectData
       }
     }
   },
@@ -127,24 +106,14 @@ export default {
     initDefaultValues () {
       /** ==================动态控制哪些字段可以编辑    开始================= */
       const allFields = ['field01', 'field02', 'field03', 'field04', 'field05', 'field06']
-      allFields.forEach((item) => {
-        this.disabledEdit[item] = true
-      })
+      fieldsCannotEdit(this.disabledEdit, allFields)
       const canEditFields = ['field01', 'field02', 'field03', 'field04', 'field06']
-      canEditFields.forEach((item) => {
-        this.disabledEdit[item] = false
-      })
+      fieldsCanEdit(this.disabledEdit, canEditFields)
       /** ==================动态控制哪些字段可以编辑    结束================= */
 
       /** ==================动态控制哪些字段的校验规则    开始================= */
-      this.ValidateRules.field01 = [
-        notEmpty,
-        dataLengthValid(0, 20)
-      ]
-      this.ValidateRules.field02 = [
-        notEmpty,
-        dataLengthValid(0, 20)
-      ]
+      this.ValidateRules.field01 = [ notEmpty, dataLengthValid(0, 20) ]
+      this.ValidateRules.field02 = [ notEmpty, dataLengthValid(0, 20) ]
       this.ValidateRules.field03 = []
       this.ValidateRules.field04 = []
       this.ValidateRules.field05 = [notEmpty]
@@ -158,7 +127,7 @@ export default {
     },
     async asyncInitApiData () {
       await new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
-        const data = [ { code: 'STATUS1', name: '状态1' }, { code: 'STATUS2', name: '状态2' }, { code: 'STATUS3', name: '状态3' } ]
+        const data = selectData
         const convertSelectData = []
         data.forEach((item) => {
           convertSelectData.push({ value: item.code, text: item.name })
@@ -180,7 +149,7 @@ export default {
     },
     promiseFun () {
       return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
-        const data = [ { code: 'STATUS1', name: '状态1' }, { code: 'STATUS2', name: '状态2' }, { code: 'STATUS3', name: '状态3' } ]
+        const data = selectData
         const convertSelectData = []
         data.forEach((item) => {
           convertSelectData.push({ value: item.code, text: item.name })

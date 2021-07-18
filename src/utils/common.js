@@ -65,3 +65,33 @@ export function decryptAESCBC (needDecryptStr, key, iv) {
   var decrypt = CryptoJs.AES.decrypt(needDecryptStr, parseKey, { iv: parseIv, mode: CryptoJs.mode.CBC, padding: CryptoJs.pad.Pkcs7 })
   return CryptoJs.enc.Utf8.stringify(decrypt).toString()
 }
+
+/**
+ * 字段可以编辑
+ * obj 字段是否可以编辑的对象
+ * fields 字段名数组
+ */
+export function fieldsCanEdit (obj, fields) {
+  fields.forEach((item) => {
+    obj[item] = false
+  })
+}
+
+/**
+ * 字段不可编辑
+ * obj 字段是否可以编辑的对象
+ * fields 字段名数组
+ */
+export function fieldsCannotEdit (obj, fields) {
+  fields.forEach((item) => {
+    obj[item] = true
+  })
+}
+
+export function convertSelectData (data) {
+  const returnData = []
+  data.forEach((item) => {
+    returnData.push({ value: item.code, text: item.name })
+  })
+  return returnData
+}
