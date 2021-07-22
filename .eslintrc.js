@@ -8,14 +8,15 @@ module.exports = {
     '@vue/standard'
   ],
   rules: {
+    "max-line-length": false,
     'no-console': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'generator-star-spacing': 'off',
     'no-mixed-operators': 0,
     'vue/max-attributes-per-line': [
-      2,
+      'warn',
       {
-        'singleline': 5,
+        'singleline': 10,
         'multiline': {
           'max': 1,
           'allowFirstLine': false

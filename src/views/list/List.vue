@@ -74,12 +74,12 @@
         </a-form-item>
       </a-col>
       <a-button style="margin-bottom: 8px; margin-left: 8px" @click="resetQueryParams()">重置</a-button>
-      <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+      <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.tableRef.refresh(true)">查询</a-button>
       <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" icon="plus" @click="handleAdd()">新建</a-button>
     </a-form>
 
     <s-table
-      ref="table"
+      ref="tableRef"
       size="default"
       rowKey="key"
       :columns="columns"
@@ -113,73 +113,73 @@
 
     <template>
       <a-modal
-        :title="addEditForm.title"
+        :title="form001.title"
         :width="1080"
-        :visible="addEditForm.visible"
+        :visible="form001.visible"
         @cancel="handleCancel" >
         <div class="ant-form-item-config">
-          <a-form :form="addEditForm.form" layout="inline">
+          <a-form :form="form001.form" layout="inline">
             <a-row>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field01" style="padding-right: 12px;">
                 <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['field01', { rules: addEditForm.validateRules.field01 }]" :disabled="addEditForm.disabledFields.field01" @pressEnter="pressEnterFun" @change="changeFun"/>
+                  <a-input v-decorator="['field01', { rules: form001.rules.field01 }]" :disabled="form001.disableds.field01" @pressEnter="pressEnterFun" @change="changeFun"/>
                 </a-form-item>
               </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field02" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
                   <a-select
-                    v-decorator="['field02', { rules: addEditForm.validateRules.field02 }]"
+                    v-decorator="['field02', { rules: form001.rules.field02 }]"
                     allowClear
                     showSearch
                     placeholder="请选择"
-                    :disabled="addEditForm.disabledFields.field02"
+                    :disabled="form001.disableds.field02"
                     @change="changeFun">
                     <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
-              <a-col :lg="12" :md="12" :sm="24" :xs="24" style="padding-right: 12px;">
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field03" style="padding-right: 12px;">
                 <a-form-item label="规则编号" :colon="false">
-                  <a-input placeholder="" v-decorator="['field03', { rules: addEditForm.validateRules.field03 }]" :disabled="addEditForm.disabledFields.field03" @pressEnter="pressEnterFun" @change="changeFun"/>
+                  <a-input placeholder="" v-decorator="['field03', { rules: form001.rules.field03 }]" :disabled="form001.disableds.field03" @pressEnter="pressEnterFun" @change="changeFun"/>
                 </a-form-item>
               </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field04" style="padding-right: 12px;">
                 <a-form-item label="描述" :colon="false">
-                  <a-input v-decorator="['field04', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="addEditForm.disabledFields.field04" @pressEnter="pressEnterFun" @change="changeFun"/>
+                  <a-input v-decorator="['field04', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" :disabled="form001.disableds.field04" @pressEnter="pressEnterFun" @change="changeFun"/>
                 </a-form-item>
               </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field05" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
                   <!-- a-select下拉框没有@pressEnter事件 -->
                   <a-select
                     allowClear
                     showSearch
                     placeholder="请选择"
-                    v-decorator="['field05', { rules: addEditForm.validateRules.field05 }]"
+                    v-decorator="['field05', { rules: form001.rules.field05 }]"
                     @change="changeFun"
-                    :disabled="addEditForm.disabledFields.field05" >
-                    <a-select-option v-for="item in addEditForm.dataSource.selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                    :disabled="form001.disableds.field05" >
+                    <a-select-option v-for="item in form001.dataSource.selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
-              <a-col :lg="12" :md="12" :sm="24" style="padding-right: 12px;">
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field06" style="padding-right: 12px;">
                 <a-form-item label="选择业务" :colon="false">
                   <a-cascader
-                    v-decorator="['field06', { rules: addEditForm.validateRules.field06 }]"
-                    :options="addEditForm.dataSource.cascaderSelectData"
+                    v-decorator="['field06', { rules: form001.rules.field06 }]"
+                    :options="form001.dataSource.cascaderSelectData"
                     placeholder="请选择业务"
-                    :fieldNames="addEditForm.fieldNames"
+                    :fieldNames="form001.fieldNames"
                     @change="cascaderChange"
-                    :disabled="addEditForm.disabledFields.field06"/>
+                    :disabled="form001.disableds.field06"/>
                 </a-form-item>
               </a-col>
             </a-row>
           </a-form>
         </div>
         <template slot="footer">
-          <a-button type="primary" @click="handleOk" :disabled="addEditForm.loading">新增</a-button>
-          <a-button type="primary" @click="handleOk" :disabled="addEditForm.loading">保存</a-button>
-          <a-button type="primary" @click="handleCancel" :disabled="addEditForm.loading">返回</a-button>
+          <a-button type="primary" @click="handleOk" :disabled="form001.loading">新增</a-button>
+          <a-button type="primary" @click="handleOk" :disabled="form001.loading">保存</a-button>
+          <a-button type="primary" @click="handleCancel" :disabled="form001.loading">返回</a-button>
         </template>
       </a-modal>
     </template>
@@ -209,8 +209,7 @@ export default {
   data () {
     this.columns = columns
     return {
-      disabledEdit: false,
-      addEditForm: {
+      form001: {
         form: this.$form.createForm(this),
         loading: false,
         visible: false,
@@ -218,7 +217,7 @@ export default {
         fieldNames: { 'value': 'value', 'label': 'label', 'children': 'children' },
         allFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06'],
         canEditFields: ['field01', 'field02', 'field03', 'field04', 'field06'],
-        validateRules: {
+        rules: {
           field01: [notEmpty, dataLengthValid(0, 20)],
           field02: [notEmpty],
           field03: [],
@@ -226,7 +225,15 @@ export default {
           field05: [],
           field06: []
         },
-        disabledFields: { // 设置字段是否可以编辑
+        itemShow: {
+          field01: true,
+          field02: true,
+          field03: true,
+          field04: true,
+          field05: true,
+          field06: true
+        },
+        disableds: { // 设置字段是否可以编辑
           field01: true,
           field02: true,
           field03: false,
@@ -263,51 +270,52 @@ export default {
     }
   },
   created () { // created 初始从后端加载下拉框数据
-    this.addEditFormInit()
+    this.form001Init()
     this.listInit()
     // this.$watch('list.queryParam', () => { // 当 list.queryParam 发生改变时，为表单设置值
-    //   this.queryParam && this.addEditForm.form.setFieldsValue(pick(this.lisit.queryParam, fields))
+    //   this.queryParam && this.form001.form.setFieldsValue(pick(this.lisit.queryParam, fields))
     // })
   },
   methods: { // 添加加载下拉框数据的方法
-    addEditFormInit () {
-      this.addEditForm.allFields.forEach(v => this.addEditForm.form.getFieldDecorator(v)) // 防止表单未注册
+    form001Init () {
+      this.form001.form.resetFields()
+      this.form001.allFields.forEach(v => this.form001.form.getFieldDecorator(v)) // 防止表单未注册
       /** ==================动态控制哪些字段可以编辑    开始================= */
-      fieldsCannotEdit(this.addEditForm.disabledFields, this.addEditForm.allFields)
-      fieldsCanEdit(this.addEditForm.disabledFields, this.addEditForm.canEditFields)
+      fieldsCannotEdit(this.form001.disableds, this.form001.allFields)
+      fieldsCanEdit(this.form001.disableds, this.form001.canEditFields)
       /** ==================动态控制哪些字段可以编辑    结束================= */
 
       /** ==================动态控制哪些字段的校验规则    开始================= */
-      this.addEditForm.validateRules.field01 = [ notEmpty, dataLengthValid(0, 20) ]
-      this.addEditForm.validateRules.field02 = [ notEmpty, dataLengthValid(0, 20) ]
-      this.addEditForm.validateRules.field03 = []
-      this.addEditForm.validateRules.field04 = []
-      this.addEditForm.validateRules.field05 = [notEmpty]
+      this.form001.rules.field01 = [ notEmpty, dataLengthValid(0, 20) ]
+      this.form001.rules.field02 = [ notEmpty, dataLengthValid(0, 20) ]
+      this.form001.rules.field03 = []
+      this.form001.rules.field04 = []
+      this.form001.rules.field05 = [notEmpty]
       /** ==================动态控制哪些字段的校验规则    结束================= */
 
       /** ============初始化下拉框的数据源，以及默认选中项    开始================= */
-      this.addEditForm.initialValues.field05 = 'STATUS3'
+      this.form001.initialValues.field05 = 'STATUS3'
       this.asyncInitApiData()
-      console.log(JSON.stringify(this.addEditForm.dataSource.selectDatas))
+      console.log(JSON.stringify(this.form001.dataSource.selectDatas))
       /** ============初始化下拉框的数据源，以及默认选中项    结束================= */
     },
     async asyncInitApiData () {
       await new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
         resolve(convertSelectData(selectData))
       }).then((data) => {
-        this.addEditForm.dataSource.selectDatas = data
+        this.form001.dataSource.selectDatas = data
       }).catch(err => {
         console.log(err)
       })
       await this.promiseFun().then((data) => {
-        this.addEditForm.dataSource.selectDatas = data
+        this.form001.dataSource.selectDatas = data
       }).catch(err => {
         console.log(err)
       })
       new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
         resolve(cascaderSelectData)
       }).then((data) => {
-        this.addEditForm.dataSource.cascaderSelectData = data
+        this.form001.dataSource.cascaderSelectData = data
       }).catch(err => {
         console.log(err)
       })
@@ -379,57 +387,53 @@ export default {
         })
     },
     handleAdd () {
-      this.resetAddEditForm()
-      this.disabledEdit = false
-      this.addEditFormVisible = true
-      this.addEditFormTitle = '新增'
+      this.resetform001()
+      this.form001.visible = true
+      this.form001.title = '新增'
     },
     handleCancel () {
-      this.addEditFormVisible = false
+      this.form001.visible = false
     },
     handleEdit () {
-      this.resetAddEditForm()
-      this.disabledEdit = false
-      this.addEditFormVisible = true
-      this.addEditFormTitle = '编辑'
+      this.resetform001()
+      this.form001.visible = true
+      this.form001.title = '编辑'
     },
     queryDetail (id) {
-      this.resetAddEditForm()
-      this.disabledEdit = true
-      this.addEditFormVisible = true
-      this.addEditFormTitle = '详情'
-      // this.addEditForm.form.setFieldsValue({ // 不能直接使用 Warning: You cannot set a form field before rendering a field associated with the value. You can use `getFieldDecorator(id, options)` instead `v-decorator="[id, options]"` to register it before render
+      this.resetform001()
+      this.form001.visible = true
+      this.form001.title = '详情'
+      // this.form001.form.setFieldsValue({ // 不能直接使用 Warning: You cannot set a form field before rendering a field associated with the value. You can use `getFieldDecorator(id, options)` instead `v-decorator="[id, options]"` to register it before render
       //   description01: '设置值设置值设置值'
       // })
       this.$nextTick(() => { // 使用 this.$nextTick 设置控件取值，不能直接设置，否则抛render没加载完，不能初始化
-        this.addEditForm.form.setFieldsValue({ 'field05': '设置值设置值设置值' })
-        this.addEditForm.form.setFieldsValue(this.addEditForm.initlValues)
+        this.form001.form.setFieldsValue({ 'field05': '设置值设置值设置值' })
+        this.form001.form.setFieldsValue(this.form001.initlValues)
       })
     },
     handleDelete (id) {
-
+      this.$refs.tableRef.refresh(true)
     },
     handleOk () {
-      this.addEditForm.form.setFieldsValue(this.addEditForm.initlValues)
-
-      this.addEditForm.loading = true
-      const validateFields = this.addEditForm.allFields
-      this.addEditForm.form.validateFields(validateFields, { force: true }, (err, values) => {
+      this.form001.form.setFieldsValue(this.form001.initlValues)
+      this.form001.loading = true
+      const validateFields = this.form001.allFields
+      this.form001.form.validateFields(validateFields, { force: true }, (err, values) => {
         if (!err) {
-          this.addEditForm.visible = false
+          this.form001.visible = false
         } else {
-          this.addEditForm.loading = false
+          this.form001.loading = false
         }
       })
-      // this.addEditForm.visible = false
+      // this.form001.visible = false
     },
-    resetAddEditForm () {
-      this.addEditForm.form.resetFields()
+    resetform001 () {
+      this.form001Init()
     },
     resetQueryParams () {
       this.queryParam = {}
-      if (this.selectDefaultValue != null && this.selectDefaultValue !== undefined) {
-        this.$set(this.queryParam, 'selectValue', this.selectDefaultValue)
+      if (this.list.selectDefaultValue != null && this.list.selectDefaultValue !== undefined) {
+        this.$set(this.queryParam, 'selectValue', this.list.selectDefaultValue)
       }
       if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
         this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue))
@@ -439,8 +443,8 @@ export default {
   computed: {
     rowSelection () {
       return {
-        selectedRowKeys: this.selectedRowKeys,
-        onChange: this.onSelectChange
+        selectedRowKeys: this.list.selectedRowKeys,
+        onChange: this.list.onSelectChange
       }
     }
   }
