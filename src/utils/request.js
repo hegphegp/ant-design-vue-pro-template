@@ -7,7 +7,7 @@ import { VueAxios } from './axios'
 axios.defaults.withCredentials = true
 // 创建 axios 实例
 const request = axios.create({
-  // API 请求的默认前缀
+  // API 请求默认的baseURL，若外面有传baseURL参数会覆盖这个参数
   baseURL: process.env.VUE_APP_API_BASE_URL,
   timeout: 6000, // 请求超时时间
   // needToken: true, // 在这里定义变量是没用的，调用方不传这个变量进来，就不会有这个变量，即使这里写了，也是没有这个变量的，在request.interceptors.request.use定义才有用

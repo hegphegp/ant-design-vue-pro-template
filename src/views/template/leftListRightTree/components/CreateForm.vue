@@ -17,11 +17,11 @@
         </a-form-item>
         <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="名称" :colon="false">
-          <a-input v-decorator="['name', ValidateRules.name]" />
+          <a-input v-decorator="['name', rules.name]" />
         </a-form-item>
         <!-- :colon="false"中布尔值变量名前面要加:，否则会将布尔值 true 化为字符串形式，:colon表示是否显示label文字后面的冒号 -->
         <a-form-item label="编码" :colon="false">
-          <a-input v-decorator="['code', ValidateRules.code]" />
+          <a-input v-decorator="['code', rules.code]" />
         </a-form-item>
       </a-form>
     </a-spin>
@@ -45,9 +45,8 @@ export default {
       visible: false,
       loading: false,
       model: null,
-      queryParam: {},
       form: this.$form.createForm(this), // 每个表单页面，都要用 this.$form.createForm(this) 初始化一个form对象吗
-      ValidateRules: {
+      rules: {
         name: {
           rules: [
             { required: true, message: '名称不允许为空' },
@@ -68,8 +67,8 @@ export default {
     }
   },
   created () {
-    // 防止表单未注册
-    fields.forEach(v => this.form.getFieldDecorator(v))
+    fields.forEach(v => this.form.getFieldDecorator(v)) // 防止表单未注册
+    this.form.resetFields()
 
     // 当 model 发生改变时，为表单设置值
     this.$watch('model', () => {
@@ -104,24 +103,16 @@ export default {
       // 清空表单的内容，如果不清空，会存在之前填的内容
       this.form.resetFields()
       this.initDefaultValues()
-      // this.form.setFieldsValue({
-      //   name: 'name'
-      // })
-      // 给表单中某个内容设置对应值
-      // this.form.setFieldsValue({
-      //     type: '1'
-      // })
       this.visible = true
+      this.loading = false
     },
     handleCancel () {
-        this.visible = false
-        this.loading = false
+      this.visible = false
     },
     handleOk () {
       this.loading = true
       setTimeout(() => {
         this.visible = false
-        this.loading = false
         const params = { 'key': '44', 'name': '广东省', 'code': '44', 'orderNo': 2 }
         this.$emit('refreshPage', params)
       }, 1000)

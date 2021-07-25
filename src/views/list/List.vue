@@ -35,7 +35,6 @@
           <a-date-picker
             v-model="list.queryParam.yyyyMMddHHmmss1"
             style="width: 100%"
-            placeholder="请输入更新日期"
             format="YYYY-MM-DD HH:mm:ss"
             show-time
             :disabled-date="disabledDate"
@@ -44,17 +43,17 @@
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
         <a-form-item label="年月日" :colon="false">
-          <a-date-picker v-model="list.queryParam.dateValue" style="width: 100%" placeholder="请输入更新日期"/>
+          <a-date-picker v-model="list.queryParam.dateValue01" style="width: 100%" placeholder="请输入更新日期"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
         <a-form-item label="年月日时分秒" :colon="false">
-          <a-date-picker v-model="list.queryParam.dateValue" format="YYYY-MM-DD HH:mm:ss" show-time style="width: 100%" placeholder="请输入更新日期"/>
+          <a-date-picker v-model="list.queryParam.dateValue02" format="YYYY-MM-DD HH:mm:ss" show-time style="width: 100%" placeholder="请输入更新日期"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
         <a-form-item label="年月" :colon="false">
-          <a-month-picker v-model="list.queryParam.yearMonth" style="width: 100%" placeholder="请输入更新日期"/>
+          <a-month-picker v-model="list.queryParam.yearMonth01" style="width: 100%" placeholder="请输入更新日期"/>
         </a-form-item>
       </a-col>
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
@@ -69,54 +68,47 @@
       <a-col :lg="6" :md="6" :sm="24" style="padding-left: 6px; padding-right: 6px;">
         <a-form-item label="下拉框默认值" :colon="false">
           <a-select v-model="list.queryParam.selectValue" showSearch placeholder="请选择" allowClear>
-            <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+            <a-select-option v-for="item in list.selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
           </a-select>
         </a-form-item>
       </a-col>
-      <a-button style="margin-bottom: 8px; margin-left: 8px" @click="resetQueryParams()">重置</a-button>
       <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" @click="$refs.tableRef.refresh(true)">查询</a-button>
+      <a-button style="margin-bottom: 8px; margin-left: 8px" type="danger" @click="batchDelete()">删除</a-button>
       <a-button style="margin-bottom: 8px; margin-left: 8px" type="primary" icon="plus" @click="handleAdd()">新建</a-button>
     </a-form>
 
     <s-table
       ref="tableRef"
       size="default"
-      rowKey="key"
+      rowKey="id"
       :columns="columns"
       :data="list.loadData"
       :showAlert="false"
       :alert="true"
-      :rowSelection="rowSelection"
+      :rowSelection="list.rowSelection"
       :pagination="list.pagination"
       bordered>
       <span slot="tags" slot-scope="text, record">
-        <template>
-          <span v-for="(item, i) in record.tags" :key="i">
-            <span v-if="item == 'cool'">
-              <a-button size="small" type="primary">cool</a-button>
-            </span>
-            <span v-if="item == 'teacher'">
-              <a :href="'https://www.baidu.com'" target="_blank">百度</a>
-            </span>
+        <!-- v-for循环 -->
+        <span v-for="(item, i) in record.tags" :key="i">
+          <span v-if="item == 'cool'">
+            <a-button size="small" type="primary">cool</a-button>
           </span>
-        </template>
+          <span v-if="item == 'teacher'">
+            <a :href="'https://www.baidu.com'" target="_blank">百度</a>
+          </span>
+        </span>
         {{ record.tags }}
       </span>
       <span slot="action" slot-scope="text, record">
-        <template>
-          <a-button size="small" @click="queryDetail(record.id)">详情</a-button>
-          <a-button size="small" @click="handleEdit(record.id)">编辑</a-button>
-          <a-button size="small" @click="handleDelete(record.id)">删除</a-button>
-        </template>
+        <a-button size="small" @click="queryDetail(record.id)">详情</a-button>
+        <a-button size="small" @click="handleEdit(record.id)">编辑</a-button>
+        <a-button size="small" @click="handleDelete(record.id)">删除</a-button>
       </span>
     </s-table>
 
     <template>
-      <a-modal
-        :title="form001.title"
-        :width="1080"
-        :visible="form001.visible"
-        @cancel="handleCancel" >
+      <a-modal :title="form001.title" :width="1080" :visible="form001.visible" @cancel="handleCancel">
         <div class="ant-form-item-config">
           <a-form :form="form001.form" layout="inline">
             <a-row>
@@ -127,14 +119,8 @@
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field02" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
-                  <a-select
-                    v-decorator="['field02', { rules: form001.rules.field02 }]"
-                    allowClear
-                    showSearch
-                    placeholder="请选择"
-                    :disabled="form001.disableds.field02"
-                    @change="changeFun">
-                    <a-select-option v-for="item in selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
+                  <a-select v-decorator="['field02', { rules: form001.rules.field02 }]" allowClear showSearch placeholder="请选择" :disabled="form001.disableds.field02" @change="changeFun">
+                    <a-select-option v-for="item in form001.dataSource.selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -151,26 +137,14 @@
               <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field05" style="padding-right: 12px;">
                 <a-form-item label="下拉框默认值" :colon="false">
                   <!-- a-select下拉框没有@pressEnter事件 -->
-                  <a-select
-                    allowClear
-                    showSearch
-                    placeholder="请选择"
-                    v-decorator="['field05', { rules: form001.rules.field05 }]"
-                    @change="changeFun"
-                    :disabled="form001.disableds.field05" >
+                  <a-select allowClear showSearch placeholder="请选择" v-decorator="['field05', { rules: form001.rules.field05 }]" @change="changeFun" :disabled="form001.disableds.field05" >
                     <a-select-option v-for="item in form001.dataSource.selectDatas" :key="item.value" :value="item.value"> {{ item.text }} </a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field06" style="padding-right: 12px;">
                 <a-form-item label="选择业务" :colon="false">
-                  <a-cascader
-                    v-decorator="['field06', { rules: form001.rules.field06 }]"
-                    :options="form001.dataSource.cascaderSelectData"
-                    placeholder="请选择业务"
-                    :fieldNames="form001.fieldNames"
-                    @change="cascaderChange"
-                    :disabled="form001.disableds.field06"/>
+                  <a-cascader v-decorator="['field06', { rules: form001.rules.field06 }]" :options="form001.dataSource.cascaderSelectData" :fieldNames="form001.fieldNames" @change="cascaderChange" :disabled="form001.disableds.field06" placeholder="请选择"/>
                 </a-form-item>
               </a-col>
             </a-row>
@@ -191,7 +165,7 @@
 import STable from '@/components/Table'
 import moment from 'moment'
 import { listData, cascaderSelectData, selectData } from '@/data'
-import { notEmpty, dataLengthValid, fieldsCanEdit, fieldsCannotEdit, convertSelectData } from '@/utils/common'
+import { notEmpty, dataLengthValid, fieldsCanEdit, fieldsCannotEdit, convertSelectData, time2Long } from '@/utils/common'
 
 const columns = [
   { title: '名称', dataIndex: 'name' },
@@ -241,7 +215,7 @@ export default {
           field05: false,
           field06: false
         },
-        initlValues: { // 每个字段的初始值
+        defaultValues: { // 每个字段的初始值
           field01: 'value1',
           field02: 'value2',
           field05: 'STATUS2',
@@ -249,7 +223,7 @@ export default {
         },
         dataSource: {
           cascaderSelectData: [],
-          selectData: []
+          selectDatas: []
         }
       },
       list: {
@@ -257,29 +231,50 @@ export default {
           showTotal: total => `共 ${total} 条数据`,
           pageSizeOptions: ['10', '20', '50', '100']
         },
-        loadData: this.queryList,
+        loadData: this.queryTablePageData, // this.queryTablePageData方法默认自带parameter参数，我痛恨一切无中生有的参数，失败的设计，方法返回必须是new Promise类型
         data: listData,
         queryParam: {}, // 查询参数
-        selectDefaultValue: null,
-        defaultSearchTimeValue: null,
-        selectedRowKeys: [],
-        selectedRows: [],
-        selectDatas: [] // 下拉框数据的对象
-      },
-      mdl: null
+        selectedRowKeys: ['0', '1', '2'],
+        selectedRows: ['0', '1', '2'],
+        selectDatas: [], // 下拉框数据的对象
+        rowSelection: {
+          onChange: (selectedRowKeys, selectedRows) => {
+            this.list.selectedRowKeys = []
+            for (var i = 0; i < selectedRows.length; i++) {
+              // selectedRowKeysTemp.push(selectedRows[i].keyName) // 已手动设置table的rowKey="id"，此时不能用selectedRows[i].keyName，要用selectedRows[i].id
+              this.list.selectedRowKeys.push(selectedRows[i]['id'])
+            }
+            console.log('选中行的ID===>>>>' + JSON.stringify(this.list.selectedRowKeys))
+          },
+          onSelect: (record, selected, selectedRows) => {
+            // console.log('触发了====>>>>onSelect()')
+          },
+          onSelectAll: (selected, selectedRows, changeRows) => {
+            // console.log('触发了====>>>>onSelectAll()')
+          },
+          getCheckboxProps: (record) => {
+            return {
+              props: {
+                defaultChecked: this.list.selectedRowKeys.includes(record['id']) // record为当前行数据勾选
+              },
+              defaultChecked: this.list.selectedRowKeys.includes(record['id']) // table列名的checkbox框
+            }
+          }
+        }
+      }
     }
   },
   created () { // created 初始从后端加载下拉框数据
     this.form001Init()
     this.listInit()
-    // this.$watch('list.queryParam', () => { // 当 list.queryParam 发生改变时，为表单设置值
-    //   this.queryParam && this.form001.form.setFieldsValue(pick(this.lisit.queryParam, fields))
-    // })
+    this.$watch('list.queryParam', () => { // 当 list.queryParam 发生改变时，为表单设置值
+      console.log(this.list.queryParam)
+    })
   },
   methods: { // 添加加载下拉框数据的方法
     form001Init () {
-      this.form001.form.resetFields()
       this.form001.allFields.forEach(v => this.form001.form.getFieldDecorator(v)) // 防止表单未注册
+      this.form001.form.resetFields()
       /** ==================动态控制哪些字段可以编辑    开始================= */
       fieldsCannotEdit(this.form001.disableds, this.form001.allFields)
       fieldsCanEdit(this.form001.disableds, this.form001.canEditFields)
@@ -290,16 +285,19 @@ export default {
       this.form001.rules.field02 = [ notEmpty, dataLengthValid(0, 20) ]
       this.form001.rules.field03 = []
       this.form001.rules.field04 = []
-      this.form001.rules.field05 = [notEmpty]
+      this.form001.rules.field05 = [ notEmpty ]
       /** ==================动态控制哪些字段的校验规则    结束================= */
 
       /** ============初始化下拉框的数据源，以及默认选中项    开始================= */
-      this.form001.initialValues.field05 = 'STATUS3'
-      this.asyncInitApiData()
-      console.log(JSON.stringify(this.form001.dataSource.selectDatas))
+      this.form001InitDefaultValues()
+      this.asyncForm001InitApiData()
       /** ============初始化下拉框的数据源，以及默认选中项    结束================= */
     },
-    async asyncInitApiData () {
+    // 初始化默认值
+    form001InitDefaultValues () {
+      this.form001.defaultValues.field05 = 'STATUS3'
+    },
+    async asyncForm001InitApiData () {
       await new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
         resolve(convertSelectData(selectData))
       }).then((data) => {
@@ -347,44 +345,70 @@ export default {
       console.log('==========>>>>>>>>>>>值发生改变<<<<<<<<<<===========')
     },
     async listInit () {
-      this.list.defaultSearchTimeValue = 1596471447000
-      if (this.list.defaultSearchTimeValue != null && this.list.defaultSearchTimeValue !== undefined) {
-        this.$set(this.list.queryParam, 'dateValue', moment(this.list.defaultSearchTimeValue))
-      }
+      this.list.queryParam.dateValue01 = moment(1596471447000)
+      this.list.queryParam.dateValue02 = moment(1591471447000)
       await this.initSelectDatas()
     },
     initSelectDatas () {
       return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
         const data = [ { code: 'ALL', name: '全部' }, { code: 'STATUS1', name: '状态1' }, { code: 'STATUS2', name: '状态2' }, { code: 'STATUS3', name: '状态3' } ]
         data.forEach((item) => {
-          this.selectDatas.push({ value: item.code, text: item.name })
+          this.list.selectDatas.push({ value: item.code, text: item.name })
         })
-        this.selectDefaultValue = 'STATUS1'
-        // this.queryParam.selectValue = this.selectDefaultValue
-        this.$set(this.list.queryParam, 'selectValue', this.selectDefaultValue)
-        console.log('000000000000000000000000')
+        // this.queryParam.selectValue = 'STATUS1' 无效，可能是页面还没渲染，不能用this.queryParam.selectValue = 赋值
+        this.$set(this.list.queryParam, 'selectValue', 'STATUS1')
         resolve(data)
       }).catch(err => {
         console.log(err)
       }).finally(() => { // finally是异步的，执行完new Promise()后，finally代码块与其他代码一起执行，线程有安全问题
-        console.log('11111111111111111111111')
       })
     },
-    queryList (parameter) { // 必须返回Promise对象
-        const requestParameters = Object.assign({}, parameter, this.queryParam)
-        console.log(JSON.stringify(requestParameters))
-        // if (this.queryParam.yearMonthDay != null && this.queryParam.yearMonthDay !== undefined) {
-        //   console.log(this.queryParam.yearMonthDay.valueOf())
-        // }
+    queryTablePageData (parameter) { // 必须返回Promise对象
+        const urlParameters = Object.assign({}, parameter, this.list.queryParam)
+        console.log(JSON.stringify(urlParameters))
+        urlParameters['yyyyMMddHHmmss1'] = time2Long(this.list.queryParam.yyyyMMddHHmmss1)
+        urlParameters['dateValue01'] = time2Long(this.list.queryParam.dateValue01)
+        urlParameters['dateValue02'] = time2Long(this.list.queryParam.dateValue02)
+        console.log(JSON.stringify(urlParameters))
 
         this.list.data.pageNo = parameter.pageNo
         return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
           resolve(this.list.data)
-        }).then(data => { // console.log(JSON.stringify(data))
+        }).then(data => {
+          // console.log(JSON.stringify(data))
           return data
         }).catch(err => {
           console.log(err)
         })
+    },
+    batchDelete () {
+      if (this.list.selectedRowKeys.length === 0) {
+        this.$warning({ title: '提示', content: '请勾选数据' })
+      } else {
+        const self = this
+        this.$confirm({
+            title: '确认提示',
+            content: `确认删除吗？`,
+            okType: 'danger',
+            onOk () {
+              return new Promise((resolve, reject) => {
+                resolve({ 'code': 200, 'msg': 'success' })
+              }).then(data => {
+                console.log(JSON.stringify(data))
+                if (data.code === 200) {
+                  self.$message.success('操作成功! ')
+                  self.$refs.tableRef.refresh(true)
+                } else {
+                  self.$message.error('删除失败：' + data.data)
+                }
+              }).catch(err => {
+                console.log(err)
+                self.$message.error('删除失败')
+              })
+            }
+        })
+      }
+      // this.$warning({ title: ptitle, content: pcontent })
     },
     handleAdd () {
       this.resetform001()
@@ -406,16 +430,24 @@ export default {
       // this.form001.form.setFieldsValue({ // 不能直接使用 Warning: You cannot set a form field before rendering a field associated with the value. You can use `getFieldDecorator(id, options)` instead `v-decorator="[id, options]"` to register it before render
       //   description01: '设置值设置值设置值'
       // })
-      this.$nextTick(() => { // 使用 this.$nextTick 设置控件取值，不能直接设置，否则抛render没加载完，不能初始化
-        this.form001.form.setFieldsValue({ 'field05': '设置值设置值设置值' })
-        this.form001.form.setFieldsValue(this.form001.initlValues)
+      new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据，显示祥情
+        // 查询祥情
+        resolve({})
+      }).then(data => {
+        console.log(JSON.stringify(data))
+        this.$nextTick(() => { // 使用 this.$nextTick 设置控件取值，不能直接设置，否则抛render没加载完，不能初始化
+          this.form001.form.setFieldsValue({ 'field05': '设置值设置值设置值' })
+          this.form001.form.setFieldsValue(this.form001.defaultValues)
+        })
+      }).catch(err => {
+        console.log(err)
       })
     },
     handleDelete (id) {
       this.$refs.tableRef.refresh(true)
     },
     handleOk () {
-      this.form001.form.setFieldsValue(this.form001.initlValues)
+      this.form001.form.setFieldsValue(this.form001.defaultValues)
       this.form001.loading = true
       const validateFields = this.form001.allFields
       this.form001.form.validateFields(validateFields, { force: true }, (err, values) => {
@@ -429,23 +461,6 @@ export default {
     },
     resetform001 () {
       this.form001Init()
-    },
-    resetQueryParams () {
-      this.queryParam = {}
-      if (this.list.selectDefaultValue != null && this.list.selectDefaultValue !== undefined) {
-        this.$set(this.queryParam, 'selectValue', this.list.selectDefaultValue)
-      }
-      if (this.defaultSearchTimeValue != null && this.defaultSearchTimeValue !== undefined) {
-        this.$set(this.queryParam, 'dateValue', moment(this.defaultSearchTimeValue))
-      }
-    }
-  },
-  computed: {
-    rowSelection () {
-      return {
-        selectedRowKeys: this.list.selectedRowKeys,
-        onChange: this.list.onSelectChange
-      }
     }
   }
 }

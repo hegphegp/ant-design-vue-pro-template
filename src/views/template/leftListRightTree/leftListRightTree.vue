@@ -3,7 +3,7 @@
     <a-col :span="10" style="padding-left: 6px; padding-right: 6px;">
       <a-card title="字典分类" :bordered="false">
         <div class="div-config">
-          <a-form layout="inline" :form="leftList.queryForm">
+          <a-form layout="inline">
             <a-col :span="8" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
                 <!-- <a-input @pressEnter="e => queryData(e)"/> -->
@@ -45,7 +45,7 @@
           bordered>
           <span slot="action" slot-scope="text, record">
             <template>
-              <a @click="queryDetail(record.id)">详情</a>
+              <a @click="leftListQueryDetail(record.id)">详情</a>
               <a-divider type="vertical" />
               <a @click="leftListHandleEdit(record.id)">编辑</a>
               <a-divider type="vertical" />
@@ -53,14 +53,14 @@
             </template>
           </span>
         </s-table>
-        <CreateForm ref="leftListCreateModal" @refreshPage="rightTreeListRefreshPage"/>
+        <CreateForm ref="leftListCreateModal" @refreshPage="leftListRefreshPage"/>
       </a-card>
     </a-col>
 
     <a-col :span="14" style="padding-left: 6px; padding-right: 6px;">
       <a-card :title="rightTreeList.title" :bordered="false" v-show="rightTreeList.visible">
         <div class="div-config">
-          <a-form layout="inline" :form="rightTreeList.queryForm">
+          <a-form layout="inline">
             <a-col :span="9" style="padding-left: 6px; padding-right: 6px;">
               <a-form-item label="名称" :colon="false">
                 <a-input placeholder=""/>
@@ -132,7 +132,6 @@ export default {
           name: null,
           code: null
         },
-        queryForm: this.$form.createForm(this),
         columns: [
           { title: '名字', dataIndex: 'name', ellipsis: true },
           { title: '年龄', dataIndex: 'age' },
@@ -168,29 +167,35 @@ export default {
           //   // this.$refs.leftListTable.refresh(true)
           // }
         },
-        selectedRowKeys: [],
+        selectedRowKeys: ['0', '1', '2', '3', '4'],
         rowSelection: {
           onChange: (selectedRowKeys, selectedRows) => {
-            var selectedRowKeysTemp = []
+            this.leftList.selectedRowKeys = []
             for (var i = 0; i < selectedRows.length; i++) {
-              // selectedRowKeysTemp.push(selectedRows[i].key) // 已手动设置table的rowKey="id"，此时不能用selectedRows[i].key，要用selectedRows[i].id
-              selectedRowKeysTemp.push(selectedRows[i].id)
+              // selectedRowKeysTemp.push(selectedRows[i].keyName) // 已手动设置table的rowKey="id"，此时不能用selectedRows[i].keyName，要用selectedRows[i].id
+              this.leftList.selectedRowKeys.push(selectedRows[i]['id'])
             }
-            this.selectedRowKeys = selectedRowKeysTemp
             console.log('选中行的ID===>>>>' + JSON.stringify(this.leftList.selectedRowKeys))
           },
           onSelect: (record, selected, selectedRows) => {
-            console.log('触发了====>>>>onSelect()')
+            // console.log('触发了====>>>>onSelect()')
           },
           onSelectAll: (selected, selectedRows, changeRows) => {
-            console.log('触发了====>>>>onSelectAll()')
+            // console.log('触发了====>>>>onSelectAll()')
+          },
+          getCheckboxProps: (record) => {
+            return {
+              props: {
+                defaultChecked: this.leftList.selectedRowKeys.includes(record['id']) // record为当前行数据勾选
+              },
+              defaultChecked: this.leftList.selectedRowKeys.includes(record['id']) // table列名的checkbox框
+            }
           }
         }
       },
       rightTreeList: {
-        queryForm: this.$form.createForm(this),
         title: 'aa分类',
-        visible: false,
+        visible: true,
         columns: [
           { title: '名字', dataIndex: 'name', ellipsis: true },
           { title: '编码', dataIndex: 'code', ellipsis: true }, // ellipsis: true表示不换行，使用省略号表示超出部分的内容
@@ -203,7 +208,7 @@ export default {
           onChange: (selectedRowKeys, selectedRows) => {
             this.rightTreeList.selectedRowKeys = []
             for (var i = 0; i < selectedRows.length; i++) {
-              this.rightTreeList.selectedRowKeys.push(selectedRows[i].id)
+              this.rightTreeList.selectedRowKeys.push(selectedRows[i]['id'])
             }
             console.log(JSON.stringify(this.rightTreeList.selectedRowKeys))
           },
@@ -212,6 +217,14 @@ export default {
           },
           onSelectAll: (selected, selectedRows, changeRows) => {
             // console.log(selected, selectedRows, changeRows)
+          },
+          getCheckboxProps: (record) => {
+            return {
+              props: {
+                defaultChecked: this.rightTreeList.selectedRowKeys.includes(record['id']) // record为当前行数据勾选
+              },
+              defaultChecked: this.rightTreeList.selectedRowKeys.includes(record['id']) // table列名的checkbox框
+            }
           }
         }
       }
@@ -220,45 +233,18 @@ export default {
   methods: {
     // 查询后台数据
     queryData (event) {
-      // 值为空，不查询后台
-      // if (event.target.value === null || event.target.value === undefined || event.target.value === '') {
-      //   console.log('0000000000000000')
-      //   return
-      // }
       this.$refs.leftListTable.refresh(true)
     },
     leftListCustomRow (record, index) { // 自定义行
       return {
-        on: { // 不想用鼠标单击行，鼠标单机的误操作比较大
-          click: (e) => {
-
-          },
+        on: { // 不想用鼠标单击行，鼠标单击的误操作比较大
           dblclick: (e) => {
-            console.log(e.target)
-            console.log(JSON.stringify(record))
-            const oldList = document.querySelectorAll('.checked-td-of-add-table')
-            if (oldList) {
-                for (let j = 0; j < oldList.length; j++) {
-                    oldList[j].classList.remove('checked-td-of-add-table')
-                }
-            }
-
-            const children = e.target.parentNode.children
-            for (let i = 0; i < children.length; i++) {
-                children[i].classList.add('checked-td-of-add-table')
-            }
-            // 不能使用this，this指的不是当前对象，直接使用 this.rightTreeList 会抛错
             this.rightTreeList.visible = !this.rightTreeList.visible
           },
-          contextMenu: (e) => {
-
-          },
-          mouseenter: (e) => {
-
-          },
-          mouseleave: (e) => {
-
-          }
+          click: (e) => { },
+          contextMenu: (e) => { },
+          mouseenter: (e) => { },
+          mouseleave: (e) => { }
         }
       }
     },
@@ -277,7 +263,7 @@ export default {
     leftListHandleDelete (id) {
       console.log(id)
     },
-    leftListRefreshPage () {
+    leftListRefreshPage (params) {
       setTimeout(() => {
         const item = {
           key: new Date().getTime(),
@@ -286,7 +272,7 @@ export default {
           age: 32,
           address: '地址'
         }
-        this.data.push(item)
+        leftListData.data.push(item)
         // this.data = [...data, item]
         console.log('Simple.vue refreshPage()')
       }, 1000)
@@ -316,7 +302,6 @@ export default {
           address: '地址'
         }
         this.data.push(item)
-        // this.data = [...data, item]
         console.log('Simple.vue refreshPage()')
       }, 1000)
     }

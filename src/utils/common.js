@@ -38,6 +38,13 @@ export const dataMaxLengthValid = (minLength, maxLength) => {
   return {}
 }
 
+export const time2Long = (time) => {
+  if (time != null && time !== undefined) {
+    return time.valueOf()
+  }
+  return null
+}
+
 // AES加解密
 /**
  * const AESKey = '1234123412ABCDEF',

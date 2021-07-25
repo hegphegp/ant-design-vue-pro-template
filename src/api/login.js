@@ -12,6 +12,7 @@ import request from '@/utils/request'
  */
 export function login (parameter) {
   return request({
+    baseURL: process.env.VUE_APP_API_BASE_URL,
     url: '/oauth/login',
     method: 'post',
     data: parameter,
@@ -22,6 +23,7 @@ export function login (parameter) {
 
 export function getInfo () {
   return request({
+    baseURL: process.env.VUE_APP_API_BASE_URL01,
     url: '/user/info',
     method: 'get'
   })
@@ -29,6 +31,7 @@ export function getInfo () {
 
 export function logout () {
   return request({
+    baseURL: process.env.VUE_APP_API_BASE_URL02,
     url: '/auth/logout',
     method: 'post'
   })
