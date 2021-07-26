@@ -79,7 +79,6 @@
 
     <s-table
       ref="tableRef"
-      size="default"
       rowKey="id"
       :columns="columns"
       :data="list.loadData"
@@ -147,6 +146,11 @@
                   <a-cascader v-decorator="['field06', { rules: form001.rules.field06 }]" :options="form001.dataSource.cascaderSelectData" :fieldNames="form001.fieldNames" @change="cascaderChange" :disabled="form001.disableds.field06" placeholder="请选择"/>
                 </a-form-item>
               </a-col>
+              <a-col :lg="12" :md="12" :sm="24" :xs="24" v-show="form001.itemShow.field07" style="padding-right: 12px;">
+                <a-form-item label="年月日时分秒" :colon="false">
+                  <a-date-picker v-decorator="['field07', {rules: form001.rules.field07 }]" style="width: 100%" :disabled="form001.disableds.field07" @pressEnter="pressEnterFun" @change="changeFun"/>
+                </a-form-item>
+              </a-col>
             </a-row>
           </a-form>
         </div>
@@ -189,15 +193,25 @@ export default {
         visible: false,
         title: '',
         fieldNames: { 'value': 'value', 'label': 'label', 'children': 'children' },
-        allFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06'],
-        canEditFields: ['field01', 'field02', 'field03', 'field04', 'field06'],
+        allFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06', 'field07'],
+        canEditFields: ['field01', 'field02', 'field03', 'field04', 'field06', 'field07'],
+        fields: {
+          field01: { rules: [notEmpty, dataLengthValid(0, 20)], itemShow: false, disableds: false, defaultValue: null },
+          field02: true,
+          field03: true,
+          field04: true,
+          field05: true,
+          field06: true,
+          field07: true
+        },
         rules: {
           field01: [notEmpty, dataLengthValid(0, 20)],
           field02: [notEmpty],
           field03: [],
           field04: [],
           field05: [],
-          field06: []
+          field06: [],
+          field07: []
         },
         itemShow: {
           field01: true,
@@ -205,7 +219,8 @@ export default {
           field03: true,
           field04: true,
           field05: true,
-          field06: true
+          field06: true,
+          field07: true
         },
         disableds: { // 设置字段是否可以编辑
           field01: true,
@@ -213,13 +228,15 @@ export default {
           field03: false,
           field04: false,
           field05: false,
-          field06: false
+          field06: false,
+          field07: false
         },
         defaultValues: { // 每个字段的初始值
           field01: 'value1',
-          field02: 'value2',
+          field02: 'STATUS1',
           field05: 'STATUS2',
-          field06: ['zhejiang', 'hangzhou', 'xihu']
+          field06: ['zhejiang', 'hangzhou', 'xihu'],
+          field07: null
         },
         dataSource: {
           cascaderSelectData: [],
@@ -228,14 +245,13 @@ export default {
       },
       list: {
         pagination: {
+          showQuickJumper: true,
           showTotal: total => `共 ${total} 条数据`,
           pageSizeOptions: ['10', '20', '50', '100']
         },
         loadData: this.queryTablePageData, // this.queryTablePageData方法默认自带parameter参数，我痛恨一切无中生有的参数，失败的设计，方法返回必须是new Promise类型
-        data: listData,
         queryParam: {}, // 查询参数
         selectedRowKeys: ['0', '1', '2'],
-        selectedRows: ['0', '1', '2'],
         selectDatas: [], // 下拉框数据的对象
         rowSelection: {
           onChange: (selectedRowKeys, selectedRows) => {
@@ -244,13 +260,11 @@ export default {
               // selectedRowKeysTemp.push(selectedRows[i].keyName) // 已手动设置table的rowKey="id"，此时不能用selectedRows[i].keyName，要用selectedRows[i].id
               this.list.selectedRowKeys.push(selectedRows[i]['id'])
             }
-            console.log('选中行的ID===>>>>' + JSON.stringify(this.list.selectedRowKeys))
+            // console.log('选中行的ID===>>>>' + JSON.stringify(this.list.selectedRowKeys))
           },
           onSelect: (record, selected, selectedRows) => {
-            // console.log('触发了====>>>>onSelect()')
           },
           onSelectAll: (selected, selectedRows, changeRows) => {
-            // console.log('触发了====>>>>onSelectAll()')
           },
           getCheckboxProps: (record) => {
             return {
@@ -276,6 +290,8 @@ export default {
       this.form001.allFields.forEach(v => this.form001.form.getFieldDecorator(v)) // 防止表单未注册
       this.form001.form.resetFields()
       /** ==================动态控制哪些字段可以编辑    开始================= */
+      // this.form001.disableds字段前缀
+      // this.form001.disableds字段前缀
       fieldsCannotEdit(this.form001.disableds, this.form001.allFields)
       fieldsCanEdit(this.form001.disableds, this.form001.canEditFields)
       /** ==================动态控制哪些字段可以编辑    结束================= */
@@ -286,6 +302,7 @@ export default {
       this.form001.rules.field03 = []
       this.form001.rules.field04 = []
       this.form001.rules.field05 = [ notEmpty ]
+      this.form001.rules.field07 = [ notEmpty ]
       /** ==================动态控制哪些字段的校验规则    结束================= */
 
       /** ============初始化下拉框的数据源，以及默认选中项    开始================= */
@@ -360,20 +377,21 @@ export default {
         resolve(data)
       }).catch(err => {
         console.log(err)
-      }).finally(() => { // finally是异步的，执行完new Promise()后，finally代码块与其他代码一起执行，线程有安全问题
+      }).finally(() => { // finally是同步的
       })
     },
     queryTablePageData (parameter) { // 必须返回Promise对象
         const urlParameters = Object.assign({}, parameter, this.list.queryParam)
-        console.log(JSON.stringify(urlParameters))
+        // console.log(JSON.stringify(urlParameters))
+        // 时间单独转换成毫秒级时间戳long类型
         urlParameters['yyyyMMddHHmmss1'] = time2Long(this.list.queryParam.yyyyMMddHHmmss1)
         urlParameters['dateValue01'] = time2Long(this.list.queryParam.dateValue01)
         urlParameters['dateValue02'] = time2Long(this.list.queryParam.dateValue02)
-        console.log(JSON.stringify(urlParameters))
+        // console.log(JSON.stringify(urlParameters))
 
-        this.list.data.pageNo = parameter.pageNo
+        listData.pageNo = parameter.pageNo
         return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
-          resolve(this.list.data)
+          resolve(listData)
         }).then(data => {
           // console.log(JSON.stringify(data))
           return data
@@ -385,7 +403,8 @@ export default {
       if (this.list.selectedRowKeys.length === 0) {
         this.$warning({ title: '提示', content: '请勾选数据' })
       } else {
-        const self = this
+        // 必须创建一个对象指向this，否则在new Promise里面使用this，会认为是new Promise本身的变量
+        const outerObj = this
         this.$confirm({
             title: '确认提示',
             content: `确认删除吗？`,
@@ -396,14 +415,14 @@ export default {
               }).then(data => {
                 console.log(JSON.stringify(data))
                 if (data.code === 200) {
-                  self.$message.success('操作成功! ')
-                  self.$refs.tableRef.refresh(true)
+                  outerObj.$message.success('操作成功! ')
+                  outerObj.$refs.tableRef.refresh(true)
                 } else {
-                  self.$message.error('删除失败：' + data.data)
+                  outerObj.$message.error('删除失败：' + data.data)
                 }
               }).catch(err => {
                 console.log(err)
-                self.$message.error('删除失败')
+                outerObj.$message.error('删除失败')
               })
             }
         })
@@ -425,6 +444,7 @@ export default {
     },
     queryDetail (id) {
       this.resetform001()
+      this.form001.loading = false
       this.form001.visible = true
       this.form001.title = '详情'
       // this.form001.form.setFieldsValue({ // 不能直接使用 Warning: You cannot set a form field before rendering a field associated with the value. You can use `getFieldDecorator(id, options)` instead `v-decorator="[id, options]"` to register it before render
@@ -434,9 +454,10 @@ export default {
         // 查询祥情
         resolve({})
       }).then(data => {
-        console.log(JSON.stringify(data))
         this.$nextTick(() => { // 使用 this.$nextTick 设置控件取值，不能直接设置，否则抛render没加载完，不能初始化
           this.form001.form.setFieldsValue({ 'field05': '设置值设置值设置值' })
+          // 初始化
+          this.form001.defaultValues.field07 = moment(1591471447000)
           this.form001.form.setFieldsValue(this.form001.defaultValues)
         })
       }).catch(err => {
@@ -447,7 +468,6 @@ export default {
       this.$refs.tableRef.refresh(true)
     },
     handleOk () {
-      this.form001.form.setFieldsValue(this.form001.defaultValues)
       this.form001.loading = true
       const validateFields = this.form001.allFields
       this.form001.form.validateFields(validateFields, { force: true }, (err, values) => {

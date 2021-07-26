@@ -36,7 +36,7 @@
           size="default"
           rowKey="id"
           :columns="leftList.columns"
-          :data="leftList.data"
+          :data="leftList.listData"
           :showAlert="false"
           :alert="true"
           :rowSelection="leftList.rowSelection"
@@ -81,7 +81,7 @@
           rowKey="id"
           :pagination="false"
           :columns="rightTreeList.columns"
-          :data-source="rightTreeList.data"
+          :data-source="rightTreeList.listData"
           :row-selection="rightTreeList.rowSelection"
           bordered
           :defaultExpandAllRows="true">
@@ -138,7 +138,7 @@ export default {
           { title: '地址', dataIndex: 'address', ellipsis: true }, // ellipsis: true表示不换行，使用省略号表示超出部分的内容
           { title: '操作', scopedSlots: { customRender: 'action' } }
         ],
-        data: (parameter) => { // 加载数据方法 必须返回 new Promise 对象，否则数据不加载出来
+        listData: (parameter) => { // 加载数据方法 必须返回 new Promise 对象，否则数据不加载出来
           // 每次调用 this.$refs.leftListTable.refresh(true) 都会进入该方法
           // 每次点击分页的页码时，或者在分页的跳转输入框输入数字按回车跳转时都会进入该方法
           const requestParameters = Object.assign({}, parameter, this.leftList.queryParam)
@@ -146,10 +146,9 @@ export default {
           // if (this.queryParam.yearMonthDay != null && this.queryParam.yearMonthDay !== undefined) {
           //   console.log(this.queryParam.yearMonthDay.valueOf())
           // }
-          leftListData.pageNo = parameter.pageNo
           return new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
             leftListData.data.forEach(item => {
-              item.name = '姓名姓名' + parameter.pageNo
+              item.name = '姓名姓名'
             })
             resolve(leftListData)
           }).then(data => { // console.log(JSON.stringify(data))
@@ -175,7 +174,6 @@ export default {
               // selectedRowKeysTemp.push(selectedRows[i].keyName) // 已手动设置table的rowKey="id"，此时不能用selectedRows[i].keyName，要用selectedRows[i].id
               this.leftList.selectedRowKeys.push(selectedRows[i]['id'])
             }
-            console.log('选中行的ID===>>>>' + JSON.stringify(this.leftList.selectedRowKeys))
           },
           onSelect: (record, selected, selectedRows) => {
             // console.log('触发了====>>>>onSelect()')
@@ -201,7 +199,7 @@ export default {
           { title: '编码', dataIndex: 'code', ellipsis: true }, // ellipsis: true表示不换行，使用省略号表示超出部分的内容
           { title: '操作', scopedSlots: { customRender: 'action' } }
         ],
-        data: rightTreeListData,
+        listData: rightTreeListData,
         type: 'aa分类子项',
         selectedRowKeys: [],
         rowSelection: {
@@ -210,13 +208,11 @@ export default {
             for (var i = 0; i < selectedRows.length; i++) {
               this.rightTreeList.selectedRowKeys.push(selectedRows[i]['id'])
             }
-            console.log(JSON.stringify(this.rightTreeList.selectedRowKeys))
+            // console.log(JSON.stringify(this.rightTreeList.selectedRowKeys))
           },
           onSelect: (record, selected, selectedRows) => {
-            // console.log(record, selected, selectedRows)
           },
           onSelectAll: (selected, selectedRows, changeRows) => {
-            // console.log(selected, selectedRows, changeRows)
           },
           getCheckboxProps: (record) => {
             return {
