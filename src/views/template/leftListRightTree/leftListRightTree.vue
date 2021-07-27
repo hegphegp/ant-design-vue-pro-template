@@ -176,10 +176,8 @@ export default {
             }
           },
           onSelect: (record, selected, selectedRows) => {
-            // console.log('触发了====>>>>onSelect()')
           },
           onSelectAll: (selected, selectedRows, changeRows) => {
-            // console.log('触发了====>>>>onSelectAll()')
           },
           getCheckboxProps: (record) => {
             return {
@@ -251,7 +249,10 @@ export default {
       this.$refs.leftListCreateModal.openFormModal('add')
     },
     leftListQueryDetail (record) {
-      this.$refs.leftListCreateModal.openFormModal('detail')
+      console.log(record.id)
+      const params = { type: 'detail', id: '0000' }
+      console.log(JSON.stringify(params))
+      this.$refs.leftListCreateModal.openFormModal(params)
     },
     leftListHandleEdit (record) {
       this.$refs.leftListCreateModal.openFormModal('edit')
