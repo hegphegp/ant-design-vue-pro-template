@@ -45,9 +45,9 @@
           bordered>
           <span slot="action" slot-scope="text, record">
             <template>
-              <a @click="leftListQueryDetail(record.id)">详情</a>
+              <a @click="leftListQueryDetail(record)">详情</a>
               <a-divider type="vertical" />
-              <a @click="leftListHandleEdit(record.id)">编辑</a>
+              <a @click="leftListHandleEdit(record)">编辑</a>
               <a-divider type="vertical" />
               <a @click="leftListHandleDelete(record.id)">删除</a>
             </template>
