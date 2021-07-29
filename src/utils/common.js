@@ -102,3 +102,24 @@ export function convertSelectData (data) {
   })
   return returnData
 }
+
+export function rowSelection () {
+  return {
+    onChange: (selectedRowKeys, selectedRows) => {
+      this.selectedRowKeys = []
+      for (var i = 0; i < selectedRows.length; i++) {
+        this.selectedRowKeys.push(selectedRows[i].id)
+      }
+    },
+    onSelect: (record, selected, selectedRows) => { },
+    onSelectAll: (selected, selectedRows, changeRows) => { },
+    getCheckboxProps: (record) => {
+      return {
+        props: {
+          defaultChecked: this.selectedRowKeys.includes(record.id) // record为当前行数据勾选
+        },
+        defaultChecked: this.selectedRowKeys.includes(record.id) // table列名的checkbox框
+      }
+    }
+  }
+}

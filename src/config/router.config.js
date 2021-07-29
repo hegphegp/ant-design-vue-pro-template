@@ -85,6 +85,11 @@ export const asyncRouterMap = [
             meta: { title: '搜索列表', keepAlive: true, permission: [ 'table' ] },
             children: [
               {
+                path: '/list/search/template',
+                name: 'ListTemplate',
+                component: () => import('@/views/list/TemplateList'),
+                meta: { title: '列表模板', permission: [ 'table' ] }
+              }, {
                 path: '/list/search/article',
                 name: 'SearchArticles',
                 component: () => import('@/views/list/List'),
