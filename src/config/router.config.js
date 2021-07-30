@@ -16,6 +16,20 @@ export const asyncRouterMap = [
     redirect: '/dashboard/workplace',
     children: [
       {
+        path: '/template',
+        name: 'template',
+        redirect: '/template/list1',
+        component: RouteView,
+        meta: { title: '模板', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+        children: [
+          {
+            path: '/template/list1',
+            name: 'list1',
+            component: () => import('@/views/template/list/TemplateList'),
+            meta: { title: '模板列表1', keepAlive: false, permission: [ 'dashboard' ] }
+          }
+        ]
+      }, {
         path: '/dashboard',
         name: 'dashboard',
         redirect: '/dashboard/workplace',
@@ -83,13 +97,7 @@ export const asyncRouterMap = [
             // component: () => import('@/views/simple/Simple'),
             redirect: '/list/search/article',
             meta: { title: '搜索列表', keepAlive: true, permission: [ 'table' ] },
-            children: [
-              {
-                path: '/list/search/template',
-                name: 'ListTemplate',
-                component: () => import('@/views/list/TemplateList'),
-                meta: { title: '列表模板', permission: [ 'table' ] }
-              }, {
+            children: [{
                 path: '/list/search/article',
                 name: 'SearchArticles',
                 component: () => import('@/views/list/List'),

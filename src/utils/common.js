@@ -75,23 +75,34 @@ export function decryptAESCBC (needDecryptStr, key, iv) {
 
 /**
  * 字段可以编辑
- * obj 字段是否可以编辑的对象
+ * fieldEditObj 是字段对象
  * fields 字段名数组
  */
-export function fieldsCanEdit (obj, fields) {
-  fields.forEach((item) => {
-    obj[item] = false
+export function fieldsCanEdit (fieldEditObj, fields) {
+  fields.forEach((field) => {
+    fieldEditObj[field].disabled = false
   })
 }
 
 /**
  * 字段不可编辑
+ * fieldEditObj 是字段对象
+ * fields 字段名数组
+ */
+export function fieldsCannotEdit (fieldEditObj, fields) {
+  fields.forEach((field) => {
+    fieldEditObj[field].disabled = true
+  })
+}
+
+/**
+ * 设置字段取值为空
  * obj 字段是否可以编辑的对象
  * fields 字段名数组
  */
-export function fieldsCannotEdit (obj, fields) {
+export function clearFieldsValues (fieldsValueObj, fields) {
   fields.forEach((item) => {
-    obj[item] = true
+    fieldsValueObj[item] = null
   })
 }
 
@@ -101,25 +112,4 @@ export function convertSelectData (data) {
     returnData.push({ value: item.code, text: item.name })
   })
   return returnData
-}
-
-export function rowSelection () {
-  return {
-    onChange: (selectedRowKeys, selectedRows) => {
-      this.selectedRowKeys = []
-      for (var i = 0; i < selectedRows.length; i++) {
-        this.selectedRowKeys.push(selectedRows[i].id)
-      }
-    },
-    onSelect: (record, selected, selectedRows) => { },
-    onSelectAll: (selected, selectedRows, changeRows) => { },
-    getCheckboxProps: (record) => {
-      return {
-        props: {
-          defaultChecked: this.selectedRowKeys.includes(record.id) // record为当前行数据勾选
-        },
-        defaultChecked: this.selectedRowKeys.includes(record.id) // table列名的checkbox框
-      }
-    }
-  }
 }
