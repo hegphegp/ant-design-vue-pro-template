@@ -47,9 +47,8 @@
       </a-form>
     </a-spin>
     <template slot="footer">
-      <a-button type="primary" @click="handleOk" :disabled="loading">新增11</a-button>
-      <a-button type="primary" @click="handleOk" :disabled="loading">保存</a-button>
-      <a-button type="primary" @click="handleCancel" :disabled="loading">返回</a-button>
+      <a-button type="primary" @click="handleOk" :disabled="loading" v-show="button.saveShow">保存</a-button>
+      <a-button type="primary" @click="handleCancel" :disabled="loading">关闭</a-button>
     </template>
   </a-modal>
 </template>
@@ -57,7 +56,7 @@
 <script>
 import moment from 'moment'
 import { cascaderSelectData, selectData } from '@/data'
-import { notEmpty, dataLengthValid, fieldsCanEdit, fieldsCannotEdit, clearFieldsValues, convertSelectData, time2Long } from '@/utils/common'
+import { notEmpty, dataLengthValid, convertSelectData, time2Long, setItemsNotShow, setItemsShow, setFiledsCannotEdit, setFiledsCanEdit } from '@/utils/common'
 
 export default {
   data () {
@@ -66,71 +65,92 @@ export default {
       loading: false,
       visible: false,
       title: '',
+      formType: '',
       fieldNames: { 'value': 'value', 'label': 'label', 'children': 'children' },
       allFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06', 'field07'],
-      canEditFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06', 'field07'],
+      detailModalShowFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06', 'field07'],
+      addModalShowFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06', 'field07'],
+      addValidateFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06', 'field07'],
+      editModalShowFields: ['field01', 'field02', 'field03', 'field04', 'field05', 'field06', 'field07'],
+      editValidateFields: ['field04', 'field05', 'field06', 'field07'],
+      addCanNotEditFields: [],
+      editCanNotEditFields: [],
       fields: {
         field01: { itemShow: true, disabled: false, defaultValue: null, rules: [notEmpty, dataLengthValid(0, 20)] },
-        field02: { itemShow: true, disabled: false, defaultValue: null, rules: [notEmpty] },
+        field02: { itemShow: true, disabled: false, defaultValue: null, rules: [ notEmpty, dataLengthValid(0, 20) ] },
         field03: { itemShow: true, disabled: false, defaultValue: null, rules: [] },
         field04: { itemShow: true, disabled: false, defaultValue: null, rules: [] },
-        field05: { itemShow: true, disabled: false, defaultValue: null, rules: [] },
-        field06: { itemShow: true, disabled: false, defaultValue: null, rules: [] },
-        field07: { itemShow: true, disabled: false, defaultValue: null, rules: [] }
+        field05: { itemShow: true, disabled: false, defaultValue: null, rules: [ notEmpty ] },
+        field06: { itemShow: true, disabled: false, defaultValue: null, rules: [ notEmpty ] },
+        field07: { itemShow: true, disabled: false, defaultValue: null, rules: [ notEmpty ] }
       },
-      defaultValues: {
-
-      },
+      defaultValues: { },
       dataSource: {
         cascaderSelectData: [],
         selectDatas: []
+      },
+      button: {
+        saveShow: true
       }
     }
   },
   created () {
-    this.formInit()
+    // this.allFields.forEach必须在this.form.setFieldsValue前面，否则提示 Warning: You cannot set a form field before rendering a field associated with the value. You can use `getFieldDecorator(id, options)` instead `v-decorator="[id, options]"` to register it before render.
+    this.allFields.forEach(v => this.form.getFieldDecorator(v)) // 防止表单未注册
+    this.form.resetFields()
   },
   methods: {
-    openModel (params) {
-      // 清空表单的内容，如果不清空，会存在之前填的内容
-      this.form.resetFields()
-      this.initDefaultValues()
-      this.title = params.formTitle
+    openFormModal (params) {
+      this.resetFormField() // 每次打开，清空表单的内容，如果不清空，会存在之前填的内容
       this.visible = true
       this.loading = false
-    },
-    formInit () {
-      this.allFields.forEach(v => this.form.getFieldDecorator(v)) // 防止表单未注册
-      this.form.resetFields()
-      /** ==================动态控制哪些字段可以编辑    开始================= */
-      // this.disableds字段前缀
-      // this.disableds字段前缀
-      fieldsCannotEdit(this.fields, this.allFields)
-      fieldsCanEdit(this.fields, this.canEditFields)
-      /** ==================动态控制哪些字段可以编辑    结束================= */
-
-      /** ==================动态控制哪些字段的校验规则    开始================= */
-      this.fields.field01.rules = [ notEmpty, dataLengthValid(0, 20) ]
-      this.fields.field02.rules = [ notEmpty, dataLengthValid(0, 20) ]
-      this.fields.field03.rules = []
-      this.fields.field04.rules = []
-      this.fields.field05.rules = [ notEmpty ]
-      this.fields.field06.rules = [ notEmpty ]
-      this.fields.field07.rules = [ notEmpty ]
-      /** ==================动态控制哪些字段的校验规则    结束================= */
-
-      /** ============初始化下拉框的数据源，以及默认选中项    开始================= */
-      this.initDefaultValues()
+      this.button.saveShow = true
       this.asyncFormInitApiData()
-      this.defaultValues.field07 = moment(1591471447000)
-      console.log(JSON.stringify(this.defaultValues))
+      if (params.formType === 'add') {
+        this.formType = 'add'
+        this.title = '新增'
+        this.initAddModel()
+      } else if (params.formType === 'edit') {
+        this.formType = 'edit'
+        this.title = '编辑'
+        this.initEditModel()
+      } else if (params.formType === 'detail') {
+        this.title = '祥情'
+        this.button.saveShow = false
+        this.initDetailModel()
+      }
+    },
+    // 每次表单打开时，都要执行这个方法清空上一次的所有数据
+    resetFormField () {
+      this.allFields.forEach((field) => {
+        this.defaultValues[field] = null
+      })
       this.form.setFieldsValue(this.defaultValues)
-      /** ============初始化下拉框的数据源，以及默认选中项    结束================= */
+      setItemsNotShow(this.fields, this.allFields)
+      setFiledsCannotEdit(this.fields, this.allFields)
+    },
+    initDetailModel () {
+      this.defaultValues.field01 = '默认值'
+      this.defaultValues.field05 = 'STATUS3'
+      this.form.setFieldsValue(this.defaultValues)
+      setItemsShow(this.fields, this.detailModalShowFields)
+    },
+    initAddModel () {
+      setItemsShow(this.fields, this.addModalShowFields)
+      setFiledsCanEdit(this.fields, this.addModalShowFields)
+    },
+    initEditModel () {
+      this.defaultValues.field01 = '默认值'
+      this.defaultValues.field05 = 'STATUS3'
+      this.form.setFieldsValue(this.defaultValues)
+      setItemsShow(this.fields, this.editModalShowFields)
+      setFiledsCanEdit(this.fields, this.editModalShowFields)
     },
     // 初始化默认值
     initDefaultValues () {
       this.defaultValues.field01 = '默认值'
       this.defaultValues.field05 = 'STATUS3'
+      this.form.setFieldsValue(this.defaultValues)
     },
     async asyncFormInitApiData () {
       await new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据
@@ -173,52 +193,16 @@ export default {
         }
       })
     },
-    cascaderChange (value) {
-      console.log(value)
-    },
-    // 很少用到的功能
-    pressEnterFun (event) {
-      console.log('==========>>>>>>>>>>>按下回车键<<<<<<<<<<===========')
-    },
-    changeFun (event) {
-      console.log('==========>>>>>>>>>>>值发生改变<<<<<<<<<<===========')
-    },
-    openFormModal (params) {
-      // 清空表单的内容，如果不清空，会存在之前填的内容
-      this.form.resetFields()
-      this.title = params.formTitle
-      this.visible = true
-      this.loading = false
-      clearFieldsValues(this.defaultValues, this.allFields)
-      if (params.formType === 'add') {
-        this.initDefaultValues()
-      } else if (params.formType === 'edit') {
-
-      } else if (params.formType === 'detail') {
-
-      }
-    },
     handleCancel () {
       this.visible = false
     },
     queryDetail (id) {
-      this.resetform()
-      this.loading = false
-      this.visible = true
-      this.title = '详情'
-      // this.form.setFieldsValue({ // 不能直接使用 Warning: You cannot set a form field before rendering a field associated with the value. You can use `getFieldDecorator(id, options)` instead `v-decorator="[id, options]"` to register it before render
-      //   description01: '设置值设置值设置值'
-      // })
       new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据，显示祥情
-        // 查询祥情
-        resolve({})
+        resolve({}) // 查询祥情
       }).then(data => {
-        this.$nextTick(() => { // 使用 this.$nextTick 设置控件取值，不能直接设置，否则抛render没加载完，不能初始化
           this.form.setFieldsValue({ 'field05': '设置值设置值设置值' })
-          // 初始化
           this.defaultValues.field07 = moment(1591471447000)
           this.form.setFieldsValue(this.defaultValues)
-        })
       }).catch(err => {
         console.log(err)
       })
@@ -228,7 +212,12 @@ export default {
     },
     handleOk () {
       this.loading = true
-      const validateFields = this.allFields
+      var validateFields = [] // this.allFields
+      if (this.formType === 'add') {
+        validateFields = this.addValidateFields
+      } else if (this.formType === 'edit') {
+        validateFields = this.editValidateFields
+      }
       this.form.validateFields(validateFields, { force: true }, (err, values) => {
         if (!err) {
           const bodyParams = { ...values }
@@ -240,10 +229,15 @@ export default {
           this.loading = false
         }
       })
-      // this.visible = false
     },
-    resetform () {
-      this.formInit()
+    cascaderChange (value) {
+      console.log(value)
+    },
+    pressEnterFun (event) {
+      console.log('==========>>>>>>>>>>>按下回车键<<<<<<<<<<===========')
+    },
+    changeFun (event) {
+      console.log('==========>>>>>>>>>>>值发生改变<<<<<<<<<<===========')
     }
   }
 }

@@ -169,7 +169,7 @@
 import STable from '@/components/Table'
 import moment from 'moment'
 import { listData, cascaderSelectData, selectData } from '@/data'
-import { notEmpty, dataLengthValid, fieldsCanEdit, fieldsCannotEdit, convertSelectData, time2Long } from '@/utils/common'
+import { notEmpty, dataLengthValid, setFieldsCanEdit, setFieldsCannotEdit, convertSelectData, time2Long } from '@/utils/common'
 
 const columns = [
   { title: '名称', dataIndex: 'name' },
@@ -292,8 +292,8 @@ export default {
       /** ==================动态控制哪些字段可以编辑    开始================= */
       // this.form001.disableds字段前缀
       // this.form001.disableds字段前缀
-      fieldsCannotEdit(this.form001.disableds, this.form001.allFields)
-      fieldsCanEdit(this.form001.disableds, this.form001.canEditFields)
+      setFieldsCannotEdit(this.form001.disableds, this.form001.allFields)
+      setFieldsCanEdit(this.form001.disableds, this.form001.canEditFields)
       /** ==================动态控制哪些字段可以编辑    结束================= */
 
       /** ==================动态控制哪些字段的校验规则    开始================= */

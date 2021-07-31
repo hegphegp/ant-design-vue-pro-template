@@ -75,34 +75,67 @@ export function decryptAESCBC (needDecryptStr, key, iv) {
 
 /**
  * 字段可以编辑
- * fieldEditObj 是字段对象
+ * fieldsObj 是字段对象
  * fields 字段名数组
  */
-export function fieldsCanEdit (fieldEditObj, fields) {
+export function setFieldsCanEdit (fieldsObj, fields) {
   fields.forEach((field) => {
-    fieldEditObj[field].disabled = false
+    fieldsObj[field].disabled = false
   })
 }
 
 /**
  * 字段不可编辑
- * fieldEditObj 是字段对象
+ * fieldsObj 是字段对象
  * fields 字段名数组
  */
-export function fieldsCannotEdit (fieldEditObj, fields) {
+export function setFieldsCannotEdit (fieldsObj, fields) {
   fields.forEach((field) => {
-    fieldEditObj[field].disabled = true
+    fieldsObj[field].disabled = true
   })
 }
 
 /**
  * 设置字段取值为空
- * obj 字段是否可以编辑的对象
+ * obj 是字段对象
  * fields 字段名数组
  */
-export function clearFieldsValues (fieldsValueObj, fields) {
-  fields.forEach((item) => {
-    fieldsValueObj[item] = null
+export function setItemsNotShow (fieldsObj, fields) {
+  fields.forEach((field) => {
+    fieldsObj[field].itemShow = false
+  })
+}
+
+/**
+ * 设置字段取值为空
+ * obj 是字段对象
+ * fields 字段名数组
+ */
+export function setItemsShow (fieldsObj, fields) {
+  fields.forEach((field) => {
+    fieldsObj[field].itemShow = true
+  })
+}
+
+/**
+ * 设置所有字段disabled为false
+ * obj 是字段对象
+ * fields 字段名数组
+ */
+export function setFiledsCannotEdit (fieldsObj, fields) {
+  fields.forEach((field) => {
+    fieldsObj[field].disabled = true
+  })
+}
+
+/**
+ * 设置所有字段disabled为false
+ * obj 是字段对象
+ * fields 字段名数组
+ */
+export function setFiledsCanEdit (fieldsObj, fields) {
+  fields.forEach((field) => {
+    fieldsObj[field].disabled = false
   })
 }
 

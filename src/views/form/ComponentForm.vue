@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { notEmpty, dataLengthValid, fieldsCanEdit, fieldsCannotEdit } from '@/utils/common'
+import { notEmpty, dataLengthValid, setFieldsCanEdit, setFieldsCannotEdit } from '@/utils/common'
 import { cascaderSelectData, selectData } from '@/data'
 
 export default {
@@ -106,9 +106,9 @@ export default {
     initDefaultValues () {
       /** ==================动态控制哪些字段可以编辑    开始================= */
       const allFields = ['field01', 'field02', 'field03', 'field04', 'field05', 'field06']
-      fieldsCannotEdit(this.disabledEdit, allFields)
+      setFieldsCannotEdit(this.disabledEdit, allFields)
       const canEditFields = ['field01', 'field02', 'field03', 'field04', 'field06']
-      fieldsCanEdit(this.disabledEdit, canEditFields)
+      setFieldsCanEdit(this.disabledEdit, canEditFields)
       /** ==================动态控制哪些字段可以编辑    结束================= */
 
       /** ==================动态控制哪些字段的校验规则    开始================= */

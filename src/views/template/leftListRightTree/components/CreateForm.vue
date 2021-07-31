@@ -57,7 +57,7 @@
 <script>
 import moment from 'moment'
 import { cascaderSelectData, selectData } from '@/data'
-import { notEmpty, dataLengthValid, fieldsCanEdit, fieldsCannotEdit, convertSelectData, time2Long } from '@/utils/common'
+import { notEmpty, dataLengthValid, setFieldsCanEdit, setFieldsCannotEdit, convertSelectData, time2Long } from '@/utils/common'
 
 export default {
   data () {
@@ -119,8 +119,8 @@ export default {
       /** ==================动态控制哪些字段可以编辑    开始================= */
       // this.disableds字段前缀
       // this.disableds字段前缀
-      fieldsCannotEdit(this.disableds, this.allFields)
-      fieldsCanEdit(this.disableds, this.canEditFields)
+      setFieldsCannotEdit(this.disableds, this.allFields)
+      setFieldsCanEdit(this.disableds, this.canEditFields)
       /** ==================动态控制哪些字段可以编辑    结束================= */
 
       /** ==================动态控制哪些字段的校验规则    开始================= */
@@ -133,15 +133,15 @@ export default {
       /** ==================动态控制哪些字段的校验规则    结束================= */
 
       /** ============初始化下拉框的数据源，以及默认选中项    开始================= */
-      this.initDefaultValues()
       this.asyncFormInitApiData()
-      this.defaultValues.field07 = moment(1591471447000)
-      this.form.setFieldsValue(this.defaultValues)
+      this.initDefaultValues()
       /** ============初始化下拉框的数据源，以及默认选中项    结束================= */
     },
     // 初始化默认值
     initDefaultValues () {
       this.defaultValues.field05 = 'STATUS3'
+      this.defaultValues.field07 = moment(1591471447000)
+      this.form.setFieldsValue(this.defaultValues)
     },
     async asyncFormInitApiData () {
       await new Promise((resolve, reject) => { // 模拟一个异步请求，异步返回数据

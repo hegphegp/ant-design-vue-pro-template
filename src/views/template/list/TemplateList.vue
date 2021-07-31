@@ -143,16 +143,16 @@ export default {
       this.$refs.tableRef.refresh(true)
     },
     handleAdd () {
-      const params = { formType: 'add', formTitle: '新增' }
-      this.$refs.form01.openModel(params)
+      const params = { formType: 'add' }
+      this.$refs.form01.openFormModal(params)
     },
     handleEdit (record) {
-      const params = { ...record, ...{ formType: 'update', formTitle: '编辑' } }
-      this.$refs.form01.openModel(params)
+      const params = { ...record, formType: 'edit' }
+      this.$refs.form01.openFormModal(params)
     },
     queryDetail (record) {
-      const params = { ...record, ...{ formType: 'detail', formTitle: '祥情' } }
-      this.$refs.form01.openModel(params)
+      const params = { ...record, formType: 'detail' }
+      this.$refs.form01.openFormModal(params)
     },
     handleDelete (id) {
       // 必须创建一个对象指向this，否则在new Promise里面使用this，会认为是new Promise本身的变量
